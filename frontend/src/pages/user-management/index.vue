@@ -1,7 +1,7 @@
 <template>
   <v-container class="mt-5">
     <v-row justify="end">
-      <v-btn depressed color="primary"> Create User </v-btn>
+      <v-btn depressed dark color="pink"> Create User </v-btn>
     </v-row>
     <v-row align="center" justify="center">
       <v-col>

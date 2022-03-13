@@ -3,7 +3,7 @@
     <v-row justify="center" align="center">
       <v-col xs="12" sm="8" md="5">
         <v-card class="elevation-12">
-          <v-toolbar dark color="primary">
+          <v-toolbar dark color="pink">
             <v-toolbar-title>Login</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
@@ -26,7 +26,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="login">Login</v-btn>
+            <v-btn dark color="pink" @click="login">Login</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -42,8 +42,7 @@ export default {
   }),
   methods: {
     login() {
-      console.log(this.username);
-      console.log(this.password);
+      this.$router.push({ name: "UserManagement" });
     },
   },
 };
