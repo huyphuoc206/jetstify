@@ -1,11 +1,11 @@
 <template>
   <v-app>
-    <app-bar app />
+    <app-bar />
     <app-navigation />
     <v-main>
-      <v-fade-transition>
+      <v-fab-transition>
         <router-view />
-      </v-fade-transition>
+      </v-fab-transition>
     </v-main>
   </v-app>
 </template>
