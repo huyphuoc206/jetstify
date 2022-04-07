@@ -1,7 +1,7 @@
 <template>
   <v-row class="grow-column">
     <v-col class="py-0" cols="12" sm="auto">
-      <v-row class="justify-center align-center" style="height: 100%;">
+      <v-row class="justify-center align-center" style="height: 100%">
         <v-col cols="auto">
           <v-img
             class="elevation-10"
@@ -17,8 +17,8 @@
               :to="{
                 name: 'album',
                 params: {
-                  id: 1
-                }
+                  id: 1,
+                },
               }"
             >
               The Moon Song - Film Version
@@ -31,8 +31,8 @@
               :to="{
                 name: 'artist',
                 params: {
-                  id: 1
-                }
+                  id: 1,
+                },
               }"
             >
               Scarlett Johansson </router-link
@@ -42,8 +42,8 @@
               :to="{
                 name: 'artist',
                 params: {
-                  id: 1
-                }
+                  id: 1,
+                },
               }"
             >
               Joaquin Phoenix
@@ -65,7 +65,7 @@
             'skip-previous',
             'play-circle',
             'skip-next',
-            'repeat'
+            'repeat',
           ]"
           :key="icon"
           class="mx-3"
@@ -78,13 +78,11 @@
             <v-icon v-text="`mdi-${icon}`"></v-icon>
           </v-btn>
         </div>
-        <div class="ml-5 caption hidden-sm-and-down">
-          -4:53
-        </div>
+        <div class="ml-5 caption hidden-sm-and-down">-4:53</div>
       </v-row>
     </v-col>
     <v-col class="d-flex align-center" cols="auto">
-      <v-btn :to="{ name: 'queue' }" icon>
+      <v-btn :to="{ name: 'Queue' }" icon>
         <v-icon>mdi-playlist-play</v-icon>
       </v-btn>
     </v-col>
@@ -93,6 +91,6 @@
 
 <script>
 export default {
-  name: "Player"
+  name: "Player",
 };
 </script>

@@ -4,7 +4,19 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 const routes = [{
-        path: "/login",
+        path: "/",
+        name: "Home",
+        component: () =>
+            import ("@/pages/home"),
+    },
+    {
+        path: "/browse",
+        name: "Browse",
+        component: () =>
+            import ("@/pages/browse"),
+    },
+    {
+        path: "/Login",
         name: "Login",
         component: () =>
             import ( /* webpackChunkName: "about" */ "@/pages/login"),
@@ -19,35 +31,36 @@ const routes = [{
             import ( /* webpackChunkName: "about" */ "@/pages/user-management"),
     },
     {
-        path: "browse",
-        name: "browse",
+        path: "/search",
+        name: "Search",
         component: () =>
-            import ("../views/Home.vue"),
+            import ( /* webpackChunkName: "about" */ "@/pages/search"),
     },
     {
-        path: "featured",
-        name: "featured",
+        path: "/queue",
+        name: "Queue",
         component: () =>
-            import ("../views/Featured.vue"),
+            import ("@/pages/queue"),
     },
+
     {
-        path: "genres",
+        path: "/genres",
         name: "genres",
         component: () =>
             import ("../views/Genres.vue"),
     },
     {
-        path: "discover",
+        path: "/discover",
         name: "discover",
         component: () =>
             import ("../views/Discover.vue"),
     },
     {
-        path: "",
+        path: "/",
         redirect: "/browse/featured",
     },
     {
-        path: "album/:id",
+        path: "/album/:id",
         name: "album",
         component: () =>
             import ("../views/Album.vue"),
@@ -58,33 +71,22 @@ const routes = [{
             import ("../views/Artist.vue"),
     },
     {
-        path: "",
+        path: "/",
         name: "artist",
         component: () =>
             import ("../views/ArtistOverview.vue"),
     },
     {
-        path: "about",
+        path: "/about",
         name: "artist-about",
         component: () =>
             import ("../views/ArtistAbout.vue"),
     },
+
     {
-        path: "search",
-        name: "search",
-        component: () =>
-            import ("../views/Search.vue"),
-    },
-    {
-        path: "queue",
-        name: "queue",
-        component: () =>
-            import ("../views/Queue.vue"),
-    },
-    {
-        path: "*",
+        path: "/*",
         redirect: {
-            name: "featured",
+            name: "Home",
         },
     },
 

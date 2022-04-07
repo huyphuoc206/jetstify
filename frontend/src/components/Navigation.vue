@@ -45,12 +45,36 @@ export default {
       drawer: true,
       mini: true,
       items: [
-        { title: "Home", icon: "mdi-home-city", link: "/", name: "Login" },
+        { title: "Home", icon: "mdi-home-city", link: "/", name: "Home" },
+        {
+          title: "Queue",
+          icon: "mdi-format-list-checkbox",
+          link: "/queue",
+          name: "Queue",
+        },
+        {
+          title: "Login",
+          icon: "mdi-home-city",
+          link: "/login",
+          name: "Login",
+        },
+        {
+          title: "Browse",
+          icon: "mdi-home-city",
+          link: "/browse",
+          name: "Browse",
+        },
         {
           title: "Users Management",
           icon: "mdi-account-group-outline",
           link: "/user-management",
           name: "UserManagement",
+        },
+        {
+          title: "Search",
+          icon: "mdi-magnify",
+          link: "/search",
+          name: "Search",
         },
       ],
     };
