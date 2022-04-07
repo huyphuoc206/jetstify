@@ -1,26 +1,25 @@
 <template>
-  <v-app>
-    <app-bar />
-    <app-navigation />
-    <v-main>
-      <v-fab-transition>
-        <router-view />
-      </v-fab-transition>
-    </v-main>
-  </v-app>
+  <div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import AppBar from "@/components/AppBar.vue";
-import AppNavigation from "@/components/Navigation.vue";
 export default {
-  name: "App",
-  components: {
-    AppNavigation,
-    AppBar,
-  },
-  data: () => ({
-    //
-  }),
+  name: "App"
 };
 </script>
+
+<style>
+a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.album-card,
+.artist-card,
+.genre-card {
+  border-radius: 4px !important;
+  cursor: pointer;
+}
+</style>
