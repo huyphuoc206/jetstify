@@ -57,8 +57,8 @@
         </v-col>
       </v-row>
     </v-col>
-    <v-col class="py-0 d-flex align-center">
-      <v-row class="justify-center align-center">
+    <v-col class="py-0 d-flex align-center ">
+      <v-row class="justify-sm-center align-center">
         <div
           v-for="icon of [
             'shuffle',

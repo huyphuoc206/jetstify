@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ml-10 mt-5"> 
     <v-row>
       <v-col>
         <v-row class="align-start">

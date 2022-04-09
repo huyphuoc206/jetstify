@@ -10,10 +10,10 @@ const routes = [{
             import ("@/pages/home"),
     },
     {
-        path: "/browse",
-        name: "Browse",
+        path: "/collection",
+        name: "Collection",
         component: () =>
-            import ("@/pages/browse"),
+            import ("@/pages/collection"),
     },
     {
         path: "/Login",
