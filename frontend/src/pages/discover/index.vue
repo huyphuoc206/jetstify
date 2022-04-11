@@ -13,7 +13,7 @@
           </v-col>
         </v-row>
 
-        <album-card-list></album-card-list>
+        <album-card></album-card>
       </v-col>
     </v-row>
 
@@ -31,7 +31,7 @@
           </v-col>
         </v-row>
 
-        <album-card-list></album-card-list>
+        <album-card></album-card>
       </v-col>
     </v-row>
   </div>
@@ -42,7 +42,7 @@ export default {
   name: "Discover",
 
   components: {
-    AlbumCardList: () => import("@/components/AlbumCardList.vue")
+    AlbumCard: () => import("@/components/AlbumCard.vue")
   }
 };
 </script>

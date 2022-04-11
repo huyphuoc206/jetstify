@@ -47,13 +47,13 @@ const routes = [{
         path: "/genres",
         name: "genres",
         component: () =>
-            import ("../views/Genres.vue"),
+            import ("@/pages/genres"),
     },
     {
         path: "/discover",
         name: "discover",
         component: () =>
-            import ("../views/Discover.vue"),
+            import ("@/pages/discover"),
     },
     {
         path: "/",
@@ -63,24 +63,24 @@ const routes = [{
         path: "/album/:id",
         name: "album",
         component: () =>
-            import ("../views/Album.vue"),
+            import ("@/pages/album"),
     },
     {
         path: "artist/:id",
         component: () =>
-            import ("../views/Artist.vue"),
+            import ("@/pages/artist"),
     },
     {
         path: "/",
         name: "artist",
         component: () =>
-            import ("../views/ArtistOverview.vue"),
+            import ("@/pages/artist-overview"),
     },
     {
         path: "/about",
         name: "artist-about",
         component: () =>
-            import ("../views/ArtistAbout.vue"),
+            import ("@/pages/artist-about"),
     },
 
     {
@@ -90,17 +90,17 @@ const routes = [{
         },
     },
 
-    {
-        path: "/auth",
-        component: () =>
-            import ( /* webpackChunkName: "auth-layout" */ "../layouts/AuthLayout.vue"),
-        children: [{
-            path: "login",
-            name: "login",
-            component: () =>
-                import ( /* webpackChunkName: "login" */ "../views/Login.vue"),
-        }, ],
-    },
+    // {
+    //     path: "/auth",
+    //     component: () =>
+    //         import ( /* webpackChunkName: "auth-layout" */ "../layouts/AuthLayout.vue"),
+    //     children: [{
+    //         path: "/login",
+    //         name: "login",
+    //         component: () =>
+    //             import ( /* webpackChunkName: "login" */ "@/pages/login"),
+    //     }, ],
+    // },
     // {
     //     path: "/",
     //     name: "Home",

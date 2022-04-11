@@ -20,7 +20,7 @@
           </v-col>
         </v-row>
 
-        <album-card-list-2></album-card-list-2>
+        <album-card-2></album-card-2>
       </v-col>
     </v-row>
   </div>
@@ -31,7 +31,7 @@ export default {
   name: "AlbumOverview",
 
   components: {
-    AlbumCardList2: () => import("@/components/AlbumCardList2.vue"),
+    AlbumCard2: () => import("@/components/AlbumCard2.vue"),
     SongList2: () => import("@/components/SongList2.vue")
   }
 };

@@ -63,7 +63,7 @@
           </v-col>
         </v-row>
 
-        <album-card-list></album-card-list>
+        <album-card></album-card>
       </v-col>
     </v-row>
 
@@ -90,7 +90,7 @@ export default {
   name: "Search",
 
   components: {
-    AlbumCardList: () => import("@/components/AlbumCardList.vue"),
+    AlbumCard: () => import("@/components/AlbumCard.vue"),
     ArtistCardList: () => import("@/components/ArtistCardList.vue"),
     GenreCardList: () => import("@/components/GenreCardList.vue"),
     SongListItem: () => import('@/components/SongListItem.vue')
