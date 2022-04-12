@@ -8,7 +8,7 @@
           </v-col>
         </v-row>
 
-        <song-list-2></song-list-2>
+         <song-list-item-2 v-for="i in 5" :key="i"></song-list-item-2>
       </v-col>
     </v-row>
 
@@ -20,7 +20,7 @@
           </v-col>
         </v-row>
 
-        <album-card-list-2></album-card-list-2>
+        <album-card-2></album-card-2>
       </v-col>
     </v-row>
   </div>
@@ -31,8 +31,8 @@ export default {
   name: "AlbumOverview",
 
   components: {
-    AlbumCardList2: () => import("@/components/AlbumCardList2.vue"),
-    SongList2: () => import("@/components/SongList2.vue")
+    AlbumCard2: () => import("@/components/AlbumCard2.vue"),
+    SongListItem2: () => import("@/components/SongListItem2.vue")
   }
 };
 </script>

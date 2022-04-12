@@ -47,7 +47,7 @@
           </v-col>
         </v-row>
 
-        <artist-card-list></artist-card-list>
+        <artist-card></artist-card>
       </v-col>
     </v-row>
 
@@ -63,7 +63,7 @@
           </v-col>
         </v-row>
 
-        <album-card-list></album-card-list>
+        <album-card></album-card>
       </v-col>
     </v-row>
 
@@ -79,7 +79,7 @@
           </v-col>
         </v-row>
 
-        <genre-card-list></genre-card-list>
+        <genre-card></genre-card>
       </v-col>
     </v-row>
   </v-container>
@@ -90,9 +90,9 @@ export default {
   name: "Search",
 
   components: {
-    AlbumCardList: () => import("@/components/AlbumCardList.vue"),
-    ArtistCardList: () => import("@/components/ArtistCardList.vue"),
-    GenreCardList: () => import("@/components/GenreCardList.vue"),
+    AlbumCard: () => import("@/components/AlbumCard.vue"),
+    ArtistCard: () => import("@/components/ArtistCard.vue"),
+    GenreCard: () => import("@/components/GenreCard.vue"),
     SongListItem: () => import('@/components/SongListItem.vue')
   }
 };

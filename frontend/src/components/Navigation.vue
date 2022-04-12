@@ -67,6 +67,42 @@ export default {
           link: "/user-management",
           name: "UserManagement",
         },
+        {
+          title: "Artist",
+          icon: "mdi-magnify",
+          link: "/artist/1",
+          name: "Artist",
+        },
+           {
+          title: "Album",
+          icon: "mdi-magnify",
+          link: "/album/1",
+          name: "Album",
+        },
+        {
+          title: "Genres",
+          icon: "mdi-magnify",
+          link: "/genres",
+          name: "Genres",
+        },
+        {
+          title: "ArtistOverview",
+          icon: "mdi-magnify",
+          link: "/overview",
+          name: "ArtistOverview",
+        },
+        {
+          title: "ArtistAbout",
+          icon: "mdi-magnify",
+          link: "/about",
+          name: "ArtistAbout",
+        },
+          {
+          title: "Discover",
+          icon: "mdi-magnify",
+          link: "/discover",
+          name: "Discover",
+        },
       ],
     };
   },

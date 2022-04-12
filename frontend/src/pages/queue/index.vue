@@ -11,7 +11,7 @@
         <v-list style="background: none">
           <v-subheader>NEXT</v-subheader>
 
-          <song-list></song-list>
+          <song-list-item v-for="i in 5" :key="i"></song-list-item>
         </v-list>
       </v-col>
     </v-row>
@@ -23,7 +23,7 @@ export default {
   name: "Queue",
 
   components: {
-    SongList: () => import("@/components/SongList.vue")
+    SongListItem: () => import("@/components/SongListItem.vue")
   }
 };
 </script>

@@ -45,15 +45,15 @@ const routes = [{
 
     {
         path: "/genres",
-        name: "genres",
+        name: "Genres",
         component: () =>
-            import ("../views/Genres.vue"),
+            import ("@/pages/genres"),
     },
     {
         path: "/discover",
-        name: "discover",
+        name: "Discover",
         component: () =>
-            import ("../views/Discover.vue"),
+            import ("@/pages/discover"),
     },
     {
         path: "/",
@@ -61,26 +61,27 @@ const routes = [{
     },
     {
         path: "/album/:id",
-        name: "album",
+        name: "Album",
         component: () =>
-            import ("../views/Album.vue"),
+            import ("@/pages/album"),
     },
     {
-        path: "artist/:id",
+        path: "/artist/:id",
+        name: "Artist",
         component: () =>
-            import ("../views/Artist.vue"),
+            import ("@/pages/artist"),
     },
     {
-        path: "/",
-        name: "artist",
+        path: "/overview",
+        name: "ArtistOverview",
         component: () =>
-            import ("../views/ArtistOverview.vue"),
+            import ("@/pages/artist-overview"),
     },
     {
         path: "/about",
-        name: "artist-about",
+        name: "ArtistAbout",
         component: () =>
-            import ("../views/ArtistAbout.vue"),
+            import ("@/pages/artist-about"),
     },
 
     {
@@ -90,17 +91,17 @@ const routes = [{
         },
     },
 
-    {
-        path: "/auth",
-        component: () =>
-            import ( /* webpackChunkName: "auth-layout" */ "../layouts/AuthLayout.vue"),
-        children: [{
-            path: "login",
-            name: "login",
-            component: () =>
-                import ( /* webpackChunkName: "login" */ "../views/Login.vue"),
-        }, ],
-    },
+    // {
+    //     path: "/auth",
+    //     component: () =>
+    //         import ( /* webpackChunkName: "auth-layout" */ "../layouts/AuthLayout.vue"),
+    //     children: [{
+    //         path: "/login",
+    //         name: "login",
+    //         component: () =>
+    //             import ( /* webpackChunkName: "login" */ "@/pages/login"),
+    //     }, ],
+    // },
     // {
     //     path: "/",
     //     name: "Home",

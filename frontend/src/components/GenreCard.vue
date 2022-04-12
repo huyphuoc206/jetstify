@@ -1,4 +1,6 @@
 <template>
+  <v-row>
+    <v-col cols="6" sm="3" md="2" v-for="i of total" :key="i">
   <v-card class="genre-card" flat>
     <v-card-text>
       <v-img
@@ -17,6 +19,8 @@
       </p>
     </v-card-text>
   </v-card>
+   </v-col>
+  </v-row>
 </template>
 
 <script>
