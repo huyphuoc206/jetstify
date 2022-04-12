@@ -10,7 +10,7 @@
         <v-tabs background-color="transparent" color="white">
           <v-tab
             :to="{
-              name: 'artist',
+              name: 'Artist',
               params: {
                 id: $route.params.id
               }
@@ -19,7 +19,7 @@
           >
           <v-tab
             :to="{
-              name: 'artist-about',
+              name: 'ArtistAbout',
               params: {
                 id: $route.params.id
               }

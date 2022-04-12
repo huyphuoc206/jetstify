@@ -8,7 +8,7 @@
           </v-col>
         </v-row>
 
-        <genre-card-list :total="10"></genre-card-list>
+        <genre-card :total="10"></genre-card>
       </v-col>
     </v-row>
   </div>
@@ -19,7 +19,7 @@ export default {
   name: "Genres",
 
   components: {
-    GenreCardList: () => import("@/components/GenreCardList.vue")
+    GenreCard: () => import("@/components/GenreCard.vue")
   }
 };
 </script>

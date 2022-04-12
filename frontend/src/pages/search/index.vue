@@ -47,7 +47,7 @@
           </v-col>
         </v-row>
 
-        <artist-card-list></artist-card-list>
+        <artist-card></artist-card>
       </v-col>
     </v-row>
 
@@ -79,7 +79,7 @@
           </v-col>
         </v-row>
 
-        <genre-card-list></genre-card-list>
+        <genre-card></genre-card>
       </v-col>
     </v-row>
   </v-container>
@@ -91,8 +91,8 @@ export default {
 
   components: {
     AlbumCard: () => import("@/components/AlbumCard.vue"),
-    ArtistCardList: () => import("@/components/ArtistCardList.vue"),
-    GenreCardList: () => import("@/components/GenreCardList.vue"),
+    ArtistCard: () => import("@/components/ArtistCard.vue"),
+    GenreCard: () => import("@/components/GenreCard.vue"),
     SongListItem: () => import('@/components/SongListItem.vue')
   }
 };

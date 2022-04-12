@@ -1,23 +1,23 @@
 <template>
   <v-row>
-    <v-col cols="6" sm="4" md="3" v-for="i of 5" :key="i">
+    <v-col cols="12" sm="4" md="2" v-for="song of songs" :key="song.name">
       <v-hover v-slot:default="{ hover }">
         <v-card class="album-card" flat>
           <v-card-text>
-            <v-img class="elevation-10" :src="song.img"> </v-img>
+            <v-img max-width="300" class="elevation-3" :src="song.img"> </v-img>
           </v-card-text>
 
-          <v-card-text class="pt-0">
+          <v-card-text class="pt-0 ma-auto">
             <p class="body-2 font-weight-medium ma-0 text-truncate white--text">
               <router-link
                 :to="{
-                  name: 'album',
+                  name: 'Album',
                   params: {
                     id: 1,
                   },
                 }"
               >
-                {{ song.name }}
+                <p :style="{ fontSize: '20px' }">{{ song.name }}</p>
               </router-link>
             </p>
             <p class="caption font-weight-light mb-4 text-truncate">
@@ -61,8 +61,19 @@ export default {
         artist: "W/n",
         img: "https://th.bing.com/th/id/OIP.FYZ0pOovTJt_0u8gFMUUogHaEK?pid=ImgDet&rs=1",
       },
+      {
+        name: "3107",
+        artist: "W/n",
+        img: "https://th.bing.com/th/id/OIP.FYZ0pOovTJt_0u8gFMUUogHaEK?pid=ImgDet&rs=1",
+      },
+      {
+        name: "3107",
+        artist: "W/n",
+        img: "https://th.bing.com/th/id/OIP.FYZ0pOovTJt_0u8gFMUUogHaEK?pid=ImgDet&rs=1",
+      },
     ],
   }),
   name: "AlbumCard2",
 };
 </script>
+<style lang="scss"></style>

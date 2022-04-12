@@ -5,7 +5,7 @@
         <router-link
           active-class="font-weight-bold"
           class="white--text subtitle-2"
-          :to="{ name: 'featured' }"
+          :to="{ name: 'Home' }"
           >FEATURED</router-link
         >
       </v-col>
@@ -13,7 +13,7 @@
         <router-link
           active-class="font-weight-bold"
           class="white--text subtitle-2"
-          :to="{ name: 'genres' }"
+          :to="{ name: 'Genres' }"
           >GENRES & MOODS</router-link
         >
       </v-col>
@@ -21,7 +21,7 @@
         <router-link
           active-class="font-weight-bold"
           class="white--text subtitle-2"
-          :to="{ name: 'discover' }"
+          :to="{ name: 'Discover' }"
           >DISCOVER</router-link
         >
       </v-col>

@@ -19,7 +19,7 @@
               <v-list-item-title>
                 <router-link
                   :to="{
-                    name: 'album',
+                    name: 'Album',
                     params: {
                       id: 1
                     }
@@ -31,7 +31,7 @@
               <v-list-item-subtitle>
                 <router-link
                   :to="{
-                    name: 'artist',
+                    name: 'Artist',
                     params: {
                       id: 1
                     }

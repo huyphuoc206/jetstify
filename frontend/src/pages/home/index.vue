@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-10 mt-5">
+  <div class="ml-10 mr-10 mt-5">
     <v-row>
       <v-col>
         <v-row class="align-start">
@@ -8,7 +8,7 @@
           </v-col>
         </v-row>
 
-        <album-card-list></album-card-list>
+        <album-card></album-card>
       </v-col>
     </v-row>
 
@@ -25,7 +25,7 @@
           </v-col>
         </v-row>
 
-        <album-card></album-card>
+        <album-card-2></album-card-2>
       </v-col>
     </v-row>
   </div>
@@ -46,6 +46,7 @@ export default {
   }),
   components: {
     AlbumCard: () => import("@/components/AlbumCard.vue"),
+     AlbumCard2: () => import("@/components/AlbumCard2.vue"),
   },
 };
 </script>

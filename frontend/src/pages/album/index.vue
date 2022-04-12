@@ -28,7 +28,7 @@
             <p class="subtitle-1 mb-4">
               <router-link
                 :to="{
-                  name: 'artist',
+                  name: 'Artist',
                   params: {
                     id: 1,
                   },

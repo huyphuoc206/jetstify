@@ -45,13 +45,13 @@ const routes = [{
 
     {
         path: "/genres",
-        name: "genres",
+        name: "Genres",
         component: () =>
             import ("@/pages/genres"),
     },
     {
         path: "/discover",
-        name: "discover",
+        name: "Discover",
         component: () =>
             import ("@/pages/discover"),
     },
@@ -61,24 +61,25 @@ const routes = [{
     },
     {
         path: "/album/:id",
-        name: "album",
+        name: "Album",
         component: () =>
             import ("@/pages/album"),
     },
     {
-        path: "artist/:id",
+        path: "/artist/:id",
+        name: "Artist",
         component: () =>
             import ("@/pages/artist"),
     },
     {
-        path: "/",
-        name: "artist",
+        path: "/overview",
+        name: "ArtistOverview",
         component: () =>
             import ("@/pages/artist-overview"),
     },
     {
         path: "/about",
-        name: "artist-about",
+        name: "ArtistAbout",
         component: () =>
             import ("@/pages/artist-about"),
     },
