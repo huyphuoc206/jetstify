@@ -1,15 +1,44 @@
 <template>
   <v-row>
-    <v-col cols="12" sm="4" md="2" v-for="song of songs" :key="song.name">
-      <v-hover v-slot:default="{ hover }">
-        <v-card class="album-card" flat>
+    <v-col
+      cols="12"
+      sm="6"
+      md="4"
+      lg="2"
+      v-for="song of songs"
+      :key="song.name"
+    >
+      <v-hover v-slot:default="{ hover }" style="cursor: pointer">
+        <v-card class="common-card" flat height="300" width="250">
           <v-card-text>
-            <v-img max-width="300" class="elevation-3" :src="song.img"> </v-img>
+            <v-img
+              :style="{
+                borderRadius: '5px',
+              }"
+              width="300"
+              height="200"
+              class="elevation-3"
+              :src="song.img"
+            >
+              <div
+                :style="{
+                  position: 'absolute',
+                  right: '10px',
+                  bottom: '10px',
+                  cursor: 'auto',
+                }"
+                v-show="hover"
+              >
+                <v-icon color="green" size="70">mdi-play-circle</v-icon>
+              </div>
+            </v-img>
           </v-card-text>
 
           <v-card-text class="pt-0 ma-auto">
             <p class="body-2 font-weight-medium ma-0 text-truncate white--text">
               <router-link
+
+                class="white--text text-decoration-none"
                 :to="{
                   name: 'Album',
                   params: {
@@ -17,19 +46,12 @@
                   },
                 }"
               >
-                <p :style="{ fontSize: '20px' }">{{ song.name }}</p>
+                {{ song.name }}
               </router-link>
             </p>
             <p class="caption font-weight-light mb-4 text-truncate">
               {{ song.artist }}
             </p>
-
-            <div
-              style="position: absolute; right: 10px; bottom: 10px"
-              v-show="hover"
-            >
-              <v-icon size="35">mdi-play-circle-outline</v-icon>
-            </div>
           </v-card-text>
         </v-card>
       </v-hover>

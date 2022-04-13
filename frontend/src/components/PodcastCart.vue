@@ -1,22 +1,32 @@
 <template>
   <v-row>
-    <v-col cols="12" sm="6" md="4" v-for="song of songs" :key="song.name">
-      <v-hover v-slot:default="{ hover }" style="cursor: pointer">
-        <v-card class="common-card d-flex ma-auto" flat height="90px">
-          <v-card class="">
+    <v-col
+      cols="12"
+      sm="6"
+      md="4"
+      lg="2"
+      v-for="song of songs"
+      :key="song.name"
+    >
+      <v-hover style="cursor: pointer">
+        <v-card class="common-card" flat height="300" width="250">
+          <v-card-text>
             <v-img
-              max-width="100"
-              height="100%"
+              :style="{
+                borderRadius: '5px',
+              }"
+              width="300"
+              height="200"
               class="elevation-3"
               :src="song.img"
             >
             </v-img>
-          </v-card>
+          </v-card-text>
 
-          <v-card-text class="ma-auto">
-            <p class="" :style="{ fontSize: '20px' }">
+          <v-card-text class="pt-0 ma-auto">
+            <p class="body-2 font-weight-medium ma-0 text-truncate white--text">
               <router-link
-                class="text-decoration-none white--text"
+                class="white--text text-decoration-none"
                 :to="{
                   name: 'Album',
                   params: {
@@ -27,24 +37,9 @@
                 {{ song.name }}
               </router-link>
             </p>
-            <p class="ma-auto">
+            <p class="caption font-weight-light mb-4 text-truncate">
               {{ song.artist }}
             </p>
-
-            <v-btn
-              elevation="2"
-              class="ma-auto play_btn"
-              :style="{
-                position: 'absolute',
-                right: '10px',
-                bottom: '17px',
-                cursor: 'auto',
-              }"
-              fab
-              v-show="hover"
-            >
-              <v-icon size="70" color="green">mdi-play-circle</v-icon>
-            </v-btn>
           </v-card-text>
         </v-card>
       </v-hover>
@@ -88,14 +83,7 @@ export default {
       },
     ],
   }),
-  name: "AlbumCard",
+  name: "PodcastCard",
 };
 </script>
-<style lang="scss" scoped>
-// .common-card {
-//   transition: all 0.2s ease-out;
-// }
-// .common-card:hover {
-//   background: rgba(255, 255, 255, 0.3);
-// }
-</style>
+<style lang="scss"></style>
