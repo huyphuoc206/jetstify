@@ -42,7 +42,11 @@
         </div>
       </v-col>
       <v-col class="pt-0" cols="12" sm="7" md="8">
-        <v-hover v-for="song in songs" :key="song" v-slot:default="{ hover }">
+        <v-hover
+          v-for="(song, index) in songs"
+          :key="index"
+          v-slot:default="{ hover }"
+        >
           <v-list-item link two-line>
             <v-list-item-content class="py-0">
               <v-row class="align-center">

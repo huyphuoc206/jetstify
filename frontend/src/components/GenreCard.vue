@@ -1,30 +1,22 @@
 <template>
-  <v-row>
-    <v-col cols="6" sm="3" md="2" v-for="i of total" :key="i">
-  <v-card class="genre-card" flat>
+  <v-card class="common-card" flat height="300" width="250">
     <v-card-text>
-      <v-img
-        class="elevation-10"
-        src="https://direct.rhapsody.com/imageserver/images/alb.261770523/500x500.jpg"
-      >
+      <v-img width="300" height="200" class="elevation-10" :src="song.img">
       </v-img>
     </v-card-text>
 
     <v-card-text class="pt-0">
       <p class="body-2 font-weight-medium ma-0 text-truncate white--text">
-        Indie
+        {{ song.name }}
       </p>
-      <p class="caption font-weight-light mb-4 text-truncate">
-        Genre
-      </p>
+      <p class="caption font-weight-light mb-4 text-truncate">Genre</p>
     </v-card-text>
   </v-card>
-   </v-col>
-  </v-row>
 </template>
 
 <script>
 export default {
-  name: "GenreCard"
+  props: ["song"],
+  name: "GenreCard",
 };
 </script>
