@@ -24,8 +24,6 @@ export default {
     AppBar,
     // AppPlayer,
   },
-  data: () => ({
-    //
-  }),
+  data: () => ({}),
 };
 </script>

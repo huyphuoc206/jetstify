@@ -19,11 +19,19 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Queue",
 
+  computed: { ...mapActions("songs", ["allSong"]) },
+  methods: {
+    ...mapGetters("songs", ["fetchSong"]),
+  },
+  async created() {
+    await this.fetchSong();
+  },
   components: {
-    SongListItem: () => import("@/components/SongListItem.vue")
-  }
+    SongListItem: () => import("@/components/SongListItem.vue"),
+  },
 };
 </script>

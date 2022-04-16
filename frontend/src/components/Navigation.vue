@@ -73,7 +73,7 @@ export default {
           link: "/artist/1",
           name: "Artist",
         },
-           {
+        {
           title: "Album",
           icon: "mdi-magnify",
           link: "/album/1",
@@ -97,7 +97,7 @@ export default {
           link: "/about",
           name: "ArtistAbout",
         },
-          {
+        {
           title: "Discover",
           icon: "mdi-magnify",
           link: "/discover",
