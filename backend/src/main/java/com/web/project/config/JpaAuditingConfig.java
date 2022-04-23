@@ -1,6 +1,5 @@
 package com.web.project.config;
 
-import com.web.project.common.LoggedInUserAuditorAwareImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
