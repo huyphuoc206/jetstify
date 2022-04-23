@@ -1,6 +1,6 @@
 package com.web.project.config;
 
-import com.web.project.modules.auth.filter.CustomAuthorizationFilter;
+import com.web.project.jwt.CustomAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
