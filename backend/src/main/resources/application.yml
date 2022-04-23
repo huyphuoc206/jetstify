@@ -14,3 +14,10 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+
+jestify-app:
+  token:
+    access_lifetime_minutes: 5
+    refresh_lifetime_minutes: 1440
+  remember_me:
+    expired_days: 30
