@@ -14,16 +14,14 @@ public class AuthService {
 //    private final PasswordEncoder passwordEncoder;
 
     public Users checkLogin(AuthRequest loginRequest) {
-        Users user = userRepository.findByUsernameAndActive(loginRequest.getUsername(), true);
-        if (user == null) {
-            return null;
-        }
+        Users user = userRepository.findByUsernameAndActive(loginRequest.getUsername(), true)
+                .orElseThrow(() -> new IllegalArgumentException("Username or password is incorrect"));
         // Compare raw password and password in database
 //        if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword()))
         if (loginRequest.getPassword().equals(user.getPassword())) {
             return user;
         } else {
-            return null;
+            throw new IllegalArgumentException("Username or password is incorrect");
         }
     }
 }

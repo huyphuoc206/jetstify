@@ -16,8 +16,11 @@ const routes = [{
             import ("@/pages/collection"),
     },
     {
-        path: "/Login",
+        path: "/login",
         name: "Login",
+        meta: {
+            fullscreen: true
+        },
         component: () =>
             import ( /* webpackChunkName: "about" */ "@/pages/login"),
     },
