@@ -5,8 +5,10 @@
         <v-row class="align-start">
           <v-col>
             <h1 class="headline font-weight-bold">{{ title[0].name }}</h1>
+          
           </v-col>
         </v-row>
+
         <v-row>
           <v-col
             cols="12"
