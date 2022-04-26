@@ -1,53 +1,33 @@
 <template>
-  <v-container id="artist" fluid>
-    <v-row class="pa-10 pb-0 artist-header align-end">
-      <v-col>
-        <span class="caption">110,491 MONTHLY LISTENERS </span>
-        <h1 class="display-3 font-weight-bold">Foreign Fields</h1>
-      </v-col>
+  <div>
+    <artist-info />
+    <artist-service />
 
-      <v-col class="pb-0" cols="12">
-        <v-tabs background-color="transparent" color="white">
-          <v-tab
-            :to="{
-              name: 'Artist',
-              params: {
-                id: $route.params.id
-              }
-            }"
-            >Overview</v-tab
-          >
-          <v-tab
-            :to="{
-              name: 'ArtistAbout',
-              params: {
-                id: $route.params.id
-              }
-            }"
-            >About</v-tab
-          >
-        </v-tabs>
-      </v-col>
-    </v-row>
-
-    <router-view class="px-7"></router-view>
-  </v-container>
+    <artist-song-list />
+    <album-card-2 />
+    <artist-about />
+  </div>
 </template>
 
-<style scoped>
-#artist {
-  padding: 0 !important;
-}
+<script>
+import AlbumCard2 from "@/components/AlbumCard2.vue";
+import ArtistAbout from "./components/artist-about.vue";
+import ArtistInfo from "./components/artist-info.vue";
+import ArtistService from "./components/artist-service.vue";
+import ArtistSongList from "./components/artist-song-list.vue";
+export default {
+  name: "artist",
+  components: {
+    ArtistAbout,
+    ArtistService,
+    ArtistInfo,
+    ArtistSongList,
+    AlbumCard2,
+  },
+  // setup() {
 
-.artist-header {
-  background-image: linear-gradient(
-      10deg,
-      rgba(48, 48, 48, 1),
-      rgba(0, 0, 0, 0)
-    ),
-    url(https://i.scdn.co/image/4580875e55e928fb680549968b26cc1a53841d34);
-  background-position: 50%;
-  background-size: cover;
-  height: 320px;
-}
-</style>
+  // },
+};
+</script>
+
+<style lang="scss" scoped></style>
