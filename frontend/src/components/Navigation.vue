@@ -98,6 +98,12 @@ export default {
           name: "ArtistAbout",
         },
         {
+          title: "Playlist",
+          icon: "mdi-magnify",
+          link: "/playlist",
+          name: "Playlist",
+        },
+        {
           title: "Discover",
           icon: "mdi-magnify",
           link: "/discover",
