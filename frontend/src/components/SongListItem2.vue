@@ -18,9 +18,7 @@
               <v-list-item-title>Kill Me in The Morning</v-list-item-title>
             </v-list-item-title>
           </v-col>
-          <v-col cols="auto">
-            3:49
-          </v-col>
+          <v-col cols="auto"> 3:49 </v-col>
         </v-row>
       </v-list-item-content>
     </v-list-item>
@@ -29,6 +27,6 @@
 
 <script>
 export default {
-  name: "SongListItem2"
+  name: "SongListItem2",
 };
 </script>
