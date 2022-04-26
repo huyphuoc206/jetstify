@@ -81,11 +81,11 @@ export default {
       audioList: [
         {
           name: "audio 1",
-          url: "https://open.spotify.com/track/5QO79kh1waicV47BqGRL3g?si=e31931fbecec4ac1",
+          url: "http://www.ytmp3.cn/down/76865.mp3",
         },
         {
           name: "audio 2",
-          url: "https://open.spotify.com/track/5QO79kh1waicV47BqGRL3g?si=e31931fbecec4ac1",
+          url: "http://www.ytmp3.cn/down/76857.mp3",
         },
       ],
     };
