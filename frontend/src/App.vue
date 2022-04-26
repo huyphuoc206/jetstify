@@ -16,7 +16,7 @@
         </v-fab-transition>
       </v-main>
       <v-footer class="elevation-10" app fixed style="z-index: 10">
-        <!-- <app-player /> -->
+        <app-player />
       </v-footer>
     </template>
   </v-app>
@@ -25,14 +25,14 @@
 <script>
 import AppBar from "@/components/AppBar.vue";
 import AppNavigation from "@/components/Navigation.vue";
-// import AppPlayer from "./components/Player.vue";
+import AppPlayer from "@/components/Player";
 export default {
   name: "App",
 
   components: {
     AppNavigation,
     AppBar,
-    // AppPlayer,
+    AppPlayer,
   },
 
   computed: {
