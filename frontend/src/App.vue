@@ -1,6 +1,8 @@
 <template>
   <v-app>
-    <template v-if="isFullscreen">
+    <app-loading />
+    <app-notification />
+    <template v-if="isFullScreen">
       <v-main>
         <v-fab-transition>
           <router-view />
@@ -26,20 +28,29 @@
 import AppBar from "@/components/AppBar.vue";
 import AppNavigation from "@/components/Navigation.vue";
 import AppPlayer from "@/components/Player";
+import AppLoading from "@/components/loading";
+import AppNotification from "@/components/notification";
+
 export default {
   name: "App",
 
   components: {
     AppNavigation,
     AppBar,
+    AppLoading,
+    AppNotification,
     AppPlayer,
   },
 
   computed: {
-    isFullscreen() {
+    isFullScreen() {
       if (!this.$route.name) return false;
-      return this.$route.meta.fullscreen;
+      return this.$route.meta.fullScreen;
     }
   },
+
+  created() {
+    
+  }
 };
 </script>

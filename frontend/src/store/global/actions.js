@@ -1,10 +1,21 @@
 import * as TYPES from "./types";
-import { $rest } from '@/core/rest-client';
 
-export const randomQuote = async ({ commit }) => {
-  const res = $rest.get('/users');
-  console.log(res);
-  // const res = await fetch("https://api.quotable.io/random");
-  // const data = await res.json();
-  commit(TYPES.RANDOM_PAGE_TITLE, 'hello');
+export const setLoading = async ({ commit }, isLoading = false) => {
+  commit(TYPES.SET_LOADING, isLoading);
 };
+
+export const showSuccessNotice = ({ commit }, message) => {
+    commit(TYPES.SHOW_SUCCESS_NOTICE, message);
+};
+
+export const showErrorNotice = ({ commit }, message) => {
+    commit(TYPES.SHOW_ERROR_NOTICE, message);
+}
+
+export const showWarningNotice = ({ commit }, message) => {
+    commit(TYPES.SHOW_WARNING_NOTICE, message);
+}
+
+export const closeNotice = ({ commit }) => {
+    commit(TYPES.CLOSE_NOTICE);
+}

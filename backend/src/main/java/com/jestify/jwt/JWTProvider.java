@@ -15,9 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -46,11 +44,14 @@ public class JWTProvider {
 
     public Users getUserFromToken(String token) {
         if (isNoneValidToken(token)) return null;
+        List<Role> roles = Arrays.stream(Objects.requireNonNull(getClaimValue(token, AppConstant.ROLES_CLAIM, String.class))
+                .split(", "))
+                .collect(Collectors.toList())
+                .stream().map(e -> Role.builder().code(e).build())
+                .collect(Collectors.toList());
         return Users.builder()
                 .username(getClaimValue(token, PublicClaims.SUBJECT, String.class))
-                .roles((List<Role>) getClaimValue(token, AppConstant.ROLES_CLAIM, List.class).stream()
-                        .map(e -> Role.builder().name(String.valueOf(e)).build())
-                        .collect(Collectors.toList()))
+                .roles(roles)
                 .build();
     }
 
@@ -101,7 +102,10 @@ public class JWTProvider {
             creator.withClaim(AppConstant.ACCESS_TOKEN_CLAIM, true);
         }
 
-        creator.withClaim(AppConstant.ROLES_CLAIM, appUser.getRoles().stream().map(Role::getName).collect(Collectors.toList()));
+        creator.withClaim(AppConstant.ROLES_CLAIM, appUser.getRoles()
+                .stream()
+                .map(Role::getCode)
+                .collect(Collectors.joining(", ")));
         return creator.sign(algorithm);
     }
 }

@@ -42,7 +42,7 @@
                             >
                           </v-col>
                         </v-row>
-                        <v-btn color="blue" dark block tile>Log in</v-btn>
+                        <v-btn color="blue" dark block tile @click="handleSignIn()">Log in</v-btn>
 
                         <h4 class="text-center grey--text mt-4 mb-3">
                           Or Log in using
@@ -148,7 +148,7 @@
                             >
                           </v-col>
                         </v-row>
-                        <v-btn color="blue" dark block tile>Sign up</v-btn>
+                        <v-btn color="blue" dark block tile @click="handleSignUp()">Sign up</v-btn>
 
                         <h4 class="text-center grey--text mt-4 mb-3">
                           Or Sign up using
@@ -190,8 +190,12 @@ export default {
   }),
 
   methods: {
-    login() {
-      this.$router.push({ name: "UserManagement" });
+    handleSignIn() {
+      alert('Log in');
+    },
+
+    handleSignUp() {
+      alert('Sign up');
     },
   },
 };
@@ -200,9 +204,6 @@ export default {
 <style scoped>
 .container {
   height: 100%;
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
 }
 .v-application .rounded-bl-xl {
     border-bottom-left-radius: 300px !important;

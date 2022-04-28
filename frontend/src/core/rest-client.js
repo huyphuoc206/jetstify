@@ -5,15 +5,15 @@ import __isObject from 'lodash/isObject';
 import { API_REQUEST } from "./constants";
 import * as RestUtils from '@/utils/rest-utils';
 
-const noInterceptor = (resp) => resp;
+const noInterceptor = resp => resp;
 
 const DEFAULT_HEADERS = {
-  [API_REQUEST.HEADERS.CONTENT_TYPE]: API_REQUEST.CONTENT_TYPES.JSON,
+  [API_REQUEST.HEADERS.CONTENT_TYPE]: API_REQUEST.CONTENT_TYPES.JSON
 };
 
 const DEFAULT_REQUEST_OPTIONS = {
   headers: {},
-  ignoreInterceptor: false,
+  ignoreInterceptor: false
 };
 
 const ERROR_MESSAGE = {
@@ -21,7 +21,7 @@ const ERROR_MESSAGE = {
   401: "Endpoint requires authentication",
   403: "Forbidden endpoint",
   404: "Endpoint is not found",
-  500: "Something went wrong",
+  500: "Internal Server Error"
 };
 
 export class RestClient {
@@ -31,7 +31,7 @@ export class RestClient {
     this.$axios = axios.create({
       baseURL,
       responseType: API_REQUEST.RESPONSE_TYPE.JSON,
-      headers: { ...DEFAULT_HEADERS },
+      headers: { ...DEFAULT_HEADERS }
     });
   }
 
@@ -39,7 +39,7 @@ export class RestClient {
     this.$axios.defaults.headers.common = { ...DEFAULT_HEADERS };
   }
 
-  setAccessToken(token) {
+  setAccessToken = token => {
     if (!token) {
       return;
     }
@@ -54,25 +54,25 @@ export class RestClient {
     this.$axios.interceptors.response.use(successHandler || noInterceptor, failHandler || noInterceptor);
   }
 
-  async get(url, requestParams = {}, options = DEFAULT_REQUEST_OPTIONS) {
+  get = async (url, requestParams = {}, options = DEFAULT_REQUEST_OPTIONS) => {
     return await this.#sendRequest(url, RestUtils.REQUEST_METHODS.GET, options, requestParams);
   }
 
-  async post(url, requestBody = {}, options = DEFAULT_REQUEST_OPTIONS) {
+  post = async (url, requestBody = {}, options = DEFAULT_REQUEST_OPTIONS) => {
     return await this.#sendRequest(url, RestUtils.REQUEST_METHODS.POST, options, requestBody);
   }
 
-  async put(url, requestBody = {}, options = DEFAULT_REQUEST_OPTIONS) {
+  put = async (url, requestBody = {}, options = DEFAULT_REQUEST_OPTIONS) => {
     return await this.#sendRequest(url, RestUtils.REQUEST_METHODS.PUT, options, requestBody);
   }
 
-  async delete(url, requestParams = {}, options = DEFAULT_REQUEST_OPTIONS) {
+  delete = async (url, requestParams = {}, options = DEFAULT_REQUEST_OPTIONS) => {
     return await this.#sendRequest(url, RestUtils.REQUEST_METHODS.DELETE, options, requestParams);
   }
 
   #sendRequest = async (url, method, options = DEFAULT_REQUEST_OPTIONS, payload = {}) => {
     if (!url) {
-      throw new Error('The value of URL must correct');
+      throw new Error('The value of URL must be a String');
     }
 
     const allOptions = { ...DEFAULT_REQUEST_OPTIONS, ...options };
@@ -104,18 +104,18 @@ export class RestClient {
     } else if (__isObject(data)) {
       return JSON.stringify(data);
     }
-    throw new Error('Request body must be an one of [String, Object, FormData]');
+    throw new Error('Request body must be String, Object or FormData');
   }
 
   #parseResponse = async (requester) => {
     try {
-      const resp = await Promise.resolve(requester);
-      const { data, isAxiosError } = resp;
+      const response = await Promise.resolve(requester);
+      const { data, isAxiosError } = response;
       if (isAxiosError) {
-        const { status } = resp.toJSON();
+        const { status } = response.toJSON();
         return { status, success: false, message: ERROR_MESSAGE[status] };
       }
-      return { status: resp.status, ...data };
+      return { status: response.status, ...data };
     } catch (error) {
       return { status: 500, success: false, message: ERROR_MESSAGE[500] };
     }

@@ -58,7 +58,7 @@
       <v-col cols="auto" class="align-end">
         <v-btn rounded color="black" dark> UPGRADE </v-btn>
 
-        <v-btn class="ml-7 mr-5" color="pink" fab dark @click="randomPageTitle">
+        <v-btn class="ml-7 mr-5" color="pink" fab dark>
           <!-- <v-container fluid style="height: 300px"> -->
           <!-- <v-row justify=""> -->
           <v-menu bottom min-width="200px" rounded offset-y>
@@ -95,8 +95,8 @@
     </v-row>
   </v-app-bar>
 </template>
+
 <script>
-import { mapGetters, mapActions } from "vuex";
 export default {
   name: "AppBar",
   data: () => ({
@@ -106,15 +106,8 @@ export default {
       email: "john.doe@doe.com",
     },
   }),
-  computed: {
-    ...mapGetters("global", ["pageTitle"]),
-  },
-  methods: {
-    ...mapActions("global", ["randomQuote"]),
 
-    async randomPageTitle() {
-      await this.randomQuote();
-    },
+  methods: {
     checkInputSearch() {
       if (this.$route.name === "Search") return true;
       return false;
@@ -125,7 +118,6 @@ export default {
     },
   },
   async created() {
-    await this.randomPageTitle();
     this.checkMenuLibrary();
     this.checkInputSearch();
   },
