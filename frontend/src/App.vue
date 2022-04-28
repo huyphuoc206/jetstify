@@ -1,15 +1,26 @@
 <template>
   <v-app>
-    <app-bar />
-    <app-navigation />
-    <v-main>
-      <v-fab-transition>
-        <router-view />
-      </v-fab-transition>
-    </v-main>
-    <v-footer class="elevation-10" app fixed style="z-index: 10">
-      <app-player/>
-    </v-footer>
+    <app-loading />
+    <app-notification />
+    <template v-if="isFullScreen">
+      <v-main>
+        <v-fab-transition>
+          <router-view />
+        </v-fab-transition>
+      </v-main>
+    </template>
+    <template v-else>
+      <app-bar />
+      <app-navigation />
+      <v-main>
+        <v-fab-transition>
+          <router-view />
+        </v-fab-transition>
+      </v-main>
+      <v-footer class="elevation-10" app fixed style="z-index: 10">
+        <app-player />
+      </v-footer>
+    </template>
   </v-app>
 </template>
 
@@ -17,13 +28,29 @@
 import AppBar from "@/components/AppBar.vue";
 import AppNavigation from "@/components/Navigation.vue";
 import AppPlayer from "@/components/Player";
+import AppLoading from "@/components/loading";
+import AppNotification from "@/components/notification";
+
 export default {
   name: "App",
+
   components: {
     AppNavigation,
     AppBar,
+    AppLoading,
+    AppNotification,
     AppPlayer,
   },
-  data: () => ({}),
+
+  computed: {
+    isFullScreen() {
+      if (!this.$route.name) return false;
+      return this.$route.meta.fullScreen;
+    }
+  },
+
+  created() {
+    
+  }
 };
 </script>
