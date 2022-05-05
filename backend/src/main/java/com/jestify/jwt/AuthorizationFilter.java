@@ -15,7 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.stream.Collectors;
+import java.util.Collections;
 
 @Slf4j
 public class AuthorizationFilter extends OncePerRequestFilter {
@@ -32,7 +32,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                 if (jwtProvider.isValidAccessToken(token)) {
                     Users appUser = jwtProvider.getUserFromToken(token);
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(appUser.getUsername(), null,
-                            appUser.getRoles().stream().map(e -> new SimpleGrantedAuthority(e.getCode())).collect(Collectors.toList()));
+                            Collections.singleton(new SimpleGrantedAuthority(appUser.getRole().getCode())));
                     // add prefix ROLE_ to role name to security match url can use hasAnyRole
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }

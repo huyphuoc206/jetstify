@@ -15,8 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Calendar;
+import java.util.Date;
 
 @Slf4j
 @Component
@@ -44,14 +44,10 @@ public class JWTProvider {
 
     public Users getUserFromToken(String token) {
         if (isNoneValidToken(token)) return null;
-        List<Role> roles = Arrays.stream(Objects.requireNonNull(getClaimValue(token, AppConstant.ROLES_CLAIM, String.class))
-                .split(", "))
-                .collect(Collectors.toList())
-                .stream().map(e -> Role.builder().code(e).build())
-                .collect(Collectors.toList());
+        String role = getClaimValue(token, AppConstant.ROLE_CLAIM, String.class);
         return Users.builder()
                 .username(getClaimValue(token, PublicClaims.SUBJECT, String.class))
-                .roles(roles)
+                .role(Role.builder().code(role).build())
                 .build();
     }
 
@@ -94,18 +90,14 @@ public class JWTProvider {
                 .withSubject(appUser.getUsername())
                 .withExpiresAt(calendar.getTime())
                 .withIssuedAt(new Date())
-                .withClaim("fullName", appUser.getFullName());
+                .withClaim("fullName", appUser.getFullName())
+                .withClaim(AppConstant.ROLE_CLAIM, appUser.getRole().getCode());
 
         if (isRefreshToken) {
             creator.withClaim(AppConstant.REFRESH_TOKEN_CLAIM, true);
         } else {
             creator.withClaim(AppConstant.ACCESS_TOKEN_CLAIM, true);
         }
-
-        creator.withClaim(AppConstant.ROLES_CLAIM, appUser.getRoles()
-                .stream()
-                .map(Role::getCode)
-                .collect(Collectors.joining(", ")));
         return creator.sign(algorithm);
     }
 }

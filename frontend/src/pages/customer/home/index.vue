@@ -123,7 +123,7 @@ export default {
   },
   components: {
     PodcastCard: () => import("@/components/PodcastCart.vue"),
-    AlbumCard: () => import("@/pages/home/AlbumCard.vue"),
+    AlbumCard: () => import("./AlbumCard.vue"),
     AlbumCard2: () => import("@/components/AlbumCard2.vue"),
     ArtistCard: () => import("@/components/ArtistCard.vue"),
   },
