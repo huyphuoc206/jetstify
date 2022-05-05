@@ -31,7 +31,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                 String token = authorizationHeader.substring(AppConstant.BEARER.length());
                 if (jwtProvider.isValidAccessToken(token)) {
                     Users appUser = jwtProvider.getUserFromToken(token);
-                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(appUser.getUsername(), null,
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(appUser.getEmail(), null,
                             Collections.singleton(new SimpleGrantedAuthority(appUser.getRole().getCode())));
                     // add prefix ROLE_ to role name to security match url can use hasAnyRole
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);

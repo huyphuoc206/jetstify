@@ -46,7 +46,7 @@ public class JWTProvider {
         if (isNoneValidToken(token)) return null;
         String role = getClaimValue(token, AppConstant.ROLE_CLAIM, String.class);
         return Users.builder()
-                .username(getClaimValue(token, PublicClaims.SUBJECT, String.class))
+                .email(getClaimValue(token, PublicClaims.SUBJECT, String.class))
                 .role(Role.builder().code(role).build())
                 .build();
     }
@@ -87,7 +87,7 @@ public class JWTProvider {
         calendar.add(Calendar.MINUTE, expiredMinutes);
 
         JWTCreator.Builder creator = JWT.create()
-                .withSubject(appUser.getUsername())
+                .withSubject(appUser.getEmail())
                 .withExpiresAt(calendar.getTime())
                 .withIssuedAt(new Date())
                 .withClaim("fullName", appUser.getFullName())

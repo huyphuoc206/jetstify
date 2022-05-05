@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Users extends BaseEntity {
 
-    private String username;
+    private String email;
     private String password;
     private String fullName;
     private boolean active;

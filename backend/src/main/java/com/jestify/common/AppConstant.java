@@ -11,4 +11,8 @@ public class AppConstant {
     public static final String ROLE_CLAIM = "role";
 
     public static final String ERROR_MESSAGE = "Internal Server Error";
+
+    // Role Code
+    public static final String CUSTOMER_ROLE = "CUSTOMER";
+    public static final String ADMIN_ROLE = "ADMIN";
 }
