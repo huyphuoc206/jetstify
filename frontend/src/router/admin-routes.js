@@ -8,6 +8,15 @@ export const ADMIN_ROUTES = [
     component: () => import("@/pages/admin/login"),
   },
   {
+    path: "/admin/home",
+    name: "AdminHome",
+    meta: {
+      fullScreen: true,
+    },
+    component: () =>
+      import("@/pages/admin/home"),
+  },
+  {
     path: "/admin/category",
     name: "AdminCategory",
     meta: {

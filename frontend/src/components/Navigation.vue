@@ -60,13 +60,6 @@ export default {
           link: "/login",
           name: "Login",
         },
-
-        {
-          title: "Users Management",
-          icon: "mdi-account-group-outline",
-          link: "/user-management",
-          name: "UserManagement",
-        },
         {
           title: "Artist",
           icon: "mdi-magnify",

@@ -90,7 +90,7 @@ public class JWTProvider {
                 .withSubject(appUser.getEmail())
                 .withExpiresAt(calendar.getTime())
                 .withIssuedAt(new Date())
-                .withClaim("fullName", appUser.getFullName())
+                .withClaim(AppConstant.FULL_NAME_CLAIM, appUser.getFullName())
                 .withClaim(AppConstant.ROLE_CLAIM, appUser.getRole().getCode());
 
         if (isRefreshToken) {

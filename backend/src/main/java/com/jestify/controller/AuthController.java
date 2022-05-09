@@ -33,7 +33,7 @@ public class AuthController {
             return ResponseEntity.ok(ResponseCommon.success(authResponse));
         } catch (IllegalArgumentException e) {
             log.error("API /api/login: ", e);
-            return ResponseEntity.badRequest().body(ResponseCommon.fail(e.getMessage()));
+            return ResponseEntity.ok().body(ResponseCommon.fail(e.getMessage()));
         } catch (Exception e) {
             log.error("API /api/login: ", e);
             return ResponseEntity.internalServerError().body(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
@@ -48,7 +48,7 @@ public class AuthController {
             return ResponseEntity.ok(ResponseCommon.success(authResponse));
         } catch (IllegalArgumentException e) {
             log.error("API /api/admin/login: ", e);
-            return ResponseEntity.badRequest().body(ResponseCommon.fail(e.getMessage()));
+            return ResponseEntity.ok().body(ResponseCommon.fail(e.getMessage()));
         } catch (Exception e) {
             log.error("API /api/admin/login: ", e);
             return ResponseEntity.internalServerError().body(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));

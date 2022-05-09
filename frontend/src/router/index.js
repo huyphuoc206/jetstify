@@ -2,10 +2,11 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import { ADMIN_ROUTES } from "./admin-routes";
 import { CUSTOMER_ROUTES } from "./customer-routes";
+import { ERROR_ROUTES } from "./error-routes";
 
 Vue.use(VueRouter);
 
-const routes = [...ADMIN_ROUTES, ...CUSTOMER_ROUTES];
+const routes = [...ADMIN_ROUTES, ...CUSTOMER_ROUTES, ...ERROR_ROUTES];
 
 const router = new VueRouter({
   mode: "history",

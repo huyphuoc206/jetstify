@@ -1,5 +1,5 @@
 import IntervalJob from "@/utils/interval-job";
-// import router from "@/router";
+import router from "@/router";
 import { INTERVAL_REFRESH_TOKEN_TIME, ROLE_CODE } from "@/core/constants";
 import { $rest } from "@/core/rest-client";
 import store from "@/store";
@@ -12,13 +12,20 @@ const intervalTokenJob = new IntervalJob({
     intervalTime: INTERVAL_REFRESH_TOKEN_TIME,
 });
 
-export const loadAuthentication = async () => { };
+export const loadAuthentication = async () => {
+    const { success } = saveUserInfo(await $rest.get('/token/refresh'));
+    if (success) {
+        intervalTokenJob.start();
+    }
+    return success;
+};
 
 export const login = async (dispatch, payload) => {
     const { role } = payload;
     const request = {
         email: payload.email,
         password: payload.password,
+        isRemember: payload.isRemember
     };
     const endpoint = role === ROLE_CODE.ADMIN ? '/admin/login' : '/login';
 
@@ -32,20 +39,25 @@ export const login = async (dispatch, payload) => {
     };
 };
 
-export const logout = async ({ commit }) => {
+export const logout = async ({ commit, getters }) => {
+    const role = getters.role || ROLE_CODE.CUSTOMER;
     intervalTokenJob.suspend();
     $rest.removeAccessToken();
-    // commit(TYPES.RESET_TOKEN);
+    commit(TYPES.RESET_USER_INFO);
     $rest.get('/logout');
-    // redirect to login ADMIN or CUSTOMER
+    if (role === ROLE_CODE.ADMIN) {
+        router.replace({ name: 'AdminLogin' })
+    }
+    
 };
 
 const saveUserInfo = response => {
     const { success, data } = response;
     if (success) {
         const { accessToken } = data;
+        const { fullName, role } = getPayloadFromToken(accessToken);
         $rest.setAccessToken(accessToken);
-        store.commit(`auth/${TYPES.SET_TOKEN}`, accessToken);
+        store.commit(`auth/${TYPES.SET_USER_INFO}`, { fullName, role, accessToken });
     }
     return response;
 };

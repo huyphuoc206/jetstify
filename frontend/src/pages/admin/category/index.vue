@@ -17,7 +17,7 @@
 </template>
 <script>
 export default {
-  name: "UserManagement",
+  name: "AdminCategory",
 
   data: () => ({
     headers: [

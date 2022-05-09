@@ -30,6 +30,8 @@ import AppNavigation from "@/components/Navigation.vue";
 import AppPlayer from "@/components/Player";
 import AppLoading from "@/components/loading";
 import AppNotification from "@/components/notification";
+import { mapActions, mapGetters } from "vuex";
+import { LOGIN_ROUTE_ROLE } from "@/core/constants";
 
 export default {
   name: "App",
@@ -43,14 +45,25 @@ export default {
   },
 
   computed: {
+    ...mapGetters("auth", ["role"]),
     isFullScreen() {
       if (!this.$route.name) return false;
       return this.$route.meta.fullScreen;
-    }
+    },
   },
 
-  created() {
-    
-  }
+  methods: {
+    ...mapActions("auth", ["loadAuthentication"]),
+    async loadSession() {
+      const success = await this.loadAuthentication();
+      if (success) {
+        this.$router.push({ name: LOGIN_ROUTE_ROLE[this.role]})
+      }
+    },
+  },
+
+  async created() {
+    await this.loadSession();
+  },
 };
 </script>
