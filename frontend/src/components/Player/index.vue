@@ -10,7 +10,7 @@
             height="56"
           ></v-img>
         </v-col>
-        <v-col class="pl-1 text-truncate">
+        <v-col class="pl-1 text-truncate" >
           <span>
             <router-link
               class="body-2 font-weight-medium ma-0 link_text white--text"
@@ -21,7 +21,7 @@
                 },
               }"
             >
-              The Moon Song - Film Version
+              The Moon
             </router-link>
           </span>
           <br />
@@ -35,12 +35,12 @@
                 },
               }"
             >
-              Scarlett Johansson </router-link
-            >
+              Scarlett Johansson
+            </router-link>
             <!-- Option if song have 2 singer should 2 link singer -->
           </span>
         </v-col>
-        <v-col cols="">
+        <v-col>
           <v-btn icon>
             <v-icon>mdi-heart-outline</v-icon>
           </v-btn>

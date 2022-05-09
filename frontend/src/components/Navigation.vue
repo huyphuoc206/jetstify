@@ -49,6 +49,12 @@ export default {
           name: "Collection",
         },
         {
+          title: "Create Playlist",
+          icon: "mdi-plus",
+          link: "/playlist",
+          name: "Playlist",
+        },
+        {
           title: "Queue",
           icon: "mdi-format-list-checkbox",
           link: "/queue",
@@ -60,7 +66,18 @@ export default {
           link: "/login",
           name: "Login",
         },
-
+        {
+          title: "Users",
+          icon: "mdi-account-group-outline",
+          link: "/user/1",
+          name: "User",
+        },
+        {
+          title: "Liked Songs",
+          icon: "mdi-account-group-outline",
+          link: "/track",
+          name: "Track",
+        },
         {
           title: "Users Management",
           icon: "mdi-account-group-outline",
@@ -85,24 +102,7 @@ export default {
           link: "/genres",
           name: "Genres",
         },
-        {
-          title: "ArtistOverview",
-          icon: "mdi-magnify",
-          link: "/overview",
-          name: "ArtistOverview",
-        },
-        {
-          title: "ArtistAbout",
-          icon: "mdi-magnify",
-          link: "/about",
-          name: "ArtistAbout",
-        },
-        {
-          title: "Playlist",
-          icon: "mdi-magnify",
-          link: "/playlist",
-          name: "Playlist",
-        },
+
         {
           title: "Discover",
           icon: "mdi-magnify",

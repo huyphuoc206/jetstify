@@ -2,7 +2,6 @@
   <div>
     <artist-info />
     <artist-service />
-
     <artist-song-list />
     <album-card-2 />
     <artist-about />
