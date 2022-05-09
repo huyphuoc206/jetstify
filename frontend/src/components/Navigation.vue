@@ -42,17 +42,18 @@ export default {
           link: "/search",
           name: "Search",
         },
-        {
-          title: "Your Library",
-          icon: "mdi-library",
-          link: "/collection",
-          name: "Collection",
-        },
+    
         {
           title: "Create Playlist",
           icon: "mdi-plus",
           link: "/playlist",
           name: "Playlist",
+        },
+         {
+          title: "Playlists",
+          icon: "mdi-plus",
+          link: "/playlists",
+          name: "Playlists",
         },
         {
           title: "Queue",
@@ -87,27 +88,39 @@ export default {
         {
           title: "Artist",
           icon: "mdi-magnify",
-          link: "/artist/1",
+          link: "artist/1",
           name: "Artist",
         },
         {
           title: "Album",
           icon: "mdi-magnify",
-          link: "/album/1",
+          link: "album/1",
           name: "Album",
         },
         {
-          title: "Genres",
+          title: "Albums",
           icon: "mdi-magnify",
-          link: "/genres",
-          name: "Genres",
+          link: "/albums",
+          name: "Albums",
         },
 
         {
-          title: "Discover",
+          title: "Artists",
           icon: "mdi-magnify",
-          link: "/discover",
-          name: "Discover",
+          link: "/artists",
+          name: "Artists",
+        },
+        {
+          title: "Podcasts",
+          icon: "mdi-magnify",
+          link: "/podcasts",
+          name: "Podcasts",
+        },
+            {
+          title: "Podcast",
+          icon: "mdi-magnify",
+          link: "/podcast/1",
+          name: "Podcast",
         },
       ],
     };

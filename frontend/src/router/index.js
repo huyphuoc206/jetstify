@@ -15,13 +15,10 @@ const routes = [{
         meta: {
             fullScreen: true,
         },
-    },
-    {
-        path: "/collection",
-        name: "Collection",
         component: () =>
-            import ("@/pages/collection"),
+            import ("@/pages/login"),
     },
+
     {
         path: "/user-management",
         name: "UserManagement",
@@ -45,16 +42,16 @@ const routes = [{
     },
 
     {
-        path: "/genres",
-        name: "Genres",
+        path: "/albums",
+        name: "Albums",
         component: () =>
-            import ("@/pages/genres"),
+            import ("@/pages/albums"),
     },
     {
-        path: "/discover",
-        name: "Discover",
+        path: "/artists",
+        name: "Artists",
         component: () =>
-            import ("@/pages/discover"),
+            import ("@/pages/artists"),
     },
     {
         path: "/",
@@ -64,25 +61,43 @@ const routes = [{
         path: "/album/1",
         name: "Album",
         component: () =>
-            import ("@/pages/album"),
+            import ("@/pages/albums/album"),
     },
     {
         path: "/artist/1",
         name: "Artist",
         component: () =>
-            import ("@/pages/artist"),
+            import ("@/pages/artists/artist"),
     },
     {
         path: "/playlist",
         name: "Playlist",
         component: () =>
-            import ("@/pages/playlist"),
+            import ("@/pages/playlists/playlist"),
+    },
+    {
+        path: "/playlists",
+        name: "Playlists",
+        component: () =>
+            import ("@/pages/playlists"),
     },
     {
         path: "/track",
         name: "Track",
         component: () =>
             import ("@/pages/track"),
+    },
+    {
+        path: "/podcasts",
+        name: "Podcasts",
+        component: () =>
+            import ("@/pages/podcasts"),
+    },
+    {
+        path: "/podcast/1",
+        name: "Podcast",
+        component: () =>
+            import ("@/pages/podcasts/podcast"),
     },
     {
         path: "/user/1",
