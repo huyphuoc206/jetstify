@@ -45,7 +45,9 @@ public class JWTProvider {
     public Users getUserFromToken(String token) {
         if (isNoneValidToken(token)) return null;
         String role = getClaimValue(token, AppConstant.ROLE_CLAIM, String.class);
+        String fullName = getClaimValue(token, AppConstant.FULL_NAME_CLAIM, String.class);
         return Users.builder()
+                .fullName(fullName)
                 .email(getClaimValue(token, PublicClaims.SUBJECT, String.class))
                 .role(Role.builder().code(role).build())
                 .build();
