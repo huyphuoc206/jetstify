@@ -80,12 +80,6 @@ export default {
           name: "Track",
         },
         {
-          title: "Users Management",
-          icon: "mdi-account-group-outline",
-          link: "/user-management",
-          name: "UserManagement",
-        },
-        {
           title: "Artist",
           icon: "mdi-magnify",
           link: "artist/1",

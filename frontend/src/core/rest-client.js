@@ -71,31 +71,36 @@ export class RestClient {
   }
 
   #sendRequest = async (url, method, options = DEFAULT_REQUEST_OPTIONS, payload = {}) => {
-    if (!url) {
-      throw new Error('The value of URL must be a String');
+    try {
+      if (!url) {
+        throw new Error('The value of URL must be a String');
+      }
+      
+      store.dispatch('global/setLoading', true);
+      const allOptions = { ...DEFAULT_REQUEST_OPTIONS, ...options };
+      const { headers, ignoreInterceptor } = allOptions;
+
+      let params = {};
+      let requestBody = {};
+      if (RestUtils.METHODS_ALLOW_BODY.includes(method)) {
+        requestBody = payload;
+      } else {
+        params = new URLSearchParams(payload);
+      }
+
+      const opts = {
+        method,
+        params,
+        headers,
+        data: requestBody,
+        transformRequest: [this.#transformRequest],
+        ignoreInterceptor
+      };
+
+      return await this.#parseResponse(this.$axios.request(url, opts));
+    } finally {
+      store.dispatch('global/setLoading', false);
     }
-
-    const allOptions = { ...DEFAULT_REQUEST_OPTIONS, ...options };
-    const { headers, ignoreInterceptor } = allOptions;
-
-    let params = {};
-    let requestBody = {};
-    if (RestUtils.METHODS_ALLOW_BODY.includes(method)) {
-      requestBody = payload;
-    } else {
-      params = new URLSearchParams(payload);
-    }
-
-    const opts = {
-      method,
-      params,
-      headers,
-      data: requestBody,
-      transformRequest: [this.#transformRequest],
-      ignoreInterceptor
-    };
-
-    return await this.#parseResponse(this.$axios.request(url, opts));
   };
 
   #transformRequest = data => {
@@ -123,7 +128,7 @@ export class RestClient {
 }
 
 export const $rest = new RestClient({
-  baseURL: 'http://localhost:8081/api'
+  baseURL: '/api'
 });
 
 $rest.addResponseInterceptor(

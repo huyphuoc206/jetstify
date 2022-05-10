@@ -25,3 +25,10 @@ export const API_REQUEST = {
     JSON: 'json'
   }
 };
+
+export const ROLE_CODE = {
+  ADMIN: 'ADMIN',
+  CUSTOMER: 'CUSTOMER'
+}
+
+export const INTERVAL_REFRESH_TOKEN_TIME = 60000; // ms 
