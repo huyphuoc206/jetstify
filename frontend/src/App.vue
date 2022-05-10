@@ -31,7 +31,6 @@ import AppPlayer from "@/components/Player";
 import AppLoading from "@/components/loading";
 import AppNotification from "@/components/notification";
 import { mapActions, mapGetters } from "vuex";
-import { LOGIN_ROUTE_ROLE } from "@/core/constants";
 
 export default {
   name: "App",
@@ -54,16 +53,10 @@ export default {
 
   methods: {
     ...mapActions("auth", ["loadAuthentication"]),
-    async loadSession() {
-      const success = await this.loadAuthentication();
-      if (success) {
-        this.$router.push({ name: LOGIN_ROUTE_ROLE[this.role]})
-      }
-    },
   },
 
   async created() {
-    await this.loadSession();
+    await this.loadAuthentication();
   },
 };
 </script>

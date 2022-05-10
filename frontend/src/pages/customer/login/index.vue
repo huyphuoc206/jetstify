@@ -208,7 +208,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { ROLE_CODE } from '@/core/constants';
 export default {
   name: "Login",
@@ -223,6 +223,10 @@ export default {
     emailRules: [ v => !!v || 'Email is required' ],
     passwordRules: [ v => !!v || 'Password is required' ]
   }),
+
+  computed: {
+    ...mapGetters("auth", ["isAuthenticated"])
+  },
 
   methods: {
     ...mapActions('auth', ['login']),
@@ -254,6 +258,10 @@ export default {
       alert("Sign up");
     },
   },
+
+  created() {
+    this.isAuthenticated && this.$router.push({ name: 'Home'})
+  }
 };
 </script>
 

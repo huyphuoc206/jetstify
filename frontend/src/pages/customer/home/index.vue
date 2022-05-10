@@ -14,7 +14,7 @@
             cols="12"
             sm="6"
             md="4"
-            v-for="(song, index) in allSong"
+            v-for="(song, index) in []"
             :key="index"
           >
             <album-card :song="song"></album-card>
@@ -59,7 +59,7 @@
             sm="6"
             md="4"
             lg="2"
-            v-for="(song, index) in allSong"
+            v-for="(song, index) in []"
             :key="index"
           >
             <podcast-card :song="song"></podcast-card>
@@ -85,7 +85,7 @@
             sm="6"
             md="4"
             lg="2"
-            v-for="(song, index) in allSong"
+            v-for="(song, index) in []"
             :key="index"
           >
             <album-card-2 :song="song"></album-card-2>
@@ -97,7 +97,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Featured",
@@ -111,16 +110,7 @@ export default {
       { name: "Select of Jetstify", type: "" },
     ],
   }),
-  computed: { ...mapGetters("songs", ["allSong"]) },
-  methods: {
-    ...mapActions("songs", ["fetchSong"]),
-    async getSong() {
-      await this.fetchSong();
-    },
-  },
-  async created() {
-    await this.getSong();
-  },
+
   components: {
     PodcastCard: () => import("@/components/PodcastCart.vue"),
     AlbumCard: () => import("./AlbumCard.vue"),

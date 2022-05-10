@@ -13,7 +13,7 @@
             sm="6"
             md="4"
             lg="2"
-            v-for="(song, index) in allSong"
+            v-for="(song, index) in []"
             :key="index"
           >
             <genre-card :total="10" :song="song"></genre-card>
@@ -25,17 +25,12 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "Genres",
-  methods: {
-    ...mapActions("songs", ["fetchSong"]),
-  },
-  computed: {
-    ...mapGetters("songs", ["allSong"]),
-  },
+
   async created() {
-    await this.fetchSong();
+
   },
 
   components: {

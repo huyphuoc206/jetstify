@@ -48,7 +48,6 @@ export const logout = async ({ commit, getters }) => {
     if (role === ROLE_CODE.ADMIN) {
         router.replace({ name: 'AdminLogin' })
     }
-    
 };
 
 const saveUserInfo = response => {

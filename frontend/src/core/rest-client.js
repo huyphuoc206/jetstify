@@ -128,7 +128,7 @@ export class RestClient {
 }
 
 export const $rest = new RestClient({
-  baseURL: 'http://localhost:8081/api'
+  baseURL: '/api'
 });
 
 $rest.addResponseInterceptor(

@@ -61,7 +61,7 @@
             sm="6"
             md="4"
             lg="2"
-            v-for="(song, index) in allSong"
+            v-for="(song, index) in []"
             :key="index"
           >
             <artist-card :song="song"></artist-card>
@@ -87,7 +87,7 @@
             sm="6"
             md="4"
             lg="2"
-            v-for="(song, index) in allSong"
+            v-for="(song, index) in []"
             :key="index"
           >
             <genre-card :song="song"></genre-card>
@@ -99,13 +99,12 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "Search",
-  methods: { ...mapActions("songs", ["fetchSong"]) },
-  computed: { ...mapGetters("songs", ["allSong"]) },
+
   async created() {
-    await this.fetchSong();
+
   },
   components: {
     ArtistCard: () => import("@/components/ArtistCard.vue"),

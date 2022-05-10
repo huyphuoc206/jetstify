@@ -32,8 +32,3 @@ export const ROLE_CODE = {
 }
 
 export const INTERVAL_REFRESH_TOKEN_TIME = 60000; // ms 
-
-export const LOGIN_ROUTE_ROLE = {
-  ADMIN: 'AdminHome',
-  CUSTOMER: 'Home'
-}

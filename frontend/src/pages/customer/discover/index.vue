@@ -19,7 +19,7 @@
             sm="6"
             md="4"
             lg="2"
-            v-for="(song, index) in allSong"
+            v-for="(song, index) in []"
             :key="index"
           >
             <album-card-2 :song="song"></album-card-2>
@@ -46,7 +46,7 @@
               sm="6"
               md="4"
               lg="2"
-              v-for="(song, index) in allSong"
+              v-for="(song, index) in []"
               :key="index"
             >
               <album-card-2 :song="song"></album-card-2>
@@ -59,17 +59,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Discover",
-  methods: {
-    ...mapActions("songs", ["fetchSong"]),
-  },
-  computed: {
-    ...mapGetters("songs", ["allSong"]),
-  },
+
   async created() {
-    await this.fetchSong();
+
   },
   components: {
     AlbumCard2: () => import("@/components/AlbumCard2.vue"),
