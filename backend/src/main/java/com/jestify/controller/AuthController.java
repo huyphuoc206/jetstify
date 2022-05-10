@@ -26,16 +26,31 @@ public class AuthController {
     private final JWTProvider jwtProvider;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequest loginRequest, HttpServletResponse response) {
+    public ResponseEntity<?> loginCustomer(@RequestBody AuthRequest loginRequest, HttpServletResponse response) {
         try {
-            Users appUser = authService.checkLogin(loginRequest);
+            Users appUser = authService.checkLoginCustomer(loginRequest);
             AuthResponse authResponse = getAuthResponse(appUser, loginRequest.isRemember(), response);
             return ResponseEntity.ok(ResponseCommon.success(authResponse));
         } catch (IllegalArgumentException e) {
             log.error("API /api/login: ", e);
-            return ResponseEntity.badRequest().body(ResponseCommon.fail("Username or password is incorrect"));
+            return ResponseEntity.ok().body(ResponseCommon.fail(e.getMessage()));
         } catch (Exception e) {
             log.error("API /api/login: ", e);
+            return ResponseEntity.internalServerError().body(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+
+    @PostMapping("/admin/login")
+    public ResponseEntity<?> loginAdmin(@RequestBody AuthRequest loginRequest, HttpServletResponse response) {
+        try {
+            Users appUser = authService.checkLoginAdmin(loginRequest);
+            AuthResponse authResponse = getAuthResponse(appUser, loginRequest.isRemember(), response);
+            return ResponseEntity.ok(ResponseCommon.success(authResponse));
+        } catch (IllegalArgumentException e) {
+            log.error("API /api/admin/login: ", e);
+            return ResponseEntity.ok().body(ResponseCommon.fail(e.getMessage()));
+        } catch (Exception e) {
+            log.error("API /api/admin/login: ", e);
             return ResponseEntity.internalServerError().body(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
@@ -68,7 +83,7 @@ public class AuthController {
     private void addRefreshTokenToCookie(HttpServletResponse response, String refreshToken, int maxAgeSeconds) {
         Cookie cookie = new Cookie(AppConstant.REFRESH_TOKEN_KEY, refreshToken);
         cookie.setHttpOnly(true);
-        cookie.setPath("/api/token/refresh");
+        cookie.setPath("/");
         cookie.setMaxAge(maxAgeSeconds);
         response.addCookie(cookie);
     }
