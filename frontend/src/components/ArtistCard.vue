@@ -1,9 +1,9 @@
 <template>
   <v-hover v-slot:default="{ hover }">
-    <v-card class="common-card" flat height="300" width="250">
+    <v-card class="common-card" flat height="250" width="180">
       <v-card-text>
         <v-img
-          height="200"
+          height="150"
           class="elevation-10"
           style="border-radius: 50%"
           :src="song.img"
