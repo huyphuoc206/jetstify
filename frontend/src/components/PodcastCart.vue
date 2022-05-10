@@ -1,13 +1,13 @@
 <template>
   <v-hover style="cursor: pointer">
-    <v-card class="common-card" flat height="300" width="250">
+    <v-card class="common-card" flat height="250" width="180">
       <v-card-text>
         <v-img
           :style="{
             borderRadius: '5px',
           }"
-          width="300"
-          height="200"
+          width="200"
+          height="150"
           class="elevation-3"
           :src="song.img"
         >

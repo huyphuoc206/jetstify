@@ -6,7 +6,7 @@
           :style="{
             borderRadius: '5px',
           }"
-          width="250"
+          width="200"
           height="150"
           class="elevation-3"
           :src="song.img"
@@ -51,7 +51,7 @@
 export default {
   props: ["song"],
   data: () => ({}),
-  name: "AlbumCard2",
+  name: "PlaylistCard",
 };
 </script>
 <style lang="scss"></style>

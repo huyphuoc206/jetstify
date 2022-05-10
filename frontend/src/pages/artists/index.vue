@@ -2,24 +2,21 @@
   <v-container fluid>
     <v-row>
       <v-col>
-        <v-row>
+        <v-row class="align-start">
           <v-col>
-            <h1 class="headline font-weight-bold">Podcasts</h1>
+            <h1 class="headline font-weight-bold">Artists</h1>
           </v-col>
         </v-row>
-        <data-podcast></data-podcast>
+        <data-artist></data-artist>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import DataPodcast from './data-podcast.vue';
-
+import dataArtist from "./data-artist.vue";
 export default {
-  components: { DataPodcast },
+  components: { dataArtist },
   name: "Artists",
 };
 </script>
-
-<style></style>

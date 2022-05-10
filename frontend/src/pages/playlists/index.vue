@@ -4,20 +4,20 @@
       <v-col>
         <v-row>
           <v-col>
-            <h1 class="headline font-weight-bold">Podcasts</h1>
+            <h1 class="headline font-weight-bold">Playlists</h1>
           </v-col>
         </v-row>
-        <data-podcast></data-podcast>
+        <data-playlist></data-playlist>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import DataPodcast from './data-podcast.vue';
+import dataPlaylist from "./data-playlist.vue";
 
 export default {
-  components: { DataPodcast },
+  components: { dataPlaylist },
   name: "Artists",
 };
 </script>

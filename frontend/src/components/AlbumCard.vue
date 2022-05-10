@@ -1,7 +1,7 @@
 <template>
-  <v-card class="common-card" flat height="300" width="250">
+  <v-card class="common-card" flat height="250" width="180">
     <v-card-text>
-      <v-img width="300" height="200" class="elevation-10" :src="song.img">
+      <v-img width="250" height="150" class="elevation-10" :src="song.img">
       </v-img>
     </v-card-text>
 
@@ -17,6 +17,6 @@
 <script>
 export default {
   props: ["song"],
-  name: "GenreCard",
+  name: "AlbumCard",
 };
 </script>
