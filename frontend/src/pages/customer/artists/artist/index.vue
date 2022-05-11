@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import AlbumCard2 from "@/components/AlbumCard2.vue";
+import AlbumCard2 from "@/components/customer/AlbumCard2.vue";
 import ArtistAbout from "./components/artist-about.vue";
 import ArtistInfo from "./components/artist-info.vue";
 import ArtistService from "./components/artist-service.vue";

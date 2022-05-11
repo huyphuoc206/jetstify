@@ -27,7 +27,7 @@ export default {
     await this.fetchSong();
   },
   components: {
-    ArtistCard: () => import("@/components/ArtistCard.vue"),
+    ArtistCard: () => import("@/components/customer/ArtistCard.vue"),
   },
 };
 </script>

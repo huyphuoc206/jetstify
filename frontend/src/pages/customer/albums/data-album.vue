@@ -28,7 +28,7 @@ export default {
   },
 
   components: {
-    AlbumCard: () => import("@/components/AlbumCard.vue"),
+    AlbumCard: () => import("@/components/customer/AlbumCard.vue"),
   },
 };
 </script>

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import AlbumCard2 from "@/components/AlbumCard2.vue";
+import AlbumCard2 from "@/components/customer/AlbumCard2.vue";
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: { AlbumCard2 },

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import PlaylistCard from "@/components/PlaylistCard.vue";
+import PlaylistCard from "@/components/customer/PlaylistCard.vue";
 import { mapActions, mapGetters } from "vuex";
 import LikedSongsCard from "./liked-songs-card.vue";
 export default {

@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import SongListItem from "@/components/SongListItem.vue";
-import ResultCard from "@/components/ResultCard.vue";
+import SongListItem from "@/components/customer/SongListItem.vue";
+import ResultCard from "@/components/customer/ResultCard.vue";
 export default {
   name: "HeadSearch",
   components: { SongListItem, ResultCard },

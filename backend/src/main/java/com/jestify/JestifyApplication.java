@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class JestifyApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(JestifyApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(JestifyApplication.class, args);
+    }
 }

@@ -4,14 +4,11 @@
       <v-col cols="12">
         <div class="status-code text-center">
           <h1>{{ code }}</h1>
+          <h3>{{ message }}</h3>
         </div>
 
         <div class="content text-center">
-          <h3>Look like you're lost</h3>
-
-          <p>{{ message }}</p>
-
-          <v-btn depressed>Go to Home</v-btn>
+          <v-btn depressed @click="goHome()">Go to Home</v-btn>
         </div>
       </v-col>
     </v-row>
@@ -19,6 +16,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { ROLE_CODE } from "@/core/constants";
 export default {
   name: "ErrorPage",
   props: {
@@ -34,6 +33,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters("auth", ["role"]),
     code() {
       return this.statusCode || this.$route.meta.code || 500;
     },
@@ -42,6 +42,16 @@ export default {
       return this.errorMessage || this.$route.meta.title || "Internal Server Error";
     },
   },
+
+  methods: {
+    goHome() {
+      if (ROLE_CODE.ADMIN === this.role) {
+        this.$router.push({ name: 'AdminHome' });
+      } else {
+        this.$router.push({ name: 'Home' });
+      }
+    }
+  }
 };
 </script>
 
@@ -65,7 +75,7 @@ export default {
   }
 
   .content {
-    margin-top: -50px;
+    margin-top: -100px;
   }
 }
 </style>

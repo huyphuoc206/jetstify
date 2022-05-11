@@ -62,12 +62,6 @@ export default {
           name: "Queue",
         },
         {
-          title: "Login",
-          icon: "mdi-home-city",
-          link: "/login",
-          name: "Login",
-        },
-        {
           title: "Users",
           icon: "mdi-account-group-outline",
           link: "/user/1",

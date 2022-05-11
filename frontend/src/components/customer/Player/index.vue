@@ -16,15 +16,5 @@ export default {
     Middle,
     Right
   },
-  data() {
-    return {
-      title: "",
-     
-    };
-  },
-  
 };
 </script>
-<style lang="scss">
-
-</style>

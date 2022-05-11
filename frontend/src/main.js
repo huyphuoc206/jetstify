@@ -5,6 +5,7 @@ import router from "./router";
 import store from "./store";
 import { $rest } from "./core/rest-client";
 import notice from "./core/notice";
+import moment from 'moment';
 
 import "@/assets/scss/common.scss";
 
@@ -12,6 +13,7 @@ Vue.config.productionTip = false;
 
 Vue.prototype.$rest = $rest;
 Vue.prototype.$notice = notice;
+Vue.prototype.moment = moment
 
 new Vue({
   router,

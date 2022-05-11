@@ -1,5 +1,6 @@
 package com.jestify.config;
 
+import com.jestify.common.AppConstant;
 import com.jestify.jwt.AuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,7 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                    .antMatchers("/api/login/**", "/api/admin/login/**", "/api/token/refresh/**", "/api/register/**", "/api/logout/**").permitAll()
+                    .antMatchers("/api/login/**", "/api/admin/login/**", "/api/logout/**").permitAll()
+                    .antMatchers("/api/token/refresh/**", "/api/register/**").permitAll()
+                    .antMatchers("/api/public/**").permitAll()
+                    .antMatchers("/api/admin/**").hasAuthority(AppConstant.ADMIN_ROLE)
+                    .antMatchers("/api/**").hasAuthority(AppConstant.CUSTOMER_ROLE)
                     .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(getCustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

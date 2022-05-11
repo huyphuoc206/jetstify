@@ -1,6 +1,6 @@
 import IntervalJob from "@/utils/interval-job";
 import router from "@/router";
-import { INTERVAL_REFRESH_TOKEN_TIME, ROLE_CODE } from "@/core/constants";
+import { INTERVAL_REFRESH_TOKEN_TIME, ROLE_CODE, API_REQUEST } from "@/core/constants";
 import { $rest } from "@/core/rest-client";
 import store from "@/store";
 import * as TYPES from "./types";
@@ -13,11 +13,12 @@ const intervalTokenJob = new IntervalJob({
 });
 
 export const loadAuthentication = async () => {
-    const { success } = saveUserInfo(await $rest.get('/token/refresh'));
+    const { success, status } = saveUserInfo(await $rest.get('/token/refresh'));
     if (success) {
         intervalTokenJob.start();
+    } else if (status === API_REQUEST.STATUS_CODES.SERVER_ERROR) {
+        router.replace('/server-error')
     }
-    return success;
 };
 
 export const login = async (dispatch, payload) => {

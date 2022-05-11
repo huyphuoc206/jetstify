@@ -9,6 +9,9 @@
                 <v-col cols="12" md="6">
                   <v-card-text class="mt-5">
                     <h3 class="text-center">Login in to Your Account</h3>
+                    <h3 class="text-center mb-3">Or 
+                      <router-link style="text-decoration: none" to="/">Back To Home</router-link>
+                    </h3>
                     <v-row align="center" justify="center">
                       <v-col cols="12" sm="8">
                         <v-form ref="form" v-model="isValidLoginForm">
@@ -20,7 +23,7 @@
                             dense
                             color="blue"
                             autocomplete="false"
-                            class="mt-16"
+                            class="mt-5"
                             :rules="emailRules"
                             @keypress.enter="handleSignIn()"
                           />

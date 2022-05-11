@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import ArtistCard from '@/components/ArtistCard.vue';
+import ArtistCard from '@/components/customer/ArtistCard.vue';
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: { ArtistCard },

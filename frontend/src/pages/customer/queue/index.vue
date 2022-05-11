@@ -31,7 +31,7 @@ export default {
     await this.fetchSong();
   },
   components: {
-    SongListItem: () => import("@/components/SongListItem.vue"),
+    SongListItem: () => import("@/components/customer/SongListItem.vue"),
   },
 };
 </script>

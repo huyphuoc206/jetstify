@@ -1,3 +1,5 @@
+export const APP_NAME = 'Jestify';
+
 export const API_REQUEST = {
   HEADERS: {
     AUTHORIZATION: 'Authorization',
@@ -32,3 +34,8 @@ export const ROLE_CODE = {
 }
 
 export const INTERVAL_REFRESH_TOKEN_TIME = 60000; // ms 
+
+export const SAVE_SUCCESS = "Save successfully";
+export const DELETE_SUCCESS = "Delete successfully";
+
+export const DATE_FORMAT = "DD/MM/YYYY - HH:mm:ss";
