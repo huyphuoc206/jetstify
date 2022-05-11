@@ -28,7 +28,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import AlbumCard2 from "@/components/AlbumCard2.vue";
+import AlbumCard2 from "@/components/customer/AlbumCard2.vue";
 export default {
   components: { AlbumCard2 },
   methods: { ...mapActions("songs", ["fetchSong"]) },

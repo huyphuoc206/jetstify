@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import AppBar from "@/components/AppBar.vue";
-import AppNavigation from "@/components/Navigation.vue";
-import AppPlayer from "@/components/Player";
+import AppBar from "@/components/customer/AppBar.vue";
+import AppNavigation from "@/components/customer/Navigation.vue";
+import AppPlayer from "@/components/customer/Player";
 import AppLoading from "@/components/loading";
 import AppNotification from "@/components/notification";
 import { mapActions, mapGetters } from "vuex";

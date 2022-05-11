@@ -1,83 +1,131 @@
+import { ROLE_CODE } from "@/core/constants";
+
 export const CUSTOMER_ROUTES = [
   {
     path: "/",
     name: "Home",
-    component: () => import("@/pages/customer/home"),
+    meta: {
+      title: 'Home',
+      role: ROLE_CODE.CUSTOMER
+    },
+    component: () => import(/* webpackChunkName: "customer-pages" */ "@/pages/customer/home"),
   },
   {
     path: "/login",
     name: "Login",
     meta: {
       fullScreen: true,
+      title: 'Login'
     },
-    component: () => import("@/pages/customer/login"),
+    component: () => import(/* webpackChunkName: "customer-pages" */ "@/pages/customer/login"),
   },
   {
     path: "/search",
     name: "Search",
-    component: () => import("@/pages/customer/search"),
+    meta: {
+      title: 'Search',
+      role: ROLE_CODE.CUSTOMER
+    },
+    component: () => import(/* webpackChunkName: "customer-pages" */ "@/pages/customer/search"),
   },
   {
     path: "/queue",
     name: "Queue",
-    component: () => import("@/pages/customer/queue"),
+    meta: {
+      title: 'Queue',
+      role: ROLE_CODE.CUSTOMER
+    },
+    component: () => import(/* webpackChunkName: "customer-pages" */ "@/pages/customer/queue"),
   },
   {
     path: "/albums",
     name: "Albums",
-    component: () => import("@/pages/customer/albums"),
+    meta: {
+      title: 'Albums',
+      role: ROLE_CODE.CUSTOMER
+    },
+    component: () => import(/* webpackChunkName: "customer-pages" */ "@/pages/customer/albums"),
   },
   {
     path: "/artists",
     name: "Artists",
-    component: () => import("@/pages/customer/artists"),
+    meta: {
+      title: 'Artists',
+      role: ROLE_CODE.CUSTOMER
+    },
+    component: () => import(/* webpackChunkName: "customer-pages" */ "@/pages/customer/artists"),
   },
   {
     path: "/album/1",
     name: "Album",
-    component: () =>
-      import("@/pages/customer/albums/album"),
+    meta: {
+      title: 'Album Details',
+      role: ROLE_CODE.CUSTOMER
+    },
+    component: () => import(/* webpackChunkName: "customer-pages" */ "@/pages/customer/albums/album"),
   },
   {
     path: "/artist/1",
     name: "Artist",
-    component: () =>
-      import("@/pages/customer/artists/artist"),
+    meta: {
+      title: 'Artist Details',
+      role: ROLE_CODE.CUSTOMER
+    },
+    component: () => import(/* webpackChunkName: "customer-pages" */ "@/pages/customer/artists/artist"),
   },
   {
     path: "/playlist",
     name: "Playlist",
-    component: () =>
-      import("@/pages/customer/playlists/playlist"),
+    meta: {
+      title: 'Playlist Details',
+      role: ROLE_CODE.CUSTOMER
+    },
+    component: () => import(/* webpackChunkName: "customer-pages" */ "@/pages/customer/playlists/playlist"),
   },
   {
     path: "/playlists",
     name: "Playlists",
-    component: () =>
-      import("@/pages/customer/playlists"),
+    meta: {
+      title: 'Playlist',
+      role: ROLE_CODE.CUSTOMER
+    },
+    component: () => import(/* webpackChunkName: "customer-pages" */ "@/pages/customer/playlists"),
   },
   {
     path: "/track",
     name: "Track",
-    component: () =>
-      import("@/pages/customer/track"),
+    meta: {
+      title: 'Track',
+      role: ROLE_CODE.CUSTOMER
+    },
+    component: () => import(/* webpackChunkName: "customer-pages" */ "@/pages/customer/track"),
   },
   {
     path: "/podcasts",
     name: "Podcasts",
-    component: () =>
-      import("@/pages/customer/podcasts"),
+    meta: {
+      title: 'Podcasts',
+      role: ROLE_CODE.CUSTOMER
+    },
+    component: () => import(/* webpackChunkName: "customer-pages" */ "@/pages/customer/podcasts"),
   },
   {
     path: "/podcast/1",
     name: "Podcast",
-    component: () =>
-      import("@/pages/customer/podcasts/podcast"),
+    meta: {
+      title: 'Podcast Details',
+      role: ROLE_CODE.CUSTOMER
+    },
+    component: () => import(/* webpackChunkName: "customer-pages" */ "@/pages/customer/podcasts/podcast"),
   },
   {
     path: "/user/1",
     name: "User",
-    component: () =>
-      import("@/pages/customer/user"),
+    meta: {
+      title: 'User',
+      requiresAuth: true,
+      role: ROLE_CODE.CUSTOMER
+    },
+    component: () => import(/* webpackChunkName: "customer-pages" */ "@/pages/customer/user"),
   },
 ];

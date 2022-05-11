@@ -1,3 +1,5 @@
+export const APP_NAME = 'Jestify';
+
 export const API_REQUEST = {
   HEADERS: {
     AUTHORIZATION: 'Authorization',

@@ -94,9 +94,6 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "AppBar",
 
-  data: () => ({
-  }),
-
   computed: {
     ...mapGetters("auth", ["fullName", "isAuthenticated"]),
     avatar() {

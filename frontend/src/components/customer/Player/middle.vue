@@ -2,12 +2,8 @@
   <v-col
     cols="6"
     sm="4"
-    :style="{
-    }"
   >
     <audio-player
-  
-      
       ref="audioPlayer"
       :theme-color="'#00000'"
       :audio-list="audioList.map((elm) => elm.url)"

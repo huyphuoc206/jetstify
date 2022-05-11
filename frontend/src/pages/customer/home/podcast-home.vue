@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import PodcastCart from '@/components/PodcastCart.vue';
+import PodcastCart from '@/components/customer/PodcastCart.vue';
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: { PodcastCart },
