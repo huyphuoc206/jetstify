@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,12 +25,27 @@ public class CategoryService {
                 .collect(Collectors.toList());
     }
 
-    public void createCategory(CategoryRequest request) {
-        categoryRepository.save(categoryConverter.toEntity(request));
+    public CategoryResponse getCategoryById(Long id) {
+        return categoryRepository.findById(id)
+                .map(categoryConverter::toResponse)
+                .orElseThrow(() -> new IllegalStateException("Category not found"));
+    }
+
+    public CategoryResponse createCategory(CategoryRequest request) {
+        boolean existCategoryCode = categoryRepository.findByCode(request.getCode()).isPresent();
+        if (existCategoryCode) {
+            throw new IllegalStateException("Category code is duplicated");
+        }
+        Category entity = categoryRepository.save(categoryConverter.toEntity(request));
+        return categoryConverter.toResponse(entity);
     }
 
     public void updateCategory(Long id, CategoryRequest request) {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new IllegalStateException("Category not found"));
+        Optional<Category> categoryByCode = categoryRepository.findByCode(request.getCode());
+        if (categoryByCode.isPresent() && !Objects.equals(categoryByCode.get().getId(), id)) {
+            throw new IllegalStateException("Category code is duplicated");
+        }
         category.setName(request.getName());
         category.setCode(request.getCode());
         categoryRepository.save(category);

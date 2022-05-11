@@ -26,11 +26,26 @@ public class CategoryController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCategoryById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(ResponseCommon.success(categoryService.getCategoryById(id)));
+        } catch (IllegalStateException e) {
+            log.error("API Error /api/admin/category - getCategoryById: ", e);
+            return ResponseEntity.ok(ResponseCommon.fail(e.getMessage()));
+        }  catch (Exception e) {
+            log.error("API Error /api/admin/category - getCategoryById: ", e);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+
     @PostMapping
     public ResponseEntity<?> createCategory(@RequestBody CategoryRequest request) {
         try {
-            categoryService.createCategory(request);
-            return ResponseEntity.ok(ResponseCommon.success(null));
+            return ResponseEntity.ok(ResponseCommon.success(categoryService.createCategory(request)));
+        } catch (IllegalStateException e) {
+            log.error("API Error /api/admin/category - createCategory: ", e);
+            return ResponseEntity.ok(ResponseCommon.fail(e.getMessage()));
         } catch (Exception e) {
             log.error("API Error /api/admin/category - createCategory: ", e);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));

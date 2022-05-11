@@ -1,61 +1,96 @@
 <template>
   <v-container class="mt-10">
     <app-confirm
-      title="Hello everybody"
-      message="Are you sure delete it?"
-      :show="false"
+      title="Delete Category"
+      message="Are you sure delete this category?"
+      :show="confirmDelete"
       :agree="agree"
-      :cancel="agree"
+      @closeConfirm="confirmDelete = false"
     />
-    <v-row justify="end" align="center">
-      <v-btn depressed dark color="pink"> Create </v-btn>
-    </v-row>
-    <v-row align="center" justify="center">
-      <v-col cols="12" class="pr-0 pl-0">
-        <v-data-table
-          dark
-          :headers="headers"
-          :items="categories"
-          @click:row="openDetails()"
-        ></v-data-table>
-      </v-col>
-    </v-row>
+    <category-details
+      :show="showDialog"
+      @closeDialog="showDialog = false"
+    />
+    <v-data-table :headers="headers" :items="categories" class="elevation-1">
+      <template v-slot:top>
+        <v-toolbar flat>
+          <v-spacer></v-spacer>
+          <v-btn dark depressed color="pink" @click="openDetails">New Item</v-btn>
+        </v-toolbar>
+      </template>
+      <template v-slot:[`item.createdDate`]="{ item }">
+        {{ moment(item.createdDate).format(dateFormat) }}
+      </template>
+      <template v-slot:[`item.updatedDate`]="{ item }">
+        {{ moment(item.updatedDate).format(dateFormat) }}
+      </template>
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-btn icon color="blue" @click="openDetails(item)">
+          <v-icon> mdi-pencil </v-icon>
+        </v-btn>
+        <v-btn icon color="red" @click="deleteItem(item)">
+          <v-icon> mdi-delete </v-icon>
+        </v-btn>
+      </template>
+    </v-data-table>
   </v-container>
 </template>
 <script>
 import AppConfirm from "@/components/confirm";
+import CategoryDetails from "./category-details.vue";
+import { mapGetters, mapActions } from "vuex";
+import { DATE_FORMAT } from "@/core/constants";
 
 export default {
   name: "AdminCategory",
 
   components: {
     AppConfirm,
+    CategoryDetails,
   },
 
   data: () => ({
     headers: [
       { text: "Category Code", value: "code" },
       { text: "Category Name", value: "name" },
-      { text: "Created Date", value: "createdDate" },
-      { text: "Updated Date", value: "updatedDate" },
-      { text: "Action", value: "updatedDate" },
+      { text: "Created Date", value: "createdDate", align: "center" },
+      { text: "Updated Date", value: "updatedDate", align: "center" },
+      { text: "Actions", value: "actions", sortable: false, align: "center" },
     ],
-    categories: [
-      { code: "php", name: "Huy Phuoc", createdDate: new Date() },
-      { code: "php1", name: "Phuoc Huy", createdDate: new Date() },
-      { code: "php2", name: "Phuoc Pham", createdDate: new Date() },
-    ],
+    confirmDelete: false,
+    showDialog: false,
+    selectedDeleteId: -1,
+    dateFormat: DATE_FORMAT
   }),
 
+  computed: {
+    ...mapGetters("category", ["categories"]),
+  },
+
   methods: {
-    agree() {
-      alert("hello");
+    ...mapActions("category", ["getCategories", "getCategoryDetails", "deleteCategory"]),
+
+    async agree() {
+      await this.deleteCategory(this.selectedDeleteId);
     },
 
-    openDetails() {
-      alert('hel')
-    }
+    async openDetails({ id }) {
+      const { success, message } = await this.getCategoryDetails(id);
+      if (success) {
+        this.showDialog = true;
+      } else {
+        this.$notice.error(message);
+      }    
+    },
+
+    deleteItem({ id }) {
+      this.confirmDelete = true;
+      this.selectedDeleteId = id;
+    },
   },
+
+  async created() {
+    await this.getCategories();
+  }
 };
 </script>
-<style lang="scss"></style>

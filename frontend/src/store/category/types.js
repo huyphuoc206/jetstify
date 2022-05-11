@@ -1,0 +1,2 @@
+export const SET_SELECTED = "SET_SELECTED";
+export const SET_CATEGORIES = "SET_CATEGORIES";

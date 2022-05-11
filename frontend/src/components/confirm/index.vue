@@ -1,16 +1,20 @@
 <template>
-  <v-dialog v-model="showDialog" :max-width="widthDialog" @keydown.esc="cancel">
+  <v-dialog 
+  :value="show" 
+  :max-width="widthDialog" 
+  @keydown.esc="handleCancel"
+  @click:outside="handleCancel">
     <v-card>
       <v-toolbar dark color="primary" dense flat>
-        <v-toolbar-title class="white--text">{{ title }}</v-toolbar-title>
+        <v-toolbar-title>{{ title }}</v-toolbar-title>
       </v-toolbar>
-      <v-card-text v-show="!!message" class="pt-4">
+      <v-card-text class="pt-4 text-center">
         <h3>{{ message }}</h3>
       </v-card-text>
       <v-card-actions class="pt-0">
         <v-spacer></v-spacer>
-        <v-btn color="primary darken-1" text @click.native="handleAgree">Yes</v-btn>
-        <v-btn color="grey" text @click.native="handleCancel">Cancel</v-btn>
+        <v-btn color="primary darken-1" text @click.native="handleCancel">Cancel</v-btn>
+        <v-btn color="primary darken-1" @click.native="handleAgree">Yes</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -21,7 +25,7 @@ export default {
   props: {
     show: {
       type:    Boolean,
-      default: true
+      default: false  
     },
     title: {
       type:    String,
@@ -33,7 +37,7 @@ export default {
     },
     widthDialog: {
       type:    String,
-      default: '700'
+      default: '500'
     },
     agree: {
       type: Function,
@@ -44,23 +48,15 @@ export default {
       default: () => {}
     }
   },
-
-  data: () => ({
-    showDialog: false,
-  }),
-
-  created() {
-    this.showDialog = this.show;
-  },
-
+  
   methods: {
     handleAgree() {
       this.agree();
-      this.showDialog = false
+      this.$emit("closeConfirm");
     },
     handleCancel() {
       this.cancel();
-      this.showDialog = false
+      this.$emit("closeConfirm");
     }
   }
 }
