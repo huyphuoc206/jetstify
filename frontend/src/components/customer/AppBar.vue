@@ -24,32 +24,6 @@
         </v-col>
       </v-row>
       <!-- end --> 
-      <v-row v-if="checkMenuLibrary()">
-        <v-col class="py-0" cols="auto">
-          <router-link
-            active-class="font-weight-bold"
-            class="white--text subtitle-2"
-            :to="{ name: 'Home' }"
-            >FEATURED</router-link
-          >
-        </v-col>
-        <v-col class="py-0" cols="auto">
-          <router-link
-            active-class="font-weight-bold"
-            class="white--text subtitle-2"
-            :to="{ name: 'Genres' }"
-            >GENRES & MOODS</router-link
-          >
-        </v-col>
-        <v-col class="py-0" cols="auto">
-          <router-link
-            active-class="font-weight-bold"
-            class="white--text subtitle-2"
-            :to="{ name: 'Discover' }"
-            >DISCOVER</router-link
-          >
-        </v-col>
-      </v-row>
 
       <!--  -->
       <v-col cols="auto" class="align-end">
@@ -109,17 +83,11 @@ export default {
       return false;
     },
 
-    checkMenuLibrary() {
-      if (this.$route.name === "Collection") return true;
-      return false;
-    },
-
     async handleLogout() {
       await this.logout();
     }
   },
   async created() {
-    this.checkMenuLibrary();
     this.checkInputSearch();
   },
 };

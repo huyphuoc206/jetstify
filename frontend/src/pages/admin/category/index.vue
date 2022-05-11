@@ -1,39 +1,61 @@
 <template>
-  <v-container class="mt-5">
-    <v-row justify="end">
-      <v-btn depressed dark color="pink"> Create User </v-btn>
+  <v-container class="mt-10">
+    <app-confirm
+      title="Hello everybody"
+      message="Are you sure delete it?"
+      :show="false"
+      :agree="agree"
+      :cancel="agree"
+    />
+    <v-row justify="end" align="center">
+      <v-btn depressed dark color="pink"> Create </v-btn>
     </v-row>
     <v-row align="center" justify="center">
-      <v-col>
+      <v-col cols="12" class="pr-0 pl-0">
         <v-data-table
+          dark
           :headers="headers"
-          :items="users"
-          :items-per-page="5"
-          class="elevation-1"
+          :items="categories"
+          @click:row="openDetails()"
         ></v-data-table>
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
+import AppConfirm from "@/components/confirm";
+
 export default {
   name: "AdminCategory",
 
+  components: {
+    AppConfirm,
+  },
+
   data: () => ({
     headers: [
-      {
-        text: "Username",
-        value: "username",
-      },
-      { text: "Fullname", value: "fullname" },
-      { text: "Role", value: "role" },
+      { text: "Category Code", value: "code" },
+      { text: "Category Name", value: "name" },
+      { text: "Created Date", value: "createdDate" },
+      { text: "Updated Date", value: "updatedDate" },
+      { text: "Action", value: "updatedDate" },
     ],
-    users: [
-      { username: "php", fullname: "Huy Phuoc", role: "Admin" },
-      { username: "php1", fullname: "Phuoc Huy", role: "Customer" },
-      { username: "php2", fullname: "Phuoc Pham", role: "Admin" },
+    categories: [
+      { code: "php", name: "Huy Phuoc", createdDate: new Date() },
+      { code: "php1", name: "Phuoc Huy", createdDate: new Date() },
+      { code: "php2", name: "Phuoc Pham", createdDate: new Date() },
     ],
   }),
+
+  methods: {
+    agree() {
+      alert("hello");
+    },
+
+    openDetails() {
+      alert('hel')
+    }
+  },
 };
 </script>
 <style lang="scss"></style>

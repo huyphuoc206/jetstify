@@ -25,7 +25,6 @@ export const ADMIN_ROUTES = [
         path: "/admin/category",
         name: "AdminCategory",
         meta: {
-            fullScreen: true,
             title: 'Category',
             requiresAuth: true,
             role: ROLE_CODE.ADMIN
