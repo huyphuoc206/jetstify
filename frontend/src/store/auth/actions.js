@@ -7,11 +7,6 @@ import * as TYPES from "./types";
 import { getPayloadFromToken } from "@/utils/rest-utils";
 import __isNumber from "lodash/isNumber";
 
-const intervalTokenJob = new IntervalJob({
-    event: autoRefreshToken,
-    intervalTime: INTERVAL_REFRESH_TOKEN_TIME,
-});
-
 export const loadAuthentication = async () => {
     const { success, status } = saveUserInfo(await $rest.get('/token/refresh'));
     if (success) {
@@ -73,3 +68,8 @@ const autoRefreshToken = async () => {
     }
     saveUserInfo(await $rest.get('/token/refresh'))
 };
+
+const intervalTokenJob = new IntervalJob({
+    event: autoRefreshToken,
+    intervalTime: INTERVAL_REFRESH_TOKEN_TIME,
+});
