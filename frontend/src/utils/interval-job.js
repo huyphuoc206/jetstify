@@ -7,7 +7,7 @@ export default class IntervalJob {
     #options = null;
 
     constructor(opts = DEFAULT_OPTIONS) {
-        this.#options = { ...DEFAULT_OPTIONS, opts };
+        this.#options = { ...DEFAULT_OPTIONS, ...opts };
     }
 
     start = () => {

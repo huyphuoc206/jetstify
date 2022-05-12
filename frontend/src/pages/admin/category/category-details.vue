@@ -91,7 +91,7 @@ export default {
 
   watch: {
     show() {
-        !this.selected.id && this.$refs.form.reset()
+        !this.selected.id && this.$refs.form && this.$refs.form.reset()
     }
 }
 };
