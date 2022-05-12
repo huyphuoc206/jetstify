@@ -1,4 +1,6 @@
 const { defineConfig } = require("@vue/cli-service");
+const apiEndpoint = process.env.VUE_APP_API_ENDPOINT;
+
 module.exports = defineConfig({
   devServer: {
     open: true,
@@ -7,7 +9,7 @@ module.exports = defineConfig({
     proxy: {
       '^/api': {
         changeOrigin: true,
-        target: 'http://localhost:8081/'
+        target: apiEndpoint || 'http://localhost:8081/'
       }
     }
   },

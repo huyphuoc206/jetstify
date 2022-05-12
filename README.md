@@ -1,3 +1,9 @@
+## Backend dev: Add below line to VM Options
+**-Dspring.profiles.active=local**
+
+## Frontend dev: Create .env.local file and add below line (endpoint to call API)
+**VUE_APP_API_ENDPOINT=https://jestify-api.herokuapp.com/**
+
 # Frontend: Vue.js
 
 ## Project setup
