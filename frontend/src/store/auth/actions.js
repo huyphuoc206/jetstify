@@ -8,11 +8,15 @@ import { getPayloadFromToken } from "@/utils/rest-utils";
 import __isNumber from "lodash/isNumber";
 
 export const loadAuthentication = async () => {
-    const { success, status } = saveUserInfo(await $rest.get('/token/refresh'));
+    try {
+        const { success, status } = saveUserInfo(await $rest.get('/token/refresh'));
     if (success) {
         intervalTokenJob.start();
     } else if (status === API_REQUEST.STATUS_CODES.SERVER_ERROR) {
         router.replace('/server-error')
+    }
+    } finally {
+        store.dispatch("global/setReady", true);
     }
 };
 
@@ -40,7 +44,7 @@ export const logout = async ({ commit, getters }) => {
     intervalTokenJob.suspend();
     $rest.removeAccessToken();
     commit(TYPES.RESET_USER_INFO);
-    $rest.get('/logout');
+    await $rest.get('/logout');
     if (role === ROLE_CODE.ADMIN) {
         router.replace({ name: 'AdminLogin' })
     }

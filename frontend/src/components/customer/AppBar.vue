@@ -85,6 +85,7 @@ export default {
 
     async handleLogout() {
       await this.logout();
+      this.$router.go(this.$router.currentRoute);
     }
   },
   async created() {

@@ -25,7 +25,7 @@ router.beforeEach((to, from, next) => {
     next();
 });
 
-router.beforeResolve((to, from, next) => {
+router.beforeEach((to, from, next) => {
     try {
         const { requiresAuth, role } = to.meta;
         const currentRole = store.getters['auth/role'];

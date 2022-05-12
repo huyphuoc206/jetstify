@@ -24,11 +24,14 @@ const showNotice = (state, type, message) => {
 
 const initState = () => ({
   isLoading: false,
+  isReady: false,
   snackbar: { ...DEFAULT_SNACKBAR },
 });
 
 const mutations = {
   [TYPES.SET_LOADING]: (state, isLoading) => (state.isLoading = isLoading),
+
+  [TYPES.SET_READY]: (state, isReady) => (state.isReady = isReady),
 
   [TYPES.SHOW_SUCCESS_NOTICE]: (state, message) =>
     showNotice(state, "success", message),
