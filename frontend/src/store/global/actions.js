@@ -1,8 +1,12 @@
 import * as TYPES from "./types";
 
-export const setLoading = async ({ commit }, isLoading = false) => {
+export const setLoading = ({ commit }, isLoading = false) => {
   commit(TYPES.SET_LOADING, isLoading);
 };
+
+export const setReady = ({ commit }, isReady = false) => {
+    commit(TYPES.SET_READY, isReady);
+  };
 
 export const showSuccessNotice = ({ commit }, message) => {
     commit(TYPES.SHOW_SUCCESS_NOTICE, message);
