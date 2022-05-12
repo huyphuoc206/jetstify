@@ -1,23 +1,19 @@
-server:
-  port: 8081
-
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/jestify
-    username: postgres
-    password: 123456
+    url: ${DATABASE_HOST}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: ${JPA_DDL_AUTO}
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-
 jestify-app:
   token:
-    access_lifetime_minutes: 5
-    refresh_lifetime_minutes: 1440
+    access_lifetime_minutes: ${ACCESS_TOKEN_LIFE_TIME_MINUTES}
+    refresh_lifetime_minutes: ${REFRESH_TOKEN_LIFE_TIME_MINUTES}
   remember_me:
-    expired_days: 30
+    expired_days: ${REMEMBER_ME_DAYS}
