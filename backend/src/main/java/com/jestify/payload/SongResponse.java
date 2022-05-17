@@ -10,7 +10,6 @@ import lombok.Setter;
 public class SongResponse {
     private String link;
     private String name;
-    private int time;
     private String thumbnail;
-    private String img;
+    private Long songId;
 }

@@ -10,10 +10,9 @@ public class SongConverter {
     public SongResponse toResponse(Songs entity) {
         return SongResponse.builder()
                 .thumbnail(entity.getThumbnail())
-                .img(entity.getImg())
-                .time(entity.getTime())
                 .link(entity.getLink())
                 .name(entity.getName())
+                .songId(entity.getId())
                 .build();
     }
     public Songs toEntity(SongRequest request){

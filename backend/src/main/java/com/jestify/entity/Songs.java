@@ -20,13 +20,11 @@ public class Songs extends BaseEntity {
     private String name;
     private String link;
     private String thumbnail;
-    private int time;
     @ManyToMany
     @JoinTable(name = "artist_song",
             joinColumns = @JoinColumn(name = "artist_id"),
             inverseJoinColumns = @JoinColumn(name = "song_id"))
     private List<Artists> artists;
-    private String img;
     private boolean active;
 
 }

@@ -16,9 +16,12 @@ public class SongService {
     private final SongRepository songRepository;
     private final SongConverter songConverter;
 
-    public List<SongResponse> getAllById(Long artistID) {
+    public List<SongResponse> getSongsByArtistId(Long artistID) {
         List<SongResponse> songResponseList = new ArrayList<>();
         List<Songs> songsList = songRepository.findByArtists_idAndActive(artistID,true);
+        if(songsList.isEmpty()){
+            throw new IllegalStateException("Artist Haven't Song");
+        }
         for (Songs song : songsList) {
             songResponseList.add(songConverter.toResponse(song));
         }
