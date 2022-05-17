@@ -4,7 +4,7 @@
     <v-card-text class="contentAbout">
       {{ showText }}
 
-      <v-btn v-if="about.length > 200" text @click="handleBtnClick">{{
+      <v-btn small v-if="about.length > 200" text @click="handleBtnClick">{{
         toggleAboutText
       }}</v-btn>
     </v-card-text>
@@ -13,6 +13,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { trucateText } from "@/utils/text-utils";
 export default {
   props: ["about"],
   name: "PodcastAbout",
@@ -35,11 +36,7 @@ export default {
   methods: {
     ...mapActions("podcast", ["setToggleAbout"]),
 
-    trucateText(text, maxLength) {
-      if (text.length <= maxLength) return text;
-
-      return `${text.slice(0, maxLength - 1)}…`;
-    },
+    trucateText,
 
     handleBtnClick() {
       this.setToggleAbout();

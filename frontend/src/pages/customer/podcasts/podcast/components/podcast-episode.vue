@@ -1,71 +1,75 @@
 <template>
-  <v-hover v-slot:default="{ hover }">
+  <v-hover v-slot="{ hover }">
     <v-row class="episodeRow">
-      <v-col class="left">
-        <div class="thumbnail">
-          <v-img class="rounded-lg imgThumb" :src="episode.thumbnail"></v-img>
-        </div>
-      </v-col>
-      <v-col class="right">
-        <div>
-          <div>
-            <v-card-title class="title">
-              {{ episode.title }}
-            </v-card-title>
-            <v-menu min-width="200px" transition="slide-y-transition" offset-y>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  v-if="hover"
-                  class="ml-3 btn"
-                  text
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  ...
-                </v-btn>
-              </template>
-
-              <v-list>
-                <v-list-item v-for="(item, i) in items" :key="i">
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
+      <v-row>
+        <v-col class="left">
+          <div class="thumbnail">
+            <v-img
+              class="rounded-lg imgThumb no-hover"
+              :src="episode.thumbnail"
+            ></v-img>
           </div>
-
-          <v-card-text class="description">
-            {{ trucateText(episode.description, 200) }}
-          </v-card-text>
-          <div class="bar">
-            <v-icon color="white" size="40">mdi-play-circle</v-icon>
-            <v-card-text class="time">{{ episode.createAt }}</v-card-text>
-            <v-card-text class="time">{{ episode.time }}</v-card-text>
-
-            <div class="barService">
-              <v-icon v-if="hover" @click="handleCopyLink" class="ml-2"
-                >fa-solid fa-arrow-up-from-bracket</v-icon
+        </v-col>
+        <v-col class="right">
+          <div>
+            <div>
+              <v-card-title class="title">
+                {{ episode.title }}
+              </v-card-title>
+              <v-menu
+                v-if="hover"
+                min-width="200px"
+                transition="slide-y-transition"
+                offset-y
               >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn class="ml-3 btn" text dark v-bind="attrs" v-on="on">
+                    ...
+                  </v-btn>
+                </template>
 
-              <v-icon v-if="hover" @click="handleCheck" class="ml-2">{{
-                showIcon
-              }}</v-icon>
+                <v-list>
+                  <v-list-item v-for="(item, i) in items" :key="i">
+                    <v-list-item-title>{{ item.name }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
 
-              <!-- <v-icon v-if="isCheck" @click="handleCheck" class="ml-2 checkIcon"
+            <v-card-text class="description">
+              {{ trucateText(episode.description, 200) }}
+            </v-card-text>
+            <div class="bar">
+              <v-icon color="white" size="40">mdi-play-circle</v-icon>
+              <v-card-text class="time">{{ episode.createAt }}</v-card-text>
+              <v-card-text class="time">{{ episode.time }}</v-card-text>
+
+              <div class="barService">
+                <v-icon v-if="hover" @click="handleCopyLink" class="ml-2"
+                  >fa-solid fa-arrow-up-from-bracket</v-icon
+                >
+
+                <v-icon v-if="hover" @click="handleCheck" class="ml-2">{{
+                  showIcon
+                }}</v-icon>
+
+                <!-- <v-icon v-if="isCheck" @click="handleCheck" class="ml-2 checkIcon"
                 >fa-solid fa-circle-check</v-icon
               >
               <v-icon v-else @click="handleCheck" class="ml-2 plusIcon"
                 >fa-solid fa-circle-plus</v-icon
               > -->
+              </div>
             </div>
           </div>
-        </div>
-      </v-col>
+        </v-col>
+      </v-row>
     </v-row>
   </v-hover>
 </template>
 
 <script>
+import { trucateText } from "@/utils/text-utils";
 export default {
   props: ["episode"],
   name: "PodcastEpisode",
@@ -89,11 +93,7 @@ export default {
   },
 
   methods: {
-    trucateText(text, maxLength) {
-      if (text.length <= maxLength) return text;
-
-      return `${text.slice(0, maxLength - 1)}…`;
-    },
+    trucateText,
 
     handleCheck() {
       this.isCheck = !this.isCheck;
@@ -109,9 +109,13 @@ export default {
   width: 112px;
   height: 112px;
 
-  & > imgThumb {
+  & > .imgThumb {
     width: 100%;
     height: 100%;
+  }
+
+  & > .no-hover {
+    pointer-events: none;
   }
 }
 .episodeRow {
@@ -119,6 +123,10 @@ export default {
   padding: 16px;
   border-top-style: solid;
   border-color: rgba(255, 255, 255, 0.1);
+}
+
+.episodeRow :hover {
+  background: grey;
 }
 
 .left {
