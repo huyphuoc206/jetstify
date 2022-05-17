@@ -23,11 +23,8 @@ public class ArtistController {
     public ResponseEntity<?> getSongsByArtistId(@PathVariable Long artistId) {
         try {
             return ResponseEntity.ok(ResponseCommon.success(artistService.getSongs(artistId)));
-        } catch (IllegalArgumentException ex) {
-            log.error("API Error /api/artist - getSongsByArtistId", ex);
-            return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
         }catch (Exception ex){
-            log.error("API Error /api/artist - getSongsByArtistId", ex);
+            log.error("API Error /api/artist/{artistId}/songs - getSongsByArtistId", ex);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }

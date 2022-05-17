@@ -20,7 +20,7 @@ public class SongService {
         List<SongResponse> songResponseList = new ArrayList<>();
         List<Songs> songsList = songRepository.findByArtists_idAndActive(artistID,true);
         if(songsList.isEmpty()){
-            throw new IllegalStateException("Artist Haven't Song");
+            return songResponseList;
         }
         for (Songs song : songsList) {
             songResponseList.add(songConverter.toResponse(song));
