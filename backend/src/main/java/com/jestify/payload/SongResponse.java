@@ -1,2 +1,15 @@
-package com.jestify.payload;public class SongResponse {
+package com.jestify.payload;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Builder
+@Setter
+@Getter
+public class SongResponse {
+    private String link;
+    private String name;
+    private String thumbnail;
+    private Long songId;
 }

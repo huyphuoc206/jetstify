@@ -1,2 +1,4 @@
-package com.jestify.payload;public class SongRequest {
+package com.jestify.payload;
+
+public class SongRequest    {
 }
