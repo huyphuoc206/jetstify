@@ -28,4 +28,13 @@ public class ArtistController {
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
+    @GetMapping("/{artistId}/podcasts")
+    public ResponseEntity<?> getPodcastsByArtistId(@PathVariable Long artistId) {
+        try {
+            return ResponseEntity.ok(ResponseCommon.success(artistService.getPodcasts(artistId)));
+        }catch (Exception ex){
+            log.error("API Error /api/artist/{artistId}/podcasts - getPodcastsByArtistId", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
 }
