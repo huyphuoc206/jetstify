@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-10 mr-10 mt-5">
+  <div class="ml-10 mr-10 mt-10 mb-10">
     <user-start></user-start>
   <artist-home></artist-home>
   <podcast-home></podcast-home>

@@ -3,7 +3,7 @@
     <v-col>
       <v-row class="align-start">
         <v-col>
-          <h1 class="headline font-weight-bold">{{ title[0].name }}</h1>
+          <h1 class="headline font-weight-bold" :style="{size:'200px'}">{{ title[0].name }}</h1>
         </v-col>
       </v-row>
 

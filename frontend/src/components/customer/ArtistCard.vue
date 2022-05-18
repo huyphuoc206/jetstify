@@ -18,7 +18,7 @@
           }"
           v-show="hover"
         >
-          <v-icon color="green" size="60">mdi-play-circle</v-icon>
+          <v-icon color="green" size="50">mdi-play-circle</v-icon>
         </div>
       </v-card-text>
 

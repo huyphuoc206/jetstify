@@ -14,13 +14,13 @@
           <div
             :style="{
               position: 'absolute',
-              right: '10px',
-              bottom: '10px',
+              right: '1px',
+              bottom: '1px',
               cursor: 'auto',
             }"
             v-show="hover"
           >
-            <v-icon color="green" size="70">mdi-play-circle</v-icon>
+            <v-icon color="green" size="50">mdi-play-circle</v-icon>
           </div>
         </v-img>
       </v-card-text>
