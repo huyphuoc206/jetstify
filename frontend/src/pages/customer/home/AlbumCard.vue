@@ -1,11 +1,12 @@
 <template>
   <v-hover v-slot:default="{ hover }" style="cursor: pointer">
-    <v-card class="common-card d-flex ma-auto" flat height="90px">
-      <v-card class="">
+    <v-card class="common-card d-flex ma-auto" flat height="80px">
+      <v-card class="item" width="80px" height="100%">
         <v-img
-          max-width="100"
+          max-width="100%"
           height="100%"
-          class="elevation-3"
+          width="100%"
+          class="elevation-3 img"
           :src="song.img"
         >
         </v-img>
@@ -35,13 +36,13 @@
           :style="{
             position: 'absolute',
             right: '10px',
-            bottom: '17px',
+            bottom: '11px',
             cursor: 'auto',
           }"
           fab
           v-show="hover"
         >
-          <v-icon size="70" color="green">mdi-play-circle</v-icon>
+          <v-icon size="50" color="green">mdi-play-circle</v-icon>
         </v-btn>
       </v-card-text>
     </v-card>
@@ -55,4 +56,8 @@ export default {
   name: "AlbumCard",
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.image {
+  width: 100%;
+}
+</style>

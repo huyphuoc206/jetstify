@@ -1,11 +1,11 @@
 <template>
   <v-navigation-drawer
     v-model="drawer"
-    :mini-variant.sync="mini"
     permanent
-    expand-on-hover
     dark
     app
+    color="black"
+    width="230px"
   >
     <v-list>
       <v-list-item
@@ -15,12 +15,17 @@
         link
         dense
         exact
+        color="black"
       >
-        <v-list-item-icon>
+        <v-list-item-icon
+          :style="{
+            color: 'grey',
+          }"
+        >
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-content>
+        <v-list-item-content :style="{ color: 'white' }">
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -42,14 +47,14 @@ export default {
           link: "/search",
           name: "Search",
         },
-    
+
         {
           title: "Create Playlist",
           icon: "mdi-plus",
           link: "/playlist",
           name: "Playlist",
         },
-         {
+        {
           title: "Playlists",
           icon: "mdi-plus",
           link: "/playlists",
@@ -61,12 +66,7 @@ export default {
           link: "/queue",
           name: "Queue",
         },
-        {
-          title: "Users",
-          icon: "mdi-account-group-outline",
-          link: "/user/1",
-          name: "User",
-        },
+      
         {
           title: "Liked Songs",
           icon: "mdi-account-group-outline",
@@ -104,7 +104,7 @@ export default {
           link: "/podcasts",
           name: "Podcasts",
         },
-            {
+        {
           title: "Podcast",
           icon: "mdi-magnify",
           link: "/podcast/1",
@@ -115,3 +115,4 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped></style>
