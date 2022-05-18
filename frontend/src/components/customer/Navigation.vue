@@ -15,18 +15,14 @@
         link
         dense
         exact
-        color="black"
+        
       >
-        <v-list-item-icon
-          :style="{
-            color: 'grey',
-          }"
-        >
-          <v-icon>{{ item.icon }}</v-icon>
+        <v-list-item-icon>
+          <v-icon class="item__list" color="grey">{{ item.icon }}</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-content :style="{ color: 'white' }">
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        <v-list-item-content class="item__list-content">
+          <v-list-item-title class="item__list">{{ item.title }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -66,7 +62,7 @@ export default {
           link: "/queue",
           name: "Queue",
         },
-      
+
         {
           title: "Liked Songs",
           icon: "mdi-account-group-outline",
@@ -115,4 +111,13 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.item__list-content{
+  color: grey;
+}
+.v-list-item--active {
+  .item__list {
+    color: white !important;
+  }
+}
+</style>
