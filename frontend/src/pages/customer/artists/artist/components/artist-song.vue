@@ -9,26 +9,23 @@
 
           <v-col class="py-0" cols="auto">
             <v-avatar tile>
-              <img
-                src="https://i.ytimg.com/vi/FN7ALfpGxiI/maxresdefault.jpg"
-                alt="Son Tung"
-              />
+              <img :src="song.thumbnail" alt="Son Tung" />
             </v-avatar>
           </v-col>
 
           <v-col>
-            <p class="subtitle-2">Kill Me in The Morning</p>
+            <p class="subtitle-2">{{ song.name }}</p>
           </v-col>
 
           <v-col>
-            <p class="subtitle-2">155,997,05</p>
+            <p class="subtitle-2">Name</p>
           </v-col>
 
           <v-col class="py-0" cols="auto">
             <v-icon>favorite_border</v-icon>
           </v-col>
 
-          <v-col cols="auto"> 3:49 </v-col>
+          <v-col cols="auto"> {{ duration }} </v-col>
 
           <v-menu transition="slide-y-transition" offset-y v-if="hover">
             <template v-slot:activator="{ on, attrs }">
@@ -48,15 +45,31 @@
 </template>
 
 <script>
+import {convertMinutes} from "@/utils/time-utils"
 export default {
+  props: ["song"],
   name: "SongListItem2",
   data: () => ({
+    index: 0,
+    duration: null,
     items: [
       { name: "Follow", type: "" },
       { name: "Go to artist radio", type: "" },
       { name: "Copy link to artist", type: "" },
     ],
   }),
+  methods: {
+    generateTime() {
+      let sound = new Audio(this.song.link);
+      sound.onloadedmetadata = () => {
+        this.duration = convertMinutes(Math.floor(sound.duration));
+      };
+    },
+   
+  },
+  created() {
+    this.generateTime();
+  },
 };
 </script>
 
