@@ -37,4 +37,35 @@ public class ArtistController {
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
+    @GetMapping("/{artistId}/socials")
+    public ResponseEntity<?> getSocialsByArtistId(@PathVariable Long artistId){
+        try {
+            return ResponseEntity.ok(ResponseCommon.success(artistService.getSocials(artistId)));
+        }catch (Exception ex){
+            log.error("API Error /api/artist/{artistId}/socials - getSocialsByArtistId", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+    @GetMapping("/{artistId}")
+    public ResponseEntity<?> getByArtistId(@PathVariable Long artistId) {
+        try {
+            return ResponseEntity.ok(ResponseCommon.success(artistService.getArtistById(artistId)));
+        }catch(IllegalStateException ex){
+            log.error("API Error /api/artist/{artistId} - getByArtistId", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
+
+        }catch (Exception ex){
+            log.error("API Error /api/artist/{artistId} - getByArtistId", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+    @GetMapping("/{artistId}/images")
+    public ResponseEntity<?> getImagesByArtistId(@PathVariable Long artistId){
+        try {
+            return ResponseEntity.ok(ResponseCommon.success(artistService.getImages(artistId)));
+        }catch (Exception ex){
+            log.error("API Error /api/artist/{artistId}/images - getImagesByArtistId", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
 }
