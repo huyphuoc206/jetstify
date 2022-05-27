@@ -5,14 +5,16 @@ import songs from "./songs";
 import auth from "./auth";
 import category from "./category";
 import podcast from "./podcast";
+import artists from "./artists"
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: {
-    auth,
-    global,
-    songs,
-    category,
-    podcast,
-  },
+    modules: {
+        auth,
+        global,
+        songs,
+        category,
+        podcast,
+        artists
+    },
 });

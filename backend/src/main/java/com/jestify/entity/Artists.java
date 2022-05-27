@@ -9,18 +9,24 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Entity
 
-public class Artists extends BaseEntity{
+public class Artists extends BaseEntity {
     private int follow;
-    @ManyToMany(mappedBy = "artists")
+    private String thumbnail;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "artists")
     private List<Songs> songs;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private Users users;
-    @OneToMany(mappedBy = "artists")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "artists")
     private List<Podcasts> podcasts;
+    private String info;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "artists")
+    private List<Socials> socials;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "artists")
+    private List<Images> images;
 }

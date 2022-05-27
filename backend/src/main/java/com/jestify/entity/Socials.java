@@ -15,13 +15,12 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Podcasts extends BaseEntity{
+public class Socials extends BaseEntity{
     private String name;
-    private String thumbnail;
-    private String description;
     private String link;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id", nullable = false)
     private Artists artists;
     private boolean active;
+    private String icon;
 }

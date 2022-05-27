@@ -11,18 +11,19 @@
       <v-list-item
         v-for="item in items"
         :key="item.title"
-        :to="{ name: item.name }"
+        :to="item.link"
         link
         dense
         exact
-        
       >
         <v-list-item-icon>
           <v-icon class="item__list" color="grey">{{ item.icon }}</v-icon>
         </v-list-item-icon>
 
         <v-list-item-content class="item__list-content">
-          <v-list-item-title class="item__list">{{ item.title }}</v-list-item-title>
+          <v-list-item-title class="item__list">{{
+            item.title
+          }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -72,13 +73,13 @@ export default {
         {
           title: "Artist",
           icon: "mdi-magnify",
-          link: "artist/1",
+          link: "/artist/1",
           name: "Artist",
         },
         {
           title: "Album",
           icon: "mdi-magnify",
-          link: "album/1",
+          link: "/album/1",
           name: "Album",
         },
         {
@@ -112,7 +113,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.item__list-content{
+.item__list-content {
   color: grey;
 }
 .v-list-item--active {

@@ -15,10 +15,7 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Podcasts extends BaseEntity{
-    private String name;
-    private String thumbnail;
-    private String description;
+public class Images extends BaseEntity{
     private String link;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id", nullable = false)

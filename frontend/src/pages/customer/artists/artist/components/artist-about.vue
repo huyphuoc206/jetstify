@@ -6,7 +6,7 @@
       <template v-slot:activator="{ on, attrs }">
         <v-card
           class="mt-2 thumbnailArtist"
-          img="https://i.ytimg.com/vi/FN7ALfpGxiI/maxresdefault.jpg"
+          :img="thumbnailAbout" 
           height="516"
           width="1032"
           v-bind="attrs"
@@ -21,7 +21,7 @@
               professionally as Sơn Tùng M-TP is a Vietnamese singer-songwriter.
               Most of his songs, such as "Cơn mưa ngang qua" (The Rain of
               Love)</v-card-text
-            >
+            > 
           </v-card-title>
         </v-card>
       </template>
@@ -31,12 +31,12 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-carousel :show-arrows="false" hide-delimiter-background>
-          <v-carousel-item v-for="(item, i) in thumbnails" :key="i">
+          <v-carousel-item v-for="(item, i) in images" :key="i">
             <v-img
               contain
               lazy-src="https://picsum.photos/id/11/10/6"
               height="100%"
-              :src="item.img"
+              :src="item.link"
             ></v-img>
           </v-carousel-item>
         </v-carousel>
@@ -73,22 +73,7 @@
 
             <v-col class="right">
               <v-card-text
-                >Nguyễn Thanh Tùng (born 5 July 1994 in Thái Bình Province),
-                known professionally as Sơn Tùng M-TP is a Vietnamese
-                singer-songwriter. Most of his songs, such as "Cơn mưa ngang
-                qua" (The Rain of Love), "Em của ngày hôm qua" (Yesterday's
-                You), "Chắc ai đó sẽ về" (She Would Come Back), "Thái Bình mồ
-                hôi rơi" (Sweat Falls in Thai Binh), "Không phải dạng vừa đâu"
-                (I’m Quite Something), "Khuôn mặt đáng thương" (Pitiful Face),
-                "Âm thầm bên em" (Silently Stand By You), "Chúng ta không thuộc
-                về nhau" (We Don't Belong Together), and "Lạc trôi" (Drifting in
-                Mind), became big hits and earned the top ranking in Vietnamese
-                music charts. He made his acting debut in the film Dandelion
-                (2014), for which he won the Golden Kite Award for Best New
-                Actor and received overwhelming positive feedbacks from the
-                media, movie reviewers, and public audiences. In 2015, he won
-                the MTV Europe Music Award for Best Southeast Asian
-                Act.</v-card-text
+                >{{artist.info}}</v-card-text
               >
 
               <v-card-text
@@ -100,7 +85,7 @@
                   <img
                     src="https://i.scdn.co/image/ab6761610000f178c48716f91b7bf3016f5b6fbe"
                     alt="Son Tung"
-                  />
+                  /> 
                 </v-avatar>
 
                 Posted By Sơn Tùng M-TP
@@ -115,7 +100,9 @@
 
 <script>
 export default {
+  props:["socials", "artist","images"],
   name: "ArtistAbout",
+
   data: () => ({
     thumbnails: [
       {
@@ -137,31 +124,17 @@ export default {
         img: "https://th.bing.com/th/id/OIP.FYZ0pOovTJt_0u8gFMUUogHaEK?pid=ImgDet&rs=1",
       },
     ],
+     
 
-    socials: [
-      {
-        name: "Facebook",
-        icon: "fa-brands fa-facebook",
-        link: "https://www.facebook.com/MTP.Fan",
-      },
-      {
-        name: "Instagram",
-        icon: "fa-brands fa-instagram",
-        link: "https://www.instagram.com/sontungmtp/",
-      },
-      {
-        name: "Twitter",
-        icon: "fa-brands fa-twitter",
-        link: "https://twitter.com/sontungmtp777",
-      },
-      {
-        name: "Wikipedia",
-        icon: "fa-brands fa-wikipedia-w",
-        link: "https://vi.wikipedia.org/wiki/S%C6%A1n_T%C3%B9ng_M-TP",
-      },
-    ],
+   
     dialog: false,
   }),
+
+  computed: {
+    thumbnailAbout() {
+      return this.images[0].link;
+    }
+  },
 };
 </script>
 

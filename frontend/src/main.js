@@ -15,11 +15,12 @@ Vue.prototype.$rest = $rest;
 Vue.prototype.$notice = notice;
 Vue.prototype.moment = moment
 
+
 store.dispatch("auth/loadAuthentication").then(() => {
-  new Vue({
-    router,
-    vuetify,
-    store,
-    render: (h) => h(App),
-  }).$mount("#app");
+    new Vue({
+        router,
+        vuetify,
+        store,
+        render: (h) => h(App),
+    }).$mount("#app");
 })
