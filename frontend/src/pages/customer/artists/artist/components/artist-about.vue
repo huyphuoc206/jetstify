@@ -1,31 +1,26 @@
 <template>
   <v-container>
     <h1 class="headline font-weight-bold">About</h1>
-
-    <v-dialog v-model="dialog" width="700px">
-      <template v-slot:activator="{ on, attrs }">
-        <v-card
-          class="mt-2 thumbnailArtist"
-          :img="thumbnailAbout" 
-          height="516"
-          width="1032"
-          v-bind="attrs"
-          v-on="on"
+    <v-card
+      @click="dialog = true"
+      class="mt-2 thumbnailArtist"
+      :img="images[0].link"
+      height="516"
+      width="1032"
+    >
+      <v-card-title class="white--text d-block aboutArtist">
+        <v-card-text class="font-weight-black"
+          >489.439 người nghe hàng tháng</v-card-text
         >
-          <v-card-title class="white--text d-block aboutArtist">
-            <v-card-text class="font-weight-black"
-              >489.439 người nghe hàng tháng</v-card-text
-            >
-            <v-card-text class="font-weight-black">
-              Nguyễn Thanh Tùng (born 5 July 1994 in Thái Bình Province), known
-              professionally as Sơn Tùng M-TP is a Vietnamese singer-songwriter.
-              Most of his songs, such as "Cơn mưa ngang qua" (The Rain of
-              Love)</v-card-text
-            > 
-          </v-card-title>
-        </v-card>
-      </template>
-
+        <v-card-text class="font-weight-black">
+          Nguyễn Thanh Tùng (born 5 July 1994 in Thái Bình Province), known
+          professionally as Sơn Tùng M-TP is a Vietnamese singer-songwriter.
+          Most of his songs, such as "Cơn mưa ngang qua" (The Rain of
+          Love)</v-card-text
+        >
+      </v-card-title>
+    </v-card>
+    <v-dialog v-model="dialog" width="700px">
       <v-card outlined>
         <v-btn absolute fab right icon dark @click="dialog = false">
           <v-icon>mdi-close</v-icon>
@@ -72,9 +67,7 @@
             </v-col>
 
             <v-col class="right">
-              <v-card-text
-                >{{artist.info}}</v-card-text
-              >
+              <v-card-text>{{ artist.info }}</v-card-text>
 
               <v-card-text
                 >https://www.viberate.com/artist/son-tung-m-tp</v-card-text
@@ -85,7 +78,7 @@
                   <img
                     src="https://i.scdn.co/image/ab6761610000f178c48716f91b7bf3016f5b6fbe"
                     alt="Son Tung"
-                  /> 
+                  />
                 </v-avatar>
 
                 Posted By Sơn Tùng M-TP
@@ -99,42 +92,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  props:["socials", "artist","images"],
   name: "ArtistAbout",
-
+  computed: {
+    ...mapGetters("artists", ["artist", "socials", "images"]),
+  },
   data: () => ({
-    thumbnails: [
-      {
-        img: "https://i.scdn.co/image/ab6761670000ecd4676e49a89cefa298dc3558f4",
-      },
-      {
-        img: "https://th.bing.com/th/id/OIP.UOxkfqh5bdAdqka3KSWUyAHaEK?pid=ImgDet&rs=1",
-      },
-      {
-        img: "https://th.bing.com/th/id/OIP.6DFU43oDDEZv6WuvhfuD7AHaEK?pid=ImgDet&rs=1",
-      },
-      {
-        img: "https://th.bing.com/th/id/OIP.FYZ0pOovTJt_0u8gFMUUogHaEK?pid=ImgDet&rs=1",
-      },
-      {
-        img: "https://th.bing.com/th/id/OIP.FYZ0pOovTJt_0u8gFMUUogHaEK?pid=ImgDet&rs=1",
-      },
-      {
-        img: "https://th.bing.com/th/id/OIP.FYZ0pOovTJt_0u8gFMUUogHaEK?pid=ImgDet&rs=1",
-      },
-    ],
-     
-
-   
     dialog: false,
   }),
-
-  computed: {
-    thumbnailAbout() {
-      return this.images[0].link;
-    }
-  },
 };
 </script>
 

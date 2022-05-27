@@ -4,8 +4,8 @@
     <artist-service />
     <artist-song-list />
     <album-card-2 />
-    <artist-about  :socials="socials" :artist="artist" :images="images"/>
-  </div>
+    <artist-about/>
+  </div> 
 </template>
 
 <script>
@@ -14,7 +14,7 @@ import ArtistAbout from "./components/artist-about.vue";
 import ArtistInfo from "./components/artist-info.vue";
 import ArtistService from "./components/artist-service.vue";
 import ArtistSongList from "./components/artist-song-list.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "artist",
   components: {
@@ -24,28 +24,25 @@ export default {
     ArtistSongList,
     AlbumCard2,
   },
-  computed: {
-    ...mapGetters("artists", ["artist", "socials", "images"]),
-  },
+  
   methods: {
     ...mapActions("artists", ["getArtist", "getSocials", "getImages"]),
-    
-     getArtists({ artistId }) {
-       this.getArtist(artistId);
+
+    async loadArtist(artistId) {
+      await this.getArtist(artistId);
     },
-     getSocial({ artistId }) {
-       this.getSocials(artistId);
+    async loadSocial(artistId) {
+      await this.getSocials(artistId);
     },
-     getImage({ artistId }) {
-       this.getImages(artistId);
+    async loadImage(artistId) {
+      await this.getImages(artistId);
     },
-  },  
-   created() {
+  },
+  async created() {
     const artistId = this.$route.params.id;
-     this.getArtists({ artistId });
-     this.getSocial({ artistId });
-     this.getImage({artistId});
-    
+    await this.loadArtist(artistId);
+    await this.loadSocial(artistId);
+    await this.loadImage(artistId);
   },
 };
 </script>

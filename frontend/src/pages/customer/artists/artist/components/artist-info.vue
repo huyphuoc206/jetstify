@@ -2,10 +2,7 @@
   <v-container id="artist" fluid>
     <v-row justify="space-around">
       <v-card width="100%">
-        <v-img
-          height="320px"
-          :src= artist.thumbnail
-        >
+        <v-img height="320px" :src="artist.thumbnail">
           <v-card-title class="white--text d-block titleArtits">
             <h1 class="display-3 font-weight-bold">{{ artist.name }}</h1>
             <h3 class="caption">{{ artist.follow }}</h3>
@@ -18,9 +15,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  props: ["artist"],
   name: "ArtistInfo",
+  computed: {
+    ...mapGetters("artists", ["artist"]),
+  },
+
   components: {},
 };
 </script>
