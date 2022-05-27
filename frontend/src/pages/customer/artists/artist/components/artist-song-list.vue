@@ -25,15 +25,15 @@ export default {
   computed: { ...mapGetters("artists", ["songs"]) },
   methods: {
     ...mapActions("artists", ["getSongs"]),
-    async getSong({ id }) {
-      await this.getSongs(id);
+    async getSong({ artistId }) {
+      await this.getSongs(artistId);
     },
   },
   async created() {
-    const flag = this.$route.path;
-    const id = flag.split("/")[2];
-    await this.getSong({ id });
+    const artistId  = this.$route.params.id;
+    await this.getSong({ artistId });
   },
+  
 };
 </script>
 

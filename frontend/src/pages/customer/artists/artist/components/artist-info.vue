@@ -4,11 +4,11 @@
       <v-card width="100%">
         <v-img
           height="320px"
-          src="https://i.scdn.co/image/4580875e55e928fb680549968b26cc1a53841d34"
+          :src= artist.thumbnail
         >
           <v-card-title class="white--text d-block titleArtits">
-            <h1 class="display-3 font-weight-bold">Foreign Fields</h1>
-            <h3 class="caption">110,491 MONTHLY LISTENERS</h3>
+            <h1 class="display-3 font-weight-bold">{{ artist.name }}</h1>
+            <h3 class="caption">{{ artist.follow }}</h3>
           </v-card-title>
         </v-img>
       </v-card>
@@ -19,6 +19,7 @@
 
 <script>
 export default {
+  props: ["artist"],
   name: "ArtistInfo",
   components: {},
 };
