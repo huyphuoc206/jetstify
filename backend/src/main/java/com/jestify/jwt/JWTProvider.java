@@ -8,7 +8,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.impl.PublicClaims;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.jestify.common.AppConstant;
-import com.jestify.entity.Role;
+import com.jestify.entity.Roles;
 import com.jestify.entity.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +49,7 @@ public class JWTProvider {
         return Users.builder()
                 .fullName(fullName)
                 .email(getClaimValue(token, PublicClaims.SUBJECT, String.class))
-                .role(Role.builder().code(role).build())
+                .roles(Roles.builder().code(role).build())
                 .build();
     }
 
@@ -93,7 +93,7 @@ public class JWTProvider {
                 .withExpiresAt(calendar.getTime())
                 .withIssuedAt(new Date())
                 .withClaim(AppConstant.FULL_NAME_CLAIM, appUser.getFullName())
-                .withClaim(AppConstant.ROLE_CLAIM, appUser.getRole().getCode());
+                .withClaim(AppConstant.ROLE_CLAIM, appUser.getRoles().getCode());
 
         if (isRefreshToken) {
             creator.withClaim(AppConstant.REFRESH_TOKEN_CLAIM, true);

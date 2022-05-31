@@ -6,24 +6,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-public class Podcasts extends BaseEntity {
+public class Episodes extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "PODCAST_ID")
-    @SequenceGenerator(name = "PODCAST_ID", sequenceName = "PODCAST_ID_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "EPISODE_ID")
+    @SequenceGenerator(name = "EPISODE_ID", sequenceName = "EPISODE_ID_SEQ", allocationSize = 1)
     @Column(columnDefinition = "serial",name = "ID")
     private Long id;
-    private String thumbnail;
-    private Long userId;
     private String name;
+    private String thumbnail;
     private String description;
+    private String link;
     private boolean active;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "podcasts")
-    List<Episodes> episodes;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "podcast_id",nullable = false)
+    private Podcasts podcasts;
 }

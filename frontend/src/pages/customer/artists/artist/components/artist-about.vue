@@ -4,7 +4,7 @@
     <v-card
       @click="dialog = true"
       class="mt-2 thumbnailArtist"
-      :img="images[0].link"
+      :img="artist.photos[0].link"
       height="516"
       width="1032"
     >
@@ -26,7 +26,7 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-carousel :show-arrows="false" hide-delimiter-background>
-          <v-carousel-item v-for="(item, i) in images" :key="i">
+          <v-carousel-item v-for="(item, i) in artist.photos" :key="i">
             <v-img
               contain
               lazy-src="https://picsum.photos/id/11/10/6"
@@ -54,14 +54,34 @@
               <v-btn
                 class="mt-2"
                 width="170px"
-                v-for="(social, i) in socials"
-                :key="i"
-                :href="social.link"
+                :href="artist.facebook"
                 target="_blank"
               >
                 <v-card-subtitle>
-                  <v-icon class="ml-2">{{ social.icon }}</v-icon>
-                  {{ social.name }}
+                  <v-icon class="ml-2">mdi-facebook</v-icon>
+                  Facebook
+                </v-card-subtitle>
+              </v-btn>
+              <v-btn
+                class="mt-2"
+                width="170px"
+                :href="artist.instagram"
+                target="_blank"
+              >
+                <v-card-subtitle>
+                  <v-icon class="ml-2">mdi-instagram</v-icon>
+                  Instagram
+                </v-card-subtitle>
+              </v-btn>
+              <v-btn
+                class="mt-2"
+                width="170px"
+                :href="artist.twitter"
+                target="_blank"
+              >
+                <v-card-subtitle>
+                  <v-icon class="ml-2">mdi-twitter </v-icon>
+                  Twitter
                 </v-card-subtitle>
               </v-btn>
             </v-col>
@@ -69,19 +89,17 @@
             <v-col class="right">
               <v-card-text>{{ artist.info }}</v-card-text>
 
-              <v-card-text
-                >https://www.viberate.com/artist/son-tung-m-tp</v-card-text
-              >
+          
 
               <v-card-text>
                 <v-avatar>
                   <img
-                    src="https://i.scdn.co/image/ab6761610000f178c48716f91b7bf3016f5b6fbe"
+                    :src="artist.thumbnail"
                     alt="Son Tung"
                   />
                 </v-avatar>
 
-                Posted By Sơn Tùng M-TP
+                Posted By {{artist.nickName}}
               </v-card-text>
             </v-col>
           </v-row>
@@ -96,11 +114,14 @@ import { mapGetters } from "vuex";
 export default {
   name: "ArtistAbout",
   computed: {
-    ...mapGetters("artists", ["artist", "socials", "images"]),
+    ...mapGetters("artists", ["artist", "photos"]),
   },
   data: () => ({
     dialog: false,
   }),
+  created() {
+    console.log(this.photos);
+  },
 };
 </script>
 

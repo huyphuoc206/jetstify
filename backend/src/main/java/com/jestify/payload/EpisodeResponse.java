@@ -4,14 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-
-@Builder
-@Setter
 @Getter
-public class PodcastResponse {
-    private String thumbnail;
+@Setter
+@Builder
+public class EpisodeResponse {
     private Long podcastId;
     private String name;
+    private String link;
+    private String thumbnail;
     private String description;
 }
-

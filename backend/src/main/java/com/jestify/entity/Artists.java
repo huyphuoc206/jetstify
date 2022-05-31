@@ -15,18 +15,19 @@ import java.util.List;
 @Entity
 
 public class Artists extends BaseEntity {
-    private int follow;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "ARTIST_ID")
+    @SequenceGenerator(name = "ARTIST_ID", sequenceName = "ARTIST_ID_SEQ", allocationSize = 1)
+    @Column(columnDefinition = "serial",name = "ID")
+    private Long id;
+    private Long userId;
     private String thumbnail;
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "artists")
-    private List<Songs> songs;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users users;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "artists")
-    private List<Podcasts> podcasts;
     private String info;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "artists")
-    private List<Socials> socials;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "artists")
-    private List<Images> images;
+    private boolean verify;
+    private String nickName;
+    private String facebook;
+    private String instagram;
+    private String twitter;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "artists")
+    List<ArtistPhoto> artistPhotos;
 }

@@ -14,12 +14,6 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 @Data
 public abstract class BaseEntity {
-    @Id
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
-    @Column(columnDefinition = "serial")
-    private Long id;
     @CreatedBy
     @Column(name="created_by")
     protected String createdBy;

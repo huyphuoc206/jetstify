@@ -14,14 +14,33 @@ import java.util.List;
 @Builder
 @Entity
 public class Songs extends BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SONG_ID")
+    @SequenceGenerator(name = "SONG_ID", sequenceName = "SONG_ID_SEQ", allocationSize = 1)
+    @Column(columnDefinition = "serial",name = "ID")
+    private Long id;
     private String name;
     private String link;
     private String thumbnail;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "artist_song",
-            joinColumns = @JoinColumn(name = "artist_id"),
-            inverseJoinColumns = @JoinColumn(name = "song_id"))
-    private List<Artists> artists;
     private boolean active;
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "album_song",
+    joinColumns = @JoinColumn(name = "album_id"),
+    inverseJoinColumns = @JoinColumn(name = "song_id"))
+    private List<Albums> albums;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+    @OneToMany(mappedBy = "songs")
+    private List<LikedSong> likedSongs;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "playlist_song",
+            joinColumns = @JoinColumn(name = "playlist_id"),
+            inverseJoinColumns = @JoinColumn(name = "song_id"))
+    private List<Playlists> playlists;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "song_user",
+            joinColumns = @JoinColumn(name = "song_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<Users> users;
 }

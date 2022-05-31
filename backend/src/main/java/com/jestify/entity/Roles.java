@@ -13,16 +13,14 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Category extends BaseEntity {
+public class Roles extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "CATEGORY_ID")
-    @SequenceGenerator(name = "CATEGORY_ID", sequenceName = "CATEGORY_ID_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "ROLE_ID")
+    @SequenceGenerator(name = "ROLE_ID", sequenceName = "ROLE_ID_SEQ", allocationSize = 1)
     @Column(columnDefinition = "serial",name = "ID")
     private Long id;
     private String name;
     private String code;
-    private boolean active;
-    private Long parentId;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "category")
-    private List<Songs> songs;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "roles")
+    private List<Users> users;
 }
