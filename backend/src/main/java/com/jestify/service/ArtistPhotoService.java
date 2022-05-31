@@ -1,7 +1,6 @@
 package com.jestify.service;
 
 import com.jestify.converter.ImageConverter;
-import com.jestify.entity.Images;
 import com.jestify.payload.ImageReponse;
 import com.jestify.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;

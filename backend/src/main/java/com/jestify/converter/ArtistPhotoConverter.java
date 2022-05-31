@@ -1,6 +1,5 @@
 package com.jestify.converter;
 
-import com.jestify.entity.Images;
 import com.jestify.payload.ImageReponse;
 import org.springframework.stereotype.Component;
 

@@ -5,8 +5,7 @@ import * as TYPES from "./types"
 const initState = () => ({
     songs: [],
     artists: {},
-    socials: [],
-    images: [],
+    photos: [],
 });
 
 const mutations = {
@@ -16,11 +15,8 @@ const mutations = {
     [TYPES.SET_ARTISTS](state, artists) {
         state.artists = {...artists }
     },
-    [TYPES.SET_SOCIALS](state, socials) {
-        state.socials = [...socials]
-    },
-    [TYPES.SET_IMAGES](state, images) {
-        state.images = [...images]
+    [TYPES.SET_PHOTOS](state, photos) {
+        state.photos = [...photos]
     }
 };
 

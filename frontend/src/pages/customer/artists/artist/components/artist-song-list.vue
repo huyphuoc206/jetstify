@@ -25,13 +25,13 @@ export default {
   computed: { ...mapGetters("artists", ["songs"]) },
   methods: {
     ...mapActions("artists", ["getSongs"]),
-    async getSong({ artistId }) {
+    async getSong( artistId ) {
       await this.getSongs(artistId);
     },
   },
   async created() {
     const artistId  = this.$route.params.id;
-    await this.getSong({ artistId });
+    await this.getSong( artistId );
   },
   
 };

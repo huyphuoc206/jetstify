@@ -4,12 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@Builder
 @Getter
 @Setter
-public class SocialResponse {
+@Builder
+public class PodcastEpisodeResponse {
+    private Long podcastId;
     private String name;
     private String link;
-    private Long socialId;
-    private String icon;
+    private String thumbnail;
+    private String description;
 }

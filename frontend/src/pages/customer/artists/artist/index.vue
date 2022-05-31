@@ -26,23 +26,20 @@ export default {
   },
   
   methods: {
-    ...mapActions("artists", ["getArtist", "getSocials", "getImages"]),
+    ...mapActions("artists", ["getArtist", "getPhotos"]),
 
     async loadArtist(artistId) {
       await this.getArtist(artistId);
     },
-    async loadSocial(artistId) {
-      await this.getSocials(artistId);
-    },
-    async loadImage(artistId) {
-      await this.getImages(artistId);
+
+    async loadPhoto(artistId) {
+      await this.getPhotos(artistId);
     },
   },
   async created() {
     const artistId = this.$route.params.id;
     await this.loadArtist(artistId);
-    await this.loadSocial(artistId);
-    await this.loadImage(artistId);
+    await this.loadPhoto(artistId);
   },
 };
 </script>
