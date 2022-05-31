@@ -1,15 +1,15 @@
 package com.jestify.converter;
 
-import com.jestify.payload.ImageReponse;
+import com.jestify.entity.ArtistPhoto;
+import com.jestify.payload.ArtistPhotoReponse;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ImageConverter {
-    public ImageReponse toResponse(Images entity){
-        return ImageReponse.builder()
+public class ArtistPhotoConverter {
+    public ArtistPhotoReponse toResponse(ArtistPhoto entity){
+        return ArtistPhotoReponse.builder()
                 .link(entity.getLink())
-                .imageId(entity.getId())
-
+                .photoId(entity.getId())
                 .build();
     }
 }

@@ -1,9 +1,9 @@
 package com.jestify.service;
 
-import com.jestify.converter.PodcastEpisodeConverter;
-import com.jestify.entity.PodcastEpisode;
-import com.jestify.payload.PodcastEpisodeResponse;
-import com.jestify.repository.PodcastEpisodeRepository;
+import com.jestify.converter.EpisodeConverter;
+import com.jestify.entity.Episodes;
+import com.jestify.payload.EpisodeResponse;
+import com.jestify.repository.EpisodeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +12,15 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PodcastEpisodeService {
-    public final PodcastEpisodeRepository podcastEpisodeRepository;
-    public final PodcastEpisodeConverter podcastEpisodeConverter;
+public class EpisodeService {
+    public final EpisodeRepository episodeRepository;
+    public final EpisodeConverter episodeConverter;
 
-    public List<PodcastEpisodeResponse> getPodcastEpisodeByIdArtist(Long artistsId) {
-        List<PodcastEpisodeResponse> podcastResponse = new ArrayList<>();
-        List<PodcastEpisode> podcasts = podcastEpisodeRepository.findByPodcasts_idAndActive(artistsId, true);
-        for (PodcastEpisode podcast : podcasts) {
-            podcastResponse.add(podcastEpisodeConverter.toResponse(podcast));
+    public List<EpisodeResponse> getEpisodeByIdPodcast(Long podcastId) {
+        List<EpisodeResponse> podcastResponse = new ArrayList<>();
+        List<Episodes> podcasts = episodeRepository.findByPodcasts_idAndActive(podcastId, true);
+        for (Episodes podcast : podcasts) {
+            podcastResponse.add(episodeConverter.toResponse(podcast));
         }
         return podcastResponse;
     }

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class PodcastEpisodeResponse {
+public class EpisodeResponse {
     private Long podcastId;
     private String name;
     private String link;

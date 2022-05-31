@@ -12,9 +12,12 @@ public class ArtistConverter {
         return ArtistResponse.builder()
                 .thumbnail(entity.getThumbnail())
                 .artistId(entity.getId())
-                .follow(entity.getFollow())
+                .nickName(entity.getNickName())
                 .info(entity.getInfo())
-                .name(entity.getUsers().getFullName())
+                .facebook(entity.getFacebook())
+                .instagram(entity.getInstagram())
+                .twitter(entity.getTwitter())
+                .info(entity.getInfo())
                 .build();
 
     }

@@ -6,7 +6,7 @@ import com.jestify.payload.EpisodeResponse;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PodcastEpisodeConverter {
+public class EpisodeConverter {
         public EpisodeResponse toResponse(Episodes entity){
             return EpisodeResponse
                     .builder()

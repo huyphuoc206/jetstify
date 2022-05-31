@@ -1,8 +1,9 @@
 package com.jestify.service;
 
-import com.jestify.converter.ImageConverter;
-import com.jestify.payload.ImageReponse;
-import com.jestify.repository.ImageRepository;
+import com.jestify.converter.ArtistPhotoConverter;
+import com.jestify.entity.ArtistPhoto;
+import com.jestify.payload.ArtistPhotoReponse;
+import com.jestify.repository.ArtistPhotoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,16 +12,16 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ImageService {
-    private final ImageRepository imageRepository;
-    private final ImageConverter imageConverter;
+public class ArtistPhotoService {
+    private final ArtistPhotoRepository artistPhotoRepository;
+    private final ArtistPhotoConverter artistPhotoConverter;
 
-    public List<ImageReponse> getImagesByArtistId(Long artistId) {
-        List<ImageReponse> imageResponses = new ArrayList<>();
-        List<Images> images = imageRepository.findByArtists_idAndActive(artistId, true);
-        for (Images image : images) {
-            imageResponses.add(imageConverter.toResponse(image));
+    public List<ArtistPhotoReponse> getPhotosByArtistId(Long artistId) {
+        List<ArtistPhotoReponse> artistPhotoReponses = new ArrayList<>();
+        List<ArtistPhoto> artistPhotos = artistPhotoRepository.findByArtists_idAndActive(artistId, true);
+        for (ArtistPhoto photo : artistPhotos) {
+            artistPhotoReponses.add(artistPhotoConverter.toResponse(photo));
         }
-        return imageResponses;
+        return artistPhotoReponses;
     }
 }

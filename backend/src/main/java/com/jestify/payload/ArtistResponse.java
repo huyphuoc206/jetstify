@@ -1,6 +1,5 @@
 package com.jestify.payload;
 
-import com.jestify.entity.Socials;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,11 +10,13 @@ import java.util.List;
 @Getter
 @Builder
 public class ArtistResponse {
-    private int follow;
     private String thumbnail;
+    private boolean verify;
+    private String facebook;
+    private String instagram;
+    private String twitter;
     private Long artistId;
-    private String name;
+    private String nickName;
     private String info;
-    private List<SocialResponse> socials;
-    private List<ImageReponse> images;
+    private List<ArtistPhotoReponse> photos;
 }

@@ -18,7 +18,7 @@ public class SongService {
 
     public List<SongResponse> getSongsByArtistId(Long artistID) {
         List<SongResponse> songResponseList = new ArrayList<>();
-        List<Songs> songsList = songRepository.findByArtists_idAndActive(artistID, true);
+        List<Songs> songsList = songRepository.findByUsers_idAndActive(artistID, true);
         for (Songs song : songsList) {
             songResponseList.add(songConverter.toResponse(song));
         }

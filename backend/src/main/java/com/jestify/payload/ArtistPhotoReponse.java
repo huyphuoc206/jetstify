@@ -7,7 +7,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class ImageReponse {
+public class ArtistPhotoReponse {
     private String link;
-    private Long imageId;
+    private Long photoId;
 }

@@ -5,14 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-public class Follow extends BaseEntity{
+public class Follows extends BaseEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "FOLLOW_ID")
+    @SequenceGenerator(name = "FOLLOW_ID", sequenceName = "FOLLOW_ID_SEQ", allocationSize = 1)
+    @Column(columnDefinition = "serial",name = "ID")
+    private Long id;
     private Long userId;
     private Long objectId;
     private String type;

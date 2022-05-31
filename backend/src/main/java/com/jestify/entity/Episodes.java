@@ -5,23 +5,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-public class PodcastEpisode extends BaseEntity{
+public class Episodes extends BaseEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "EPISODE_ID")
+    @SequenceGenerator(name = "EPISODE_ID", sequenceName = "EPISODE_ID_SEQ", allocationSize = 1)
+    @Column(columnDefinition = "serial",name = "ID")
+    private Long id;
     private String name;
     private String thumbnail;
     private String description;
     private String link;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "podcast_id", nullable = false)
-    private Podcasts podcasts;
     private boolean active;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "podcast_id",nullable = false)
+    private Podcasts podcasts;
 }

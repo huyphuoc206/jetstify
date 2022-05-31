@@ -15,7 +15,7 @@ public class AuthService {
 //    private final PasswordEncoder passwordEncoder;
 
     public Users checkLoginCustomer(AuthRequest loginRequest) {
-        Users user = userRepository.findByEmailAndActiveTrueAndRoleCode(loginRequest.getEmail(), AppConstant.CUSTOMER_ROLE)
+        Users user = userRepository.findByEmailAndActiveTrueAndRolesCode(loginRequest.getEmail(), AppConstant.CUSTOMER_ROLE)
                 .orElseThrow(() -> new IllegalArgumentException("Email or password is incorrect"));
         // Compare raw password and password in database
 //        if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword()))
@@ -27,7 +27,7 @@ public class AuthService {
     }
 
     public Users checkLoginAdmin(AuthRequest loginRequest) {
-        Users user = userRepository.findByEmailAndActiveTrueAndRoleCode(loginRequest.getEmail(), AppConstant.ADMIN_ROLE)
+        Users user = userRepository.findByEmailAndActiveTrueAndRolesCode(loginRequest.getEmail(), AppConstant.ADMIN_ROLE)
                 .orElseThrow(() -> new IllegalArgumentException("Email or password is incorrect"));
         // Compare raw password and password in database
 //        if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword()))
