@@ -41,31 +41,23 @@ public class UserController {
 
     @GetMapping("/user/follow")
     public ResponseEntity<?> getListFollow(@RequestParam String type) {
-        ResponseEntity responseEntity;
         try {
             switch (type) {
                 case AppConstant.ARTIST: {
-                    responseEntity = ResponseEntity.ok(ResponseCommon.success(userService.getFollowsArtist(type)));
-                    break;
+                    return  ResponseEntity.ok(ResponseCommon.success(userService.getFollowsArtist(type)));
                 }
                 case AppConstant.PODCAST: {
-                    responseEntity = ResponseEntity.ok(ResponseCommon.success(userService.getFollowsPodcast(type)));
-                    break;
+                    return ResponseEntity.ok(ResponseCommon.success(userService.getFollowsPodcast(type)));
                 }
                 default: {
-                    responseEntity = ResponseEntity.ok(ResponseCommon.error(new IllegalArgumentException("Not Found Type")));
+                    return ResponseEntity.ok(ResponseCommon.fail("Not Found"));
                 }
             }
-            return responseEntity;
-
         } catch (IllegalStateException ex) {
-            log.error("API Error api/user/{userId}/followsArtist - getListFollowArtist", ex);
-            return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
-        } catch (IllegalArgumentException ex) {
-            log.error("API Error api/user/{userId}/followsArtist - getListFollowArtist", ex);
+            log.error("API Error api/user/follow - getListFollow", ex);
             return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
         } catch (Exception ex) {
-            log.error("API Error api/user/{userId}/followsArtist- getListFollowArtist", ex);
+            log.error("API Error api/user/follow- getListFollow", ex);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }

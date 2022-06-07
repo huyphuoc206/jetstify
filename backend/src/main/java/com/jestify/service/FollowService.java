@@ -22,9 +22,6 @@ public class FollowService {
         Follows follows = followRepository.save(followConverter.toEntity(followRequest));
         return followConverter.toResponse(follows);
     }
-
-
-
     public List<FollowResponse> getListFollows(Long userId, String type) {
         List<Follows> listFollow = followRepository.findByTypeAndUserId(type,userId);
         List<FollowResponse> result = new ArrayList<>();

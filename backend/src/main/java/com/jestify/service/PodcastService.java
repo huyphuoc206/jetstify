@@ -9,6 +9,7 @@ import com.jestify.payload.FollowResponse;
 import com.jestify.payload.PodcastResponse;
 import com.jestify.repository.PodcastRepository;
 import com.jestify.repository.UserRepository;
+import com.jestify.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,6 @@ public class PodcastService {
     private final PodcastRepository podcastRepository;
     private final PodcastConverter podcastConverter;
     private final FollowService followService;
-    private final UserService userService;
     private final UserRepository userRepository;
 
     public List<EpisodeResponse> getPodcastEpisode(Long podcastId) {
@@ -36,12 +36,13 @@ public class PodcastService {
         return podcastResponse;
     }
 
-    public List<PodcastResponse> getFollowsPodcast(String type) {
-        Users users = userRepository.findByEmailAndActiveTrue(userService.checkUserCurrently()).orElseThrow(()-> new IllegalStateException("User not found"));
-        List<FollowResponse> followResponseList = followService.getListFollows(users.getId(),type);
+
+
+    public List<PodcastResponse> getFollowsPodcast(String type, Long userId) {
+        List<FollowResponse> followResponseList = followService.getListFollows(userId, type);
         List<PodcastResponse> podcastResponseList = new ArrayList<>();
         for (FollowResponse followResponse : followResponseList) {
-            Podcasts podcasts = podcastRepository.findById(followResponse.getObjectId()).orElseThrow(() -> new IllegalArgumentException("Not Found Podcast to Follow"));
+            Podcasts podcasts = podcastRepository.findById(followResponse.getObjectId()).orElseThrow(() -> new IllegalStateException("Not Found Podcast to Follow"));
             podcastResponseList.add(podcastConverter.toResponse(podcasts));
         }
         return podcastResponseList;

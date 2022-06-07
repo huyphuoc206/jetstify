@@ -1,9 +1,10 @@
 package com.jestify.service;
 
+import com.jestify.entity.Users;
 import com.jestify.payload.*;
+import com.jestify.repository.UserRepository;
+import com.jestify.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class UserService {
     private final FollowService followService;
     private final PodcastService podcastService;
     private final ArtistService artistService;
+    private final UserRepository userRepository;
 
     public List<SongResponse> getSongs(Long artistId) {
         return songService.getSongsByArtistId(artistId);
@@ -24,19 +26,14 @@ public class UserService {
         return followService.follow(followRequest);
     }
 
-
     public List<PodcastResponse> getFollowsPodcast(String type) {
-        return podcastService.getFollowsPodcast(type);
+        Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently()).orElseThrow(() -> new IllegalStateException("not Found User"));
+        return podcastService.getFollowsPodcast(type,users.getId());
     }
 
     public List<ArtistResponse> getFollowsArtist(String type) {
-        return artistService.getFollowsArtist(type);
+        Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently()).orElseThrow(() -> new IllegalStateException("not Found User"));
+        return artistService.getFollowsArtist(type,users.getId());
     }
 
-    public String checkUserCurrently() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentEmail = authentication.getPrincipal().toString();
-        System.out.println(currentEmail);
-        return currentEmail;
-    }
 }
