@@ -2,6 +2,8 @@ package com.jestify.service;
 
 import com.jestify.payload.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,12 +25,18 @@ public class UserService {
     }
 
 
-    public List<PodcastResponse> getFollowsPodcast(Long userId) {
-        return podcastService.getFollowsPodcast(userId);
+    public List<PodcastResponse> getFollowsPodcast(String type) {
+        return podcastService.getFollowsPodcast(type);
     }
 
-    public List<ArtistResponse> getFollowsArtist(Long userId) {
-        return artistService.getFollowsArtist(userId);
+    public List<ArtistResponse> getFollowsArtist(String type) {
+        return artistService.getFollowsArtist(type);
     }
 
+    public String checkUserCurrently() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentEmail = authentication.getPrincipal().toString();
+        System.out.println(currentEmail);
+        return currentEmail;
+    }
 }

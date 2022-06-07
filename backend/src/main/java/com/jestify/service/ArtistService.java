@@ -4,8 +4,10 @@ import com.jestify.common.AppConstant;
 import com.jestify.converter.ArtistConverter;
 import com.jestify.converter.ArtistPhotoConverter;
 import com.jestify.entity.Artists;
+import com.jestify.entity.Users;
 import com.jestify.payload.*;
 import com.jestify.repository.ArtistRepository;
+import com.jestify.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,8 @@ public class ArtistService {
     private final ArtistPhotoService artistPhotoService;
     private final SongService songService;
     private final FollowService followService;
+    private final UserService userService;
+    private final UserRepository userRepository;
 
 
 
@@ -40,8 +44,9 @@ public class ArtistService {
         artistResponse.setPhotos(artists.getArtistPhotos().stream().map(artistPhotoConverter::toResponse).collect(Collectors.toList()));
         return artistResponse;
     }
-    public List<ArtistResponse> getFollowsArtist(Long userId) {
-        List<FollowResponse> followResponseList = followService.getListFollows(userId, AppConstant.ARTIST);
+    public List<ArtistResponse> getFollowsArtist(String type) {
+        Users users = userRepository.findByEmailAndActiveTrue(userService.checkUserCurrently()).orElseThrow(()-> new IllegalStateException("User not found"));
+        List<FollowResponse> followResponseList = followService.getListFollows(users.getId(), AppConstant.ARTIST);
         List<ArtistResponse> artistResponseList = new ArrayList<>();
         for (FollowResponse followResponse : followResponseList) {
             Artists artists = artistRepository.findById(followResponse.getObjectId()).orElseThrow(() -> new IllegalArgumentException("Not Found Artist to Follow"));

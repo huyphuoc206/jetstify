@@ -15,47 +15,56 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class UserController {
     private final UserService userService;
+
     @GetMapping("/public/user/{userId}/songs")
     public ResponseEntity<?> getSongsByUserId(@PathVariable Long userId) {
         try {
             return ResponseEntity.ok(ResponseCommon.success(userService.getSongs(userId)));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("API Error /api/public/user/{artistId}/songs - getSongsByUserId", ex);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
+
     @PostMapping("/user/follows")
-    public ResponseEntity<?> followObject(@RequestBody FollowRequest followRequest){
-        try{
+    public ResponseEntity<?> followObject(@RequestBody FollowRequest followRequest) {
+        try {
             return ResponseEntity.ok(ResponseCommon.success(userService.follow(followRequest)));
-        }catch (IllegalStateException ex){
+        } catch (IllegalStateException ex) {
             log.error("API Error /api/user/follows - followObject", ex);
             return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("API Error /api/user/follows - followObject", ex);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
-    @GetMapping("/user/{userId}/followsPodcast")
-    public ResponseEntity<?> getListFollowPodcast(@PathVariable Long userId){
-        try{
-            return ResponseEntity.ok(ResponseCommon.success(userService.getFollowsPodcast(userId)));
-        }catch (IllegalStateException ex){
-            log.error("API Error /api/user/{userId}/followsPodcast - getListFollowPodcast", ex);
-            return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
-        }catch (Exception ex){
-            log.error("API Error /api/user/{userId}/followsPodcast - getListFollowPodcast", ex);
-            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
-        }
-    }
-    @GetMapping("/user/{userId}/followsArtist")
-    public ResponseEntity<?> getListFollowArtist(@PathVariable Long userId){
-        try{
-            return ResponseEntity.ok(ResponseCommon.success(userService.getFollowsArtist(userId)));
-        }catch (IllegalStateException ex){
+
+    @GetMapping("/user/follow")
+    public ResponseEntity<?> getListFollow(@RequestParam String type) {
+        ResponseEntity responseEntity;
+        try {
+            switch (type) {
+                case AppConstant.ARTIST: {
+                    responseEntity = ResponseEntity.ok(ResponseCommon.success(userService.getFollowsArtist(type)));
+                    break;
+                }
+                case AppConstant.PODCAST: {
+                    responseEntity = ResponseEntity.ok(ResponseCommon.success(userService.getFollowsPodcast(type)));
+                    break;
+                }
+                default: {
+                    responseEntity = ResponseEntity.ok(ResponseCommon.error(new IllegalArgumentException("Not Found Type")));
+                }
+            }
+            return responseEntity;
+
+        } catch (IllegalStateException ex) {
             log.error("API Error api/user/{userId}/followsArtist - getListFollowArtist", ex);
             return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
-        }catch (Exception ex){
+        } catch (IllegalArgumentException ex) {
+            log.error("API Error api/user/{userId}/followsArtist - getListFollowArtist", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
+        } catch (Exception ex) {
             log.error("API Error api/user/{userId}/followsArtist- getListFollowArtist", ex);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }

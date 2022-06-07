@@ -19,43 +19,17 @@ public class FollowService {
     private final FollowConverter followConverter;
 
     public FollowResponse follow(FollowRequest followRequest) {
-        boolean existFollowType = followRepository.findByType(followRequest.getType()).isPresent();
-        if (existFollowType)
-            throw new IllegalStateException("Follow type is duplicated");
         Follows follows = followRepository.save(followConverter.toEntity(followRequest));
         return followConverter.toResponse(follows);
     }
 
-    public List<FollowResponse> getFollows(Long userId) {
-        List<FollowResponse> followResponses = new ArrayList<>();
-        List<Follows> followsList = followRepository.findByUserId(userId);
 
-        for (Follows follow : followsList) {
-            switch (follow.getType()) {
-                case AppConstant
-                        .ARTIST: {
-                    followResponses.add(followConverter.toResponse(follow));
-                    break;
-                }
-                case AppConstant
-                        .PODCAST: {
-                    followResponses.add(followConverter.toResponse(follow));
-                    break;
-                }
-                default: {
-                    throw new IllegalStateException("Can't Follow");
-                }
-            }
-        }
-        return followResponses;
-    }
 
     public List<FollowResponse> getListFollows(Long userId, String type) {
-        List<FollowResponse> listFollow = getFollows(userId);
+        List<Follows> listFollow = followRepository.findByTypeAndUserId(type,userId);
         List<FollowResponse> result = new ArrayList<>();
-        for (FollowResponse follow : listFollow) {
-            if (follow.getType().equals(type))
-                result.add(follow);
+        for (Follows follow : listFollow) {
+                result.add(followConverter.toResponse(follow));
         }
         return result;
     }
