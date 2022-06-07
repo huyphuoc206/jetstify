@@ -3,6 +3,7 @@ package com.jestify.controller.customer;
 import com.jestify.common.AppConstant;
 import com.jestify.common.ResponseCommon;
 import com.jestify.payload.FollowRequest;
+import com.jestify.service.FollowService;
 import com.jestify.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class UserController {
     private final UserService userService;
+    private final FollowService followService;
 
     @GetMapping("/public/user/{userId}/songs")
     public ResponseEntity<?> getSongsByUserId(@PathVariable Long userId) {
@@ -44,7 +46,7 @@ public class UserController {
         try {
             switch (type) {
                 case AppConstant.ARTIST: {
-                    return  ResponseEntity.ok(ResponseCommon.success(userService.getFollowsArtist(type)));
+                    return ResponseEntity.ok(ResponseCommon.success(userService.getFollowsArtist(type)));
                 }
                 case AppConstant.PODCAST: {
                     return ResponseEntity.ok(ResponseCommon.success(userService.getFollowsPodcast(type)));
@@ -58,6 +60,20 @@ public class UserController {
             return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
         } catch (Exception ex) {
             log.error("API Error api/user/follow- getListFollow", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+
+    @DeleteMapping("/user/follow/{followId}")
+    public ResponseEntity<?> unFollowArtist(@PathVariable Long followId) {
+        try {
+            followService.unFollow(followId);
+            return ResponseEntity.ok(ResponseCommon.success(""));
+        } catch (IllegalStateException ex) {
+            log.error("API Error api/user/follow - unFollow", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
+        } catch (Exception ex) {
+            log.error("API Error api/user/follow- unFollow", ex);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }

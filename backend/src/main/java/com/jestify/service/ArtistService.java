@@ -3,13 +3,9 @@ package com.jestify.service;
 import com.jestify.converter.ArtistConverter;
 import com.jestify.converter.ArtistPhotoConverter;
 import com.jestify.entity.Artists;
-import com.jestify.entity.Users;
 import com.jestify.payload.*;
 import com.jestify.repository.ArtistRepository;
-import com.jestify.repository.UserRepository;
-import com.jestify.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -55,4 +51,5 @@ public class ArtistService {
         }
         return artistResponseList;
     }
+
 }

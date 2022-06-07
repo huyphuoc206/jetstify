@@ -1,6 +1,5 @@
 package com.jestify.service;
 
-import com.jestify.common.AppConstant;
 import com.jestify.converter.FollowConverter;
 import com.jestify.entity.Follows;
 import com.jestify.payload.FollowRequest;
@@ -22,12 +21,18 @@ public class FollowService {
         Follows follows = followRepository.save(followConverter.toEntity(followRequest));
         return followConverter.toResponse(follows);
     }
+
     public List<FollowResponse> getListFollows(Long userId, String type) {
-        List<Follows> listFollow = followRepository.findByTypeAndUserId(type,userId);
+        List<Follows> listFollow = followRepository.findByTypeAndUserId(type, userId);
         List<FollowResponse> result = new ArrayList<>();
         for (Follows follow : listFollow) {
-                result.add(followConverter.toResponse(follow));
+            result.add(followConverter.toResponse(follow));
         }
         return result;
+    }
+
+    public void unFollow(Long followId) {
+        Follows follows = followRepository.findById(followId).orElseThrow(()->new IllegalStateException("Not Follow"));
+        followRepository.delete(follows);
     }
 }

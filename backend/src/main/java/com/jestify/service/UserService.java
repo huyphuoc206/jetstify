@@ -28,12 +28,13 @@ public class UserService {
 
     public List<PodcastResponse> getFollowsPodcast(String type) {
         Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently()).orElseThrow(() -> new IllegalStateException("not Found User"));
-        return podcastService.getFollowsPodcast(type,users.getId());
+        return podcastService.getFollowsPodcast(type, users.getId());
     }
 
     public List<ArtistResponse> getFollowsArtist(String type) {
         Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently()).orElseThrow(() -> new IllegalStateException("not Found User"));
-        return artistService.getFollowsArtist(type,users.getId());
+        return artistService.getFollowsArtist(type, users.getId());
     }
+
 
 }

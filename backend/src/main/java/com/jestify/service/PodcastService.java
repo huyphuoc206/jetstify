@@ -1,15 +1,12 @@
 package com.jestify.service;
 
-import com.jestify.common.AppConstant;
 import com.jestify.converter.PodcastConverter;
 import com.jestify.entity.Podcasts;
-import com.jestify.entity.Users;
 import com.jestify.payload.EpisodeResponse;
 import com.jestify.payload.FollowResponse;
 import com.jestify.payload.PodcastResponse;
 import com.jestify.repository.PodcastRepository;
 import com.jestify.repository.UserRepository;
-import com.jestify.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +34,6 @@ public class PodcastService {
     }
 
 
-
     public List<PodcastResponse> getFollowsPodcast(String type, Long userId) {
         List<FollowResponse> followResponseList = followService.getListFollows(userId, type);
         List<PodcastResponse> podcastResponseList = new ArrayList<>();
@@ -47,4 +43,6 @@ public class PodcastService {
         }
         return podcastResponseList;
     }
+
+
 }
