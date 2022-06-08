@@ -3,6 +3,7 @@ package com.jestify.controller.customer;
 import com.jestify.common.AppConstant;
 import com.jestify.common.ResponseCommon;
 import com.jestify.payload.FollowRequest;
+import com.jestify.payload.UserRequest;
 import com.jestify.service.FollowService;
 import com.jestify.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -68,12 +69,37 @@ public class UserController {
     public ResponseEntity<?> unFollowArtist(@PathVariable Long followId) {
         try {
             followService.unFollow(followId);
-            return ResponseEntity.ok(ResponseCommon.success(""));
+            return ResponseEntity.ok(ResponseCommon.success(null));
         } catch (IllegalStateException ex) {
             log.error("API Error api/user/follow - unFollow", ex);
             return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
         } catch (Exception ex) {
             log.error("API Error api/user/follow- unFollow", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+    @GetMapping("/user")
+    public ResponseEntity<?> getInfoUser(){
+        try{
+            return ResponseEntity.ok(ResponseCommon.success(userService.getInfoUser()));
+        }catch (IllegalStateException ex){
+            log.error("API Error api/user/ - getInfoUser", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
+        }catch (Exception ex){
+            log.error("API Error api/user/ - getInfoUser", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+    @PutMapping("/user")
+    public ResponseEntity<?> updateInfoUser(@RequestBody UserRequest userRequest){
+        try{
+            userService.updateInfoUser(userRequest);
+            return ResponseEntity.ok(ResponseCommon.success(null));
+        }catch (IllegalStateException ex){
+            log.error("API Error api/user/ - updateInfoUser", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
+        }catch (Exception ex){
+            log.error("API Error api/user/ - updateInfoUser", ex);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }

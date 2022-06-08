@@ -1,2 +1,14 @@
-package com.jestify.payload;public class UserResponse {
+package com.jestify.payload;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Builder
+@Setter
+@Getter
+public class UserResponse {
+    private String fullName;
+    private String email;
+    private String avatar;
 }
