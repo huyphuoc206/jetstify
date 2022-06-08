@@ -49,7 +49,7 @@
                     {{ user.email }}
                   </p> -->
                   <v-divider class="my-3"></v-divider>
-                  <v-btn depressed rounded text> Account Settings </v-btn>
+                  <v-btn depressed rounded text to="/user/1"> Account Settings </v-btn>
                   <v-divider class="my-3"></v-divider>
                   <v-btn depressed rounded text @click="handleLogout()"> Logout </v-btn>
                 </div>
