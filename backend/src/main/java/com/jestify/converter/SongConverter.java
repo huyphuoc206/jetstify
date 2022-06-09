@@ -16,7 +16,12 @@ public class SongConverter {
                 .build();
     }
     public Songs toEntity(SongRequest request){
-        return Songs.builder().build();
+        return Songs
+                .builder()
+                .thumbnail(request.getThumbnail())
+                .name(request.getName())
+                .link(request.getLink())
+                .build();
 
     }
 }
