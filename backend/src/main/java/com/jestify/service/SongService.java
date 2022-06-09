@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +24,13 @@ public class SongService {
             songResponseList.add(songConverter.toResponse(song));
         }
         return songResponseList;
+    }
+
+    public List<SongResponse> getSongsByCategoryId(Long categoryId) {
+        return songRepository.findByCategoryIdAndActive(categoryId, true)
+                .stream()
+                .map(songConverter::toResponse)
+                .collect(Collectors.toList());
     }
 
 }

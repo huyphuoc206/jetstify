@@ -4,6 +4,7 @@ import com.jestify.converter.CategoryConverter;
 import com.jestify.entity.Category;
 import com.jestify.payload.CategoryRequest;
 import com.jestify.payload.CategoryResponse;
+import com.jestify.payload.SongResponse;
 import com.jestify.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class CategoryService {
     private final CategoryConverter categoryConverter;
     private final CategoryRepository categoryRepository;
+    private final SongService songService;
 
     public List<CategoryResponse> getCategories() {
         return categoryRepository.findByActiveTrue()
@@ -55,5 +57,9 @@ public class CategoryService {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new IllegalStateException("Category not found"));
         category.setActive(false);
         categoryRepository.save(category);
+    }
+
+    public List<SongResponse> getSongByCategoryId(Long categoryId) {
+        return songService.getSongsByCategoryId(categoryId);
     }
 }

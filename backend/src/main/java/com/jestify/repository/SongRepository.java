@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface SongRepository extends JpaRepository<Songs, Long> {
     List<Songs> findByUsers_idAndActive(Long id, boolean active);
+    List<Songs> findByCategoryIdAndActive(Long id, boolean active);
 }
