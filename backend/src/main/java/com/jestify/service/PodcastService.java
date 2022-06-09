@@ -1,10 +1,13 @@
 package com.jestify.service;
 
+import com.jestify.converter.EpisodeConverter;
 import com.jestify.converter.PodcastConverter;
+import com.jestify.entity.Episodes;
 import com.jestify.entity.Podcasts;
 import com.jestify.payload.EpisodeResponse;
 import com.jestify.payload.FollowResponse;
 import com.jestify.payload.PodcastResponse;
+import com.jestify.repository.EpisodeRepository;
 import com.jestify.repository.PodcastRepository;
 import com.jestify.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +23,6 @@ public class PodcastService {
     private final PodcastRepository podcastRepository;
     private final PodcastConverter podcastConverter;
     private final FollowService followService;
-    private final UserRepository userRepository;
 
     public List<EpisodeResponse> getPodcastEpisode(Long podcastId) {
         return episodeService.getEpisodeByIdPodcast(podcastId);
@@ -28,8 +30,9 @@ public class PodcastService {
 
     public PodcastResponse getPodcastById(Long podcastId) {
         Podcasts podcasts = podcastRepository.findById(podcastId)
-                .orElseThrow(() -> new IllegalStateException("Artist not found"));
+                .orElseThrow(() -> new IllegalStateException("Podcast not found"));
         PodcastResponse podcastResponse = podcastConverter.toResponse(podcasts);
+        podcastResponse.setEpisodeResponseList(getPodcastEpisode(podcastId));
         return podcastResponse;
     }
 

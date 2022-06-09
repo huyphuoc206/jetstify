@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Builder
 @Setter
@@ -13,5 +15,6 @@ public class PodcastResponse {
     private Long podcastId;
     private String name;
     private String description;
+    private List<EpisodeResponse> episodeResponseList;
 }
 
