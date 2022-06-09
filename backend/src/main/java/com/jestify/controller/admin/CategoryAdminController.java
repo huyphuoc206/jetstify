@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api/admin/category")
-public class CategoryController {
+public class CategoryAdminController {
     private final CategoryService categoryService;
 
     @GetMapping
