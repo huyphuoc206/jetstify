@@ -11,8 +11,8 @@
             </v-avatar>
             <v-card-title class="white--text d-block titleArtits">
               <h2 class="caption font-weight-bold">PODCAST</h2>
-              <h1 class="display-3 font-weight-bold">MÂY Podcast</h1>
-              <h3 class="display-1 font-weight-bold">Mây podcast</h3>
+              <h1 class="display-3 font-weight-bold">{{podcastInfo.name}}</h1>
+              <h3 class="display-1 font-weight-bold">{{podcastInfo.name}}</h3>
             </v-card-title>
           </v-card>
         </v-img>
@@ -23,8 +23,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: "PodcastInfo",
+ 
+   computed: {
+    ...mapGetters("podcast", ["podcastInfo"]),
+  },
 };
 </script>
 

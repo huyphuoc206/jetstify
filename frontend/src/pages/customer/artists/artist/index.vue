@@ -1,6 +1,6 @@
 <template>
   <div>
-    <artist-info :artist="artist" />
+    <artist-info />
     <artist-service />
     <artist-song-list />
     <album-card-2 />

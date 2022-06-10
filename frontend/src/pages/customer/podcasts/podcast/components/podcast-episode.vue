@@ -14,7 +14,7 @@
           <div>
             <div>
               <v-card-title class="title">
-                {{ episode.title }}
+                {{ episode.name }}
               </v-card-title>
               <v-menu
                 v-if="hover"
