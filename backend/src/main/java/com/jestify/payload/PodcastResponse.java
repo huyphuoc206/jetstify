@@ -11,9 +11,11 @@ import java.util.List;
 @Setter
 @Getter
 public class PodcastResponse {
-    private String thumbnail;
+
     private Long podcastId;
-    private String name;
+    private String thumbnail;
+    private String namePodcast;
+    private String fullNameUser;
     private String description;
     private List<EpisodeResponse> episodeResponseList;
 }

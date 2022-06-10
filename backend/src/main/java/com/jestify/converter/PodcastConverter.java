@@ -15,8 +15,8 @@ public class PodcastConverter {
         return PodcastResponse.builder()
                 .thumbnail(entity.getThumbnail())
                 .podcastId(entity.getId())
-                .name(entity.getName())
                 .description(entity.getDescription())
+                .namePodcast(entity.getName())
                 .build();
 
     }

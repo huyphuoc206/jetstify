@@ -6,13 +6,13 @@
           <v-card class="card d-flex">
             <v-avatar class="profile rounded-lg" color="grey" size="200" tile>
               <v-img
-                src="https://i.scdn.co/image/ab67656300005f1fc6fb84589b4c059ff911753b"
+                :src= "podcastInfo.thumbnail" 
               ></v-img>
             </v-avatar>
             <v-card-title class="white--text d-block titleArtits">
               <h2 class="caption font-weight-bold">PODCAST</h2>
-              <h1 class="display-3 font-weight-bold">{{podcastInfo.name}}</h1>
-              <h3 class="display-1 font-weight-bold">{{podcastInfo.name}}</h3>
+              <h1 class="display-3 font-weight-bold">{{podcastInfo.namePodcast}}</h1>
+              <h3 class="display-1 font-weight-bold">{{podcastInfo.fullNameUser}}</h3>
             </v-card-title>
           </v-card>
         </v-img>
