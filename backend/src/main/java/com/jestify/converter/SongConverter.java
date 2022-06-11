@@ -18,7 +18,6 @@ public class SongConverter {
     public Songs toEntity(SongRequest request){
         return Songs
                 .builder()
-                .thumbnail(request.getThumbnail())
                 .name(request.getName())
                 .build();
 
