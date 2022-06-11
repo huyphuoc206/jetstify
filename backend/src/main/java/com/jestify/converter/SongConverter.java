@@ -20,7 +20,6 @@ public class SongConverter {
                 .builder()
                 .thumbnail(request.getThumbnail())
                 .name(request.getName())
-                .link(request.getLink())
                 .build();
 
     }
