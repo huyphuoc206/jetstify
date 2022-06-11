@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -90,10 +91,10 @@ public class UserController {
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
-    @PutMapping("/user")
-    public ResponseEntity<?> updateInfoUser(@RequestBody UserRequest userRequest){
+    @PostMapping("/user")
+    public ResponseEntity<?> updateInfoUser(@RequestPart(value = "userRequest") String userRequest, @RequestPart(value = "fileImg")MultipartFile fileImg){
         try{
-            userService.updateInfoUser(userRequest);
+            userService.updateInfoUser(userRequest,fileImg);
             return ResponseEntity.ok(ResponseCommon.success(null));
         }catch (IllegalStateException ex){
             log.error("API Error api/user/ - updateInfoUser", ex);
