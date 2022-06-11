@@ -91,7 +91,7 @@ public class UserController {
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
-    @PutMapping("/user")
+    @PostMapping("/user")
     public ResponseEntity<?> updateInfoUser(@RequestPart(value = "userRequest") String userRequest, @RequestPart(value = "fileImg")MultipartFile fileImg){
         try{
             userService.updateInfoUser(userRequest,fileImg);
