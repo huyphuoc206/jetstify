@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -34,4 +35,7 @@ public class Users extends BaseEntity {
             joinColumns = @JoinColumn(name = "song_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<Songs> songs;
+    private String key;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date keyTime;
 }

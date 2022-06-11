@@ -21,4 +21,6 @@ public class AppConstant {
     public static final String PODCAST = "PODCAST";
     public static final String ARTIST ="ARTIST";
 
+
+    public static final int EXPIRED_HOURS_LINK = 24;
 }
