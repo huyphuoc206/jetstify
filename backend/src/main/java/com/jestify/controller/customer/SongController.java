@@ -2,10 +2,12 @@ package com.jestify.controller.customer;
 
 import com.jestify.common.AppConstant;
 import com.jestify.common.ResponseCommon;
+import com.jestify.payload.SongRequest;
 import com.jestify.utils.AmazoneUtil;
 import com.jestify.service.SongService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,17 +18,16 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/song")
 public class SongController {
     private final SongService songService;
-    private final AmazoneUtil amazoneUtil;
 
     @GetMapping
     public String getSong() {
         return "Song";
     }
 
-    @PostMapping
-    public ResponseEntity<?> creatSong(@RequestParam(value = "file") MultipartFile file){
+    @PostMapping()
+    public ResponseEntity<?> creatSong(@RequestParam(value = "file") MultipartFile file, @RequestParam SongRequest songRequest) {
         try {
-            return ResponseEntity.ok(ResponseCommon.success(amazoneUtil.uploadFile(file)));
+            return ResponseEntity.ok(ResponseCommon.success(songService.uploadSongs(songRequest, file)));
         } catch (Exception ex) {
             log.error("API Error /api/song - creatSong", ex);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
