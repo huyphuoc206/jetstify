@@ -2,6 +2,11 @@ server:
   port: 8081
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
   datasource:
     url: jdbc:postgresql://localhost:5432/jestify
     username: postgres
@@ -21,3 +26,11 @@ jestify-app:
     refresh_lifetime_minutes: 1440
   remember_me:
     expired_days: 30
+
+amazonProperties:
+  endpointUrl: https://s3.us-east-2.amazonaws.com
+  accessKey: AKIA4FIQPRRJ2UZMLKNC
+  secretKey: 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
+  bucketName: jestify
+
+
