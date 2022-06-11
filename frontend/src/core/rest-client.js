@@ -70,6 +70,14 @@ export class RestClient {
     return await this.#sendRequest(url, RestUtils.REQUEST_METHODS.DELETE, options, requestParams);
   }
 
+  upload = async (url, formData = {}, options = DEFAULT_REQUEST_OPTIONS) => {
+    const headers = {
+      ...options.headers || {},
+      [API_REQUEST.HEADERS.CONTENT_TYPE]: API_REQUEST.CONTENT_TYPES.FORM
+    }
+    return await this.#sendRequest(url, RestUtils.REQUEST_METHODS.POST, {...options, headers}, formData)
+  }
+
   #sendRequest = async (url, method, options = DEFAULT_REQUEST_OPTIONS, payload = {}) => {
     try {
       if (!url) {
