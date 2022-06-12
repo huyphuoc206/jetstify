@@ -4,7 +4,7 @@
     <v-card-text class="contentAbout">
       {{ showText }}
 
-      <v-btn small v-if="about.length > 200" text @click="handleBtnClick">{{
+      <v-btn small v-if="{assignDefaultValue}.length > 200" text @click="handleBtnClick">{{
         toggleAboutText
       }}</v-btn>
     </v-card-text>
@@ -15,20 +15,25 @@
 import { mapActions, mapGetters } from "vuex";
 import { trucateText } from "@/utils/text-utils";
 export default {
-  props: ["about"],
   name: "PodcastAbout",
 
+
   computed: {
-    ...mapGetters("podcast", ["toggleAbout"]),
+    ...mapGetters("podcast", ["toggleAbout", "podcastInfo"]),
+
+    assignDefaultValue() {
+      return this.podcastInfo.description || '';
+    },
+
     toggleAboutText() {
       return this.toggleAbout ? "Show less" : "See more";
     },
 
-    showText() {
-      if (this.about.length < 200 || this.toggleAbout) {
-        return this.about;
+    showText() { 
+      if (this.assignDefaultValue.length < 200 || this.toggleAbout) {      
+        return this.podcastInfo.description;
       } else {
-        return this.trucateText(this.about, 200);
+        return this.trucateText(this.assignDefaultValue, 200);
       }
     },
   },

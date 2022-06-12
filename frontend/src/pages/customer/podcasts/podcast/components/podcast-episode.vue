@@ -14,7 +14,7 @@
           <div>
             <div>
               <v-card-title class="title">
-                {{ episode.title }}
+                {{ episode.name }}
               </v-card-title>
               <v-menu
                 v-if="hover"
@@ -41,7 +41,7 @@
             </v-card-text>
             <div class="bar">
               <v-icon color="white" size="40">mdi-play-circle</v-icon>
-              <v-card-text class="time">{{ episode.createAt }}</v-card-text>
+              <v-card-text class="time">{{ formatDate(episode.createdDate, format) }}</v-card-text>
               <v-card-text class="time">{{ episode.time }}</v-card-text>
 
               <div class="barService">
@@ -70,6 +70,9 @@
 
 <script>
 import { trucateText } from "@/utils/text-utils";
+import { formatDate } from "@/utils/time-utils";
+import {EPISODE_DATE_FORMAT} from "@/core/constants";
+
 export default {
   props: ["episode"],
   name: "PodcastEpisode",
@@ -82,6 +85,8 @@ export default {
     ],
 
     isCheck: false,
+
+    format: EPISODE_DATE_FORMAT,
   }),
 
   computed: {
@@ -95,6 +100,8 @@ export default {
   methods: {
     trucateText,
 
+    formatDate,
+    
     handleCheck() {
       this.isCheck = !this.isCheck;
     },

@@ -39,3 +39,5 @@ export const SAVE_SUCCESS = "Save successfully";
 export const DELETE_SUCCESS = "Delete successfully";
 
 export const DATE_FORMAT = "DD/MM/YYYY - HH:mm:ss";
+
+export const EPISODE_DATE_FORMAT = "MM Do";

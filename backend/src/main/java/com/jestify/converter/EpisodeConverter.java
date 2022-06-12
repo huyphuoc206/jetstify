@@ -11,10 +11,12 @@ public class EpisodeConverter {
             return EpisodeResponse
                     .builder()
                     .description(entity.getDescription())
-                    .podcastId(entity.getId())
+                    .episodeId(entity.getId())
+                    .podcastId(entity.getPodcasts().getId())
                     .link(entity.getLink())
                     .name(entity.getName())
                     .thumbnail(entity.getThumbnail())
+                    .createdDate(entity.getCreatedDate())
                     .build();
         }
 
