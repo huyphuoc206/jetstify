@@ -4,6 +4,7 @@ import com.jestify.common.AppConstant;
 import com.jestify.entity.Users;
 import com.jestify.payload.AuthRequest;
 import com.jestify.payload.RegisterRequest;
+import com.jestify.payload.ResetPasswordRequest;
 import com.jestify.repository.RoleRepository;
 import com.jestify.repository.UserRepository;
 import com.jestify.utils.EmailMessageUtil;
@@ -28,10 +29,13 @@ public class AuthService {
     private final EmailUtils emailUtils;
 
     public Users checkLoginCustomer(AuthRequest loginRequest) {
-        Users user = userRepository.findByEmailAndActiveTrueAndRolesCode(loginRequest.getEmail(), AppConstant.CUSTOMER_ROLE)
+        Users user = userRepository.findByEmailAndRolesCode(loginRequest.getEmail(), AppConstant.CUSTOMER_ROLE)
                 .orElse(null);
         if (user == null || !passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("Email or password is incorrect");
+        }
+        if (!user.isActive()) {
+            throw new IllegalArgumentException("Please check email to verify account");
         }
         return user;
     }
@@ -50,14 +54,13 @@ public class AuthService {
         if (existedEmail) {
             throw new IllegalArgumentException("Email already exists");
         }
-        String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
         String key = RandomStringUtils.randomAlphanumeric(200);
-        String verifyLink = host + "/verify-register?key=" + key;
+        String verifyLink = AppConstant.FRONTEND_HOST + "/verify-registration/" + key;
         boolean sendMailSuccess = emailUtils.sendMail(payload.getEmail(),
                 EmailMessageUtil.VERIFY_REGISTER_SUBJECT,
                 EmailMessageUtil.verifyRegister(payload.getFullName(), verifyLink));
         if (!sendMailSuccess) {
-            throw new IllegalArgumentException("Send verify register mail failed");
+            throw new IllegalArgumentException("Send verify registration mail failed. Please try again.");
         }
         userRepository.save(Users.builder()
                 .email(payload.getEmail())
@@ -65,7 +68,6 @@ public class AuthService {
                 .fullName(payload.getFullName())
                 .active(false)
                 .key(key)
-                .keyTime(new Date())
                 .roles(roleRepository.findByCode(AppConstant.CUSTOMER_ROLE).orElse(null))
                 .build());
     }
@@ -75,13 +77,37 @@ public class AuthService {
             throw new IllegalStateException();
         }
         Users user = userRepository.findByKey(key).orElseThrow(IllegalStateException::new);
-        Date keyTime = user.getKeyTime();
-        if (isExpiredLink(keyTime)) {
-            throw new IllegalArgumentException("Verify Registration Link Expired");
-        }
         user.setActive(true);
         user.setKey(null);
         user.setKeyTime(null);
+        userRepository.save(user);
+    }
+
+    public void forgotPassword(String email) {
+        Users user = userRepository.findByEmailAndActiveTrue(email).orElseThrow(() -> new IllegalArgumentException("Email not found"));
+
+        String key = RandomStringUtils.randomAlphanumeric(200);
+        String resetLink = AppConstant.FRONTEND_HOST + "/reset-password/" + email + "/" + key;
+        boolean sendMailSuccess = emailUtils.sendMail(email,
+                EmailMessageUtil.RESET_PASSWORD_SUBJECT,
+                EmailMessageUtil.resetPassword(user.getFullName(), resetLink));
+        if (!sendMailSuccess) {
+            throw new IllegalArgumentException("Send reset password mail failed. Please try again.");
+        }
+
+        user.setKey(key);
+        user.setKeyTime(new Date());
+        userRepository.save(user);
+    }
+
+    public void resetPassword(ResetPasswordRequest request) {
+        if (!StringUtils.equals(request.getNewPassword(), request.getNewPasswordConfirm())) {
+            throw new IllegalArgumentException("Password and Password Confirm must be match");
+        }
+        Users user = userRepository.findByEmailAndActiveTrue(request.getEmail()).orElseThrow(() -> new IllegalArgumentException("Email not found"));
+        user.setKey(null);
+        user.setKeyTime(null);
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
     }
 
@@ -91,5 +117,16 @@ public class AuthService {
         calendarKeyTime.add(Calendar.HOUR_OF_DAY, AppConstant.EXPIRED_HOURS_LINK);
         Calendar currentTime = Calendar.getInstance();
         return calendarKeyTime.before(currentTime);
+    }
+
+    public void verifyForgotPassword(String key) {
+        if (StringUtils.isBlank(key)) {
+            throw new IllegalStateException();
+        }
+        Users user = userRepository.findByKey(key).orElseThrow(IllegalStateException::new);
+        Date keyTime = user.getKeyTime();
+        if (isExpiredLink(keyTime)) {
+            throw new IllegalArgumentException("Reset Password Link Expired");
+        }
     }
 }

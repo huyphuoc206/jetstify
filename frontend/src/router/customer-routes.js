@@ -21,6 +21,36 @@ export const CUSTOMER_ROUTES = [{
             import ( /* webpackChunkName: "customer-pages" */ "@/pages/customer/login"),
     },
     {
+        path: "/verify-registration/:key",
+        name: "VerifyRegistration",
+        meta: {
+            fullScreen: true,
+            title: 'Verify Registration'
+        },
+        component: () =>
+            import ( /* webpackChunkName: "customer-pages" */ "@/pages/customer/verify-registration"),
+    },
+    {
+        path: "/forgot-password",
+        name: "ForgotPassword",
+        meta: {
+            fullScreen: true,
+            title: 'Forgot Password'
+        },
+        component: () =>
+            import ( /* webpackChunkName: "customer-pages" */ "@/pages/customer/forgot-password"),
+    },
+    {
+        path: "/reset-password/:email/:key",
+        name: "ResetPassword",
+        meta: {
+            fullScreen: true,
+            title: 'Reset Password'
+        },
+        component: () =>
+            import ( /* webpackChunkName: "customer-pages" */ "@/pages/customer/reset-password"),
+    },
+    {
         path: "/search",
         name: "Search",
         meta: {

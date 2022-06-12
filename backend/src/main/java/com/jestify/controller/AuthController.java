@@ -7,6 +7,7 @@ import com.jestify.jwt.JWTProvider;
 import com.jestify.payload.AuthRequest;
 import com.jestify.payload.AuthResponse;
 import com.jestify.payload.RegisterRequest;
+import com.jestify.payload.ResetPasswordRequest;
 import com.jestify.service.AuthService;
 import com.jestify.utils.EmailUtils;
 import lombok.RequiredArgsConstructor;
@@ -47,11 +48,50 @@ public class AuthController {
         try {
             authService.verifyRegister(key);
             return ResponseEntity.ok(ResponseCommon.success(""));
+        } catch (Exception e) {
+            log.error("API /api/verify-register: ", e);
+            return ResponseEntity.internalServerError().body(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+
+    @GetMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestParam String email) {
+        try {
+            authService.forgotPassword(email);
+            return ResponseEntity.ok(ResponseCommon.success(""));
         } catch (IllegalArgumentException e) {
-            log.error("API /api/verifyRegister: ", e);
+            log.error("API /api/forgot-password: ", e);
             return ResponseEntity.ok().body(ResponseCommon.fail(e.getMessage()));
         } catch (Exception e) {
-            log.error("API /api/verifyRegister: ", e);
+            log.error("API /api/forgot-password: ", e);
+            return ResponseEntity.internalServerError().body(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+
+    @GetMapping("/verify-forgot-password")
+    public ResponseEntity<?> verifyForgotPassword(@RequestParam String key) {
+        try {
+            authService.verifyForgotPassword(key);
+            return ResponseEntity.ok(ResponseCommon.success(""));
+        } catch (IllegalArgumentException e) {
+            log.error("API /api/verify-forgot-password: ", e);
+            return ResponseEntity.ok().body(ResponseCommon.fail(e.getMessage()));
+        } catch (Exception e) {
+            log.error("API /api/verify-forgot-password: ", e);
+            return ResponseEntity.internalServerError().body(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+
+    @PutMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordRequest request) {
+        try {
+            authService.resetPassword(request);
+            return ResponseEntity.ok(ResponseCommon.success(""));
+        } catch (IllegalArgumentException e) {
+            log.error("API /api/reset-password: ", e);
+            return ResponseEntity.ok().body(ResponseCommon.fail(e.getMessage()));
+        } catch (Exception e) {
+            log.error("API /api/reset-password: ", e);
             return ResponseEntity.internalServerError().body(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
