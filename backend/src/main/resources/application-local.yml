@@ -19,7 +19,19 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jestify.nlu.team@gmail.com
+    password: gdxqrgsxctllwzpn
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            protocols: TLSv1.2
 jestify-app:
   token:
     access_lifetime_minutes: 100
