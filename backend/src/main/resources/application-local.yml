@@ -40,7 +40,7 @@ jestify-app:
     expired_days: 30
 
 amazonProperties:
-  endpointUrl: https://s3.us-east-2.amazonaws.com
+  endpointUrl: https://s3.ap-southeast-1.amazonaws.com
   accessKey: AKIA4FIQPRRJ2UZMLKNC
   secretKey: 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
   bucketName: jestify
