@@ -14,7 +14,6 @@ export const ADMIN_ROUTES = [
         path: "/admin/home",
         name: "AdminHome",
         meta: {
-            fullScreen: true,
             title: 'Home Page',
             requiresAuth: true,
             role: ROLE_CODE.ADMIN

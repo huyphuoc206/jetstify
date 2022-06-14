@@ -12,10 +12,29 @@
       </template>
       <template v-else>
         <template v-if="isAdmin">
+          <app-bar-admin />
+          <app-navigation-admin />
           <v-main>
             <v-fab-transition>
-              <router-view />
+              <v-container class="scroll-y" fluid>
+                <v-row align="center" justify="center">
+                  <router-view />
+                </v-row>
+              </v-container>
             </v-fab-transition>
+            <v-btn
+              v-scroll="onScroll"
+              bottom
+              color="pink"
+              dark
+              fab
+              fixed
+              right
+              @click="toTop"
+              class="clickable"
+            >
+              <v-icon>mdi-chevron-up</v-icon>
+            </v-btn>
           </v-main>
         </template>
         <template v-else>
@@ -38,6 +57,8 @@
 <script>
 import AppBar from "@/components/customer/AppBar.vue";
 import AppNavigation from "@/components/customer/Navigation.vue";
+import AppBarAdmin from "@/components/admin/AppBar.vue";
+import AppNavigationAdmin from "@/components/admin/Navigation.vue";
 import AppPlayer from "@/components/customer/Player";
 import AppLoading from "@/components/loading";
 import AppNotification from "@/components/notification";
@@ -53,6 +74,8 @@ export default {
     AppLoading,
     AppNotification,
     AppPlayer,
+    AppBarAdmin,
+    AppNavigationAdmin,
   },
 
   computed: {
@@ -70,6 +93,17 @@ export default {
 
     isAllReady() {
       return this.isReady && !!this.$route.name;
+    },
+  },
+
+  methods: {
+    onScroll(e) {
+      if (typeof window === "undefined") return;
+      const top = window.pageYOffset || e.target.scrollTop || 0;
+      this.fab = top > 20;
+    },
+    toTop() {
+      this.$vuetify.goTo(0);
     },
   },
 };
