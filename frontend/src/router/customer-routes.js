@@ -161,7 +161,7 @@ export const CUSTOMER_ROUTES = [{
             import ( /* webpackChunkName: "customer-pages" */ "@/pages/customer/podcasts/podcast"),
     },
     {
-        path: "/user/1",
+        path: "/user",
         name: "User",
         meta: {
             title: 'User',

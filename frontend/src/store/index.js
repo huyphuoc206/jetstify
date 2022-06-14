@@ -5,7 +5,8 @@ import songs from "./songs";
 import auth from "./auth";
 import category from "./category";
 import podcast from "./podcast";
-import artists from "./artists"
+import artists from "./artists";
+import user from "./user";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -15,6 +16,7 @@ export default new Vuex.Store({
         songs,
         category,
         podcast,
-        artists
+        artists,
+        user,
     },
 });
