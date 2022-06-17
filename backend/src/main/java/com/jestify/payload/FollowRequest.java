@@ -11,5 +11,4 @@ public class FollowRequest {
     private String type;
     private Long userId;
     private Long objectId;
-    private Long followId;
 }

@@ -34,7 +34,8 @@ public class UserService {
     }
 
     public List<PodcastResponse> getFollowsPodcast(String type) {
-        Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently()).orElseThrow(() -> new IllegalStateException("not Found User"));
+        Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently())
+                .orElseThrow(() -> new IllegalStateException("not Found User"));
         return podcastService.getFollowsPodcast(type, users.getId());
     }
 
