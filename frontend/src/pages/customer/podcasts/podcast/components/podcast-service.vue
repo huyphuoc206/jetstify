@@ -1,6 +1,24 @@
 <template>
   <v-container>
-    <v-btn class="ml-3 btn" text depressed> Follow </v-btn>
+    
+    <v-btn
+      v-if="!!podcastInfo.followId"
+      class="ml-3 btn"
+      text
+      depressed
+      @click="unFollow()"
+    >
+      unFollow
+    </v-btn>
+    <v-btn
+      v-else
+      class="ml-3 btn"
+      text
+      depressed
+      @click="follow()"
+    >
+      Follow
+    </v-btn>
 
     <v-menu min-width="200px" transition="slide-y-transition" offset-y>
       <template v-slot:activator="{ on, attrs }">
@@ -17,6 +35,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "PodcastService",
   data: () => ({
@@ -25,6 +44,23 @@ export default {
       { name: "Share", type: "" },
     ],
   }),
+  computed: {
+    ...mapGetters("podcast", ["podcastInfo"]),
+  },
+  methods: {
+    ...mapActions("podcast", ["followPodcast", "unFollowPodcast"]),
+    async follow() {
+      await this.followPodcast();
+  
+    },
+    
+    async unFollow(followId) {
+      await this.unFollowPodcast(followId);
+    },
+  },
+  async created() {
+    // const podcastId = this.$route.params.id;
+  },
 };
 </script>
 
