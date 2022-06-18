@@ -3,7 +3,6 @@ package com.jestify.controller.customer;
 import com.jestify.common.AppConstant;
 import com.jestify.common.ResponseCommon;
 import com.jestify.payload.FollowRequest;
-import com.jestify.payload.UserRequest;
 import com.jestify.service.FollowService;
 import com.jestify.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -66,7 +65,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/user/follow/{followId}")
+        @DeleteMapping("/user/follow/{followId}")
     public ResponseEntity<?> unFollowArtist(@PathVariable Long followId) {
         try {
             followService.unFollow(followId);
