@@ -23,18 +23,27 @@
           ></v-text-field>
         </v-col>
       </v-row>
-      <!-- end --> 
+      <!-- end -->
 
       <!--  -->
       <v-col cols="auto" class="align-end">
         <v-btn rounded color="black" dark> UPGRADE </v-btn>
 
-        <v-btn v-if="isAuthenticated" class="ml-7 mr-5" color="pink" fab dark>
+        <v-btn
+          v-if="isAuthenticated"
+          class="ml-7 mr-5"
+          :color="avatar ? null : 'brown'"
+          fab
+          dark
+        >
           <v-menu bottom min-width="200px" rounded offset-y>
             <template v-slot:activator="{ on }">
               <v-btn icon x-large v-on="on">
                 <v-avatar color="brown" size="48">
-                  <span class="white--text text-h5 mt">{{ avatar }}</span>
+                  <v-img v-if="avatar" :src="avatar" alt="avatar"></v-img>
+                  <span v-else class="white--text text-h5 mt">{{
+                    defaultAvatar
+                  }}</span>
                 </v-avatar>
               </v-btn>
             </template>
@@ -49,15 +58,27 @@
                     {{ user.email }}
                   </p> -->
                   <v-divider class="my-3"></v-divider>
-                  <v-btn depressed rounded text to="/user"> Account Settings </v-btn>
+                  <v-btn depressed rounded text to="/user">
+                    Account Settings
+                  </v-btn>
                   <v-divider class="my-3"></v-divider>
-                  <v-btn depressed rounded text @click="handleLogout()"> Logout </v-btn>
+                  <v-btn depressed rounded text @click="handleLogout()">
+                    Logout
+                  </v-btn>
                 </div>
               </v-list-item-content>
             </v-card>
           </v-menu>
         </v-btn>
-        <v-btn v-else :to="{ name: 'Login' }" class="ml-7 mr-5" color="pink" dark> Login </v-btn>
+        <v-btn
+          v-else
+          :to="{ name: 'Login' }"
+          class="ml-7 mr-5"
+          color="pink"
+          dark
+        >
+          Login
+        </v-btn>
       </v-col>
     </v-row>
   </v-app-bar>
@@ -69,10 +90,11 @@ export default {
   name: "AppBar",
 
   computed: {
-    ...mapGetters("auth", ["fullName", "isAuthenticated"]),
-    avatar() {
-      return this.fullName ? this.fullName.charAt(0) : ''; 
-    }
+    ...mapGetters("auth", ["fullName", "avatar", "isAuthenticated"]),
+
+    defaultAvatar() {
+      return this.fullName ? this.fullName.charAt(0) : "";
+    },
   },
 
   methods: {
@@ -86,7 +108,7 @@ export default {
     async handleLogout() {
       await this.logout();
       this.$router.go(this.$router.currentRoute);
-    }
+    },
   },
   async created() {
     this.checkInputSearch();

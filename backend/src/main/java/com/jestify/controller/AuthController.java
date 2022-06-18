@@ -9,7 +9,6 @@ import com.jestify.payload.AuthResponse;
 import com.jestify.payload.RegisterRequest;
 import com.jestify.payload.ResetPasswordRequest;
 import com.jestify.service.AuthService;
-import com.jestify.utils.EmailUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

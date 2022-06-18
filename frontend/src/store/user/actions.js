@@ -20,14 +20,6 @@ export const setToggleDialog = ({ commit }) => {
   commit(TYPES.SET_TOGGLE);
 };
 
-export const editInfoUser = async (formData) => {
-  const {success, message} = await $rest.upload(`${BASE_URL}`, formData);
-  
-  if(success) {
-    getInfoUser();
-  }
-  return {success, message}
-  
-}
+
 
 
