@@ -1,12 +1,18 @@
 <template>
   <v-hover v-slot:default="{ hover }">
-    <v-card class="common-card" flat height="250" width="180">
+    <v-card
+      class="common-card"
+      flat
+      height="250"
+      width="180"
+      @click="goDetail()"
+    >
       <v-card-text>
         <v-img
           height="150"
           class="elevation-10"
           style="border-radius: 50%"
-          :src="song.img"
+          :src="artist.thumbnail"
         >
         </v-img>
         <div
@@ -24,16 +30,8 @@
 
       <v-card-text class="pt-0">
         <p class="body-2 font-weight-medium ma-0 text-truncate white--text">
-          <router-link
-            class="white--text text-decoration-none"
-            :to="{
-              name: 'Artist',
-              params: {
-                id: 1,
-              },
-            }"
-            >Army of Bones</router-link
-          >
+          {{ artist.nickName }}
+          
         </p>
         <p class="caption font-weight-light mb-4 text-truncate">Artist</p>
       </v-card-text>
@@ -42,7 +40,12 @@
 </template>
 <script>
 export default {
-  props: ["song"],
+  props: ["artist"],
+  methods: {
+    goDetail() {
+      this.$router.push(`/artist/${this.artist.artistId}`);
+    },
+  },
   data: () => ({}),
   name: "ArtistCard",
 };

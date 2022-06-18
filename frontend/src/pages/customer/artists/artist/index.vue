@@ -4,8 +4,8 @@
     <artist-service />
     <artist-song-list />
     <album-card-2 />
-    <artist-about/>
-  </div> 
+    <artist-about />
+  </div>
 </template>
 
 <script>
@@ -24,10 +24,16 @@ export default {
     ArtistSongList,
     AlbumCard2,
   },
-  
-  methods: {
-    ...mapActions("artists", ["getArtist", "getPhotos"]),
 
+  methods: {
+    ...mapActions("artist", [
+      "getArtist",
+      "getPhotos",
+      "getSongs",
+    ]),
+    async getSong(artistId) {
+      await this.getSongs(artistId);
+    },
     async loadArtist(artistId) {
       await this.getArtist(artistId);
     },
@@ -35,9 +41,11 @@ export default {
     async loadPhoto(artistId) {
       await this.getPhotos(artistId);
     },
+    async getArtist() {},
   },
   async created() {
     const artistId = this.$route.params.id;
+    await this.getSong(artistId);
     await this.loadArtist(artistId);
     await this.loadPhoto(artistId);
   },

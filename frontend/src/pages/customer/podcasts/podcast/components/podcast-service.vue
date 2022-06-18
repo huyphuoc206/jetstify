@@ -6,7 +6,7 @@
       class="ml-3 btn"
       text
       depressed
-      @click="unFollow()"
+      @click="unFollow(podcastInfo.followId)"
     >
       unFollow
     </v-btn>

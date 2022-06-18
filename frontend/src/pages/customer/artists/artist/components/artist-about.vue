@@ -114,13 +114,12 @@ import { mapGetters } from "vuex";
 export default {
   name: "ArtistAbout",
   computed: {
-    ...mapGetters("artists", ["artist", "photos"]),
+    ...mapGetters("artist", ["artist", "photos"]),
   },
   data: () => ({
     dialog: false,
   }),
   created() {
-    console.log(this.photos);
   },
 };
 </script>

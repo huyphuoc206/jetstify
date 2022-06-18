@@ -14,19 +14,19 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 import dataArtist from "./data-artist.vue";
 export default {
   components: { dataArtist },
   name: "Artists",
   methods: {
-    ...mapActions("users", ["getFollows"]),
-    async loadArtistFollow(){
-      await this.getFollows();
-    }
+    ...mapActions("artists", ["getListArtistFollow"]),
+    async listFollowArtist() {
+      await this.getListArtistFollow();
+    },
   },
   async created() {
-    await this.loadArtistFollow();
+    await this.listFollowArtist();
   },
 };
 </script>

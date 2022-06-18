@@ -1,18 +1,17 @@
+import notice from "@/core/notice";
 import { $rest } from "@/core/rest-client";
 import * as TYPES from "./types";
-import notice from "@/core/notice";
-// import { DELETE_SUCCESS, SAVE_SUCCESS } from "@/core/constants";
 
-
-const USER = "/user";
 const FOLLOW = "/follow"
+const USER = "/user"
 
+export const setToggleAbout = ({ commit }) => {
+    commit(TYPES.SET_TOGGLE);
+};
 
-
-
-export const getListArtistFollow = async({ commit }) => {
+export const getListPodcastFollow = async({ commit }) => {
     const { success, data, message } = await $rest.get(
-        `${USER}${FOLLOW}?type=ARTIST`
+        `${USER}${FOLLOW}?type=PODCAST`
     );
     if (success) {
         commit(TYPES.SET_FOLLOWS, data);
