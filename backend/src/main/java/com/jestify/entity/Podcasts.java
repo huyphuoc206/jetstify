@@ -26,4 +26,5 @@ public class Podcasts extends BaseEntity {
     private boolean active;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "podcasts")
     List<Episodes> episodes;
+
 }

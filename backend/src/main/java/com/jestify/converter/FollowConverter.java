@@ -10,8 +10,8 @@ public class FollowConverter {
     public Follows toEntity(FollowRequest followRequest) {
         return Follows.builder()
                 .objectId(followRequest.getObjectId())
-                .userId(followRequest.getUserId())
                 .type(followRequest.getType())
+                .userId(followRequest.getUserId())
                 .build();
     }
     public FollowResponse toResponse(Follows entity){

@@ -17,6 +17,7 @@ public class PodcastResponse {
     private String namePodcast;
     private String fullNameUser;
     private String description;
+    private Long followId;
     private List<EpisodeResponse> episodeResponseList;
 }
 

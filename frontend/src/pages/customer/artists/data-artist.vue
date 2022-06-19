@@ -5,10 +5,10 @@
       sm="6"
       md="4"
       lg="2"
-      v-for="(song, index) in allSong"
+      v-for="(artist, index) in follows"
       :key="index"
     >
-      <artist-card :song="song"></artist-card>
+      <artist-card :artist="artist"></artist-card>
     </v-col>
   </v-row>
 </template>
@@ -21,7 +21,8 @@ export default {
     ...mapActions("songs", ["fetchSong"]),
   },
   computed: {
-    ...mapGetters("songs", ["allSong"]),
+    ...mapGetters("songs", ["allSong"],
+    "users", ["follows"]),
   },
   async created() {
     await this.fetchSong();
