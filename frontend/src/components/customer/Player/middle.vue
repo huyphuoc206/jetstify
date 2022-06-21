@@ -1,8 +1,5 @@
 <template>
-  <v-col
-    cols="6"
-    sm="4"
-  >
+  <v-col cols="6" sm="4">
     <audio-player
       ref="audioPlayer"
       :theme-color="'#00000'"
@@ -35,7 +32,7 @@ export default {
   },
   mounted() {
     this.title = this.audioList[0].name;
-    this.$refs.audioPlayer.play();
+    // this.$refs.audioPlayer.play();
   },
   methods: {
     // Use this function if you want to do something before you start playing

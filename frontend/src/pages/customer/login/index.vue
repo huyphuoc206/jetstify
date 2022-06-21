@@ -9,8 +9,11 @@
                 <v-col cols="12" md="6">
                   <v-card-text class="mt-5">
                     <h3 class="text-center">Login in to Your Account</h3>
-                    <h3 class="text-center mb-3">Or 
-                      <router-link style="text-decoration: none" to="/">Back To Home</router-link>
+                    <h3 class="text-center mb-3">
+                      Or
+                      <router-link style="text-decoration: none" to="/"
+                        >Back To Home</router-link
+                      >
                     </h3>
                     <v-row align="center" justify="center">
                       <v-col cols="12" sm="8">
@@ -50,7 +53,12 @@
                               </v-checkbox>
                             </v-col>
                             <v-col cols="12" sm="5" class="text-right">
-                              <router-link class="caption" style="text-decoration: none" to="/forgot-password">Forgot password</router-link>
+                              <router-link
+                                class="caption"
+                                style="text-decoration: none"
+                                to="/forgot-password"
+                                >Forgot password</router-link
+                              >
                             </v-col>
                           </v-row>
                           <v-btn
@@ -66,11 +74,7 @@
                             Or Log in using
                           </h4>
                           <div
-                            class="
-                              d-flex
-                              justify-space-around
-                              align-items-center
-                            "
+                            class="d-flex justify-space-around align-items-center"
                           >
                             <v-btn depressed outlined color="grey">
                               <v-icon color="red">mdi-google</v-icon>
@@ -119,7 +123,10 @@
                     <h3 class="text-center mb-3">Sign Up for an account</h3>
                     <v-row align="center" justify="center">
                       <v-col cols="12" sm="8">
-                        <v-form ref="formRegister" v-model="isValidRegisterForm">
+                        <v-form
+                          ref="formRegister"
+                          v-model="isValidRegisterForm"
+                        >
                           <v-text-field
                             v-model="fullNameRegister"
                             required
@@ -215,25 +222,19 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-dialog
-      v-model="registerSuccessDialog"
-      max-width="500"
-    >
+    <v-dialog v-model="registerSuccessDialog" max-width="500">
       <v-card>
         <v-card-title>
           <v-row justify="center mt-3">
-            <v-icon
-            x-large
-            color="green"
-            >
-              mdi-checkbox-marked-circle
-            </v-icon>
+            <v-icon x-large color="green"> mdi-checkbox-marked-circle </v-icon>
           </v-row>
         </v-card-title>
 
         <v-card-text class="text-center mt-4">
           <h2>Registration completed successfully</h2>
-          <p class="mb-0 mt-2">Please check your registered email for email verification</p>
+          <p class="mb-0 mt-2">
+            Please check your registered email for email verification
+          </p>
         </v-card-text>
 
         <v-card-actions>
@@ -253,8 +254,8 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import { ROLE_CODE } from '@/core/constants';
+import { mapActions, mapGetters } from "vuex";
+import { ROLE_CODE } from "@/core/constants";
 export default {
   name: "Login",
   data: () => ({
@@ -270,40 +271,43 @@ export default {
     passwordRegister: "",
     passwordRegisterConfirm: "",
     emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      (v) => !!v || "E-mail is required",
+      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
-    passwordRules: [ 
-      v => !!v || 'Password is required',
-      v => (v && v.length >= 6) || 'Password must be greater than 6 characters',
+    passwordRules: [
+      (v) => !!v || "Password is required",
+      (v) =>
+        (v && v.length >= 6) || "Password must be greater than 6 characters",
     ],
-    fullNameRules: [v => !!v || 'Full name is required'],
-    termsRules: [v => !!v]
+    fullNameRules: [(v) => !!v || "Full name is required"],
+    termsRules: [(v) => !!v],
   }),
   computed: {
     ...mapGetters("auth", ["isAuthenticated"]),
     passwordConfirmRules() {
       return [
-        v => (v && v === this.passwordRegister) || 'The password confirmation does not match.',
-      ]
-    }
+        (v) =>
+          (v && v === this.passwordRegister) ||
+          "The password confirmation does not match.",
+      ];
+    },
   },
   methods: {
-    ...mapActions('auth', ['login']),
+    ...mapActions("auth", ["login"]),
     async handleSignIn() {
       this.$refs.formLogin.validate();
       if (!this.isValidLoginForm) {
         return;
       }
       const request = {
-        role: ROLE_CODE.CUSTOMER, 
-        email:this.email,
+        role: ROLE_CODE.CUSTOMER,
+        email: this.email,
         password: this.password,
-        isRemember: this.isRemember
-      }
+        isRemember: this.isRemember,
+      };
       const { success, message } = await this.login(request);
       if (success) {
-        this.$router.push('/');
+        this.$router.push("/");
       } else {
         this.$notice.error(message);
       }
@@ -314,11 +318,11 @@ export default {
         return;
       }
       const request = {
-        email:    this.emailRegister,
+        email: this.emailRegister,
         password: this.passwordRegister,
-        fullName: this.fullNameRegister
-      }
-      const { success, message } = await this.$rest.post('/register', request);
+        fullName: this.fullNameRegister,
+      };
+      const { success, message } = await this.$rest.post("/register", request);
       if (success) {
         this.resetForm();
         this.registerSuccessDialog = true;
@@ -330,11 +334,11 @@ export default {
     resetForm() {
       this.$refs.formLogin.reset();
       this.$refs.formRegister.reset();
-    }
+    },
   },
   created() {
-    this.isAuthenticated && this.$router.push({ name: 'Home'})
-  }
+    this.isAuthenticated && this.$router.push({ name: "Home" });
+  },
 };
 </script>
 

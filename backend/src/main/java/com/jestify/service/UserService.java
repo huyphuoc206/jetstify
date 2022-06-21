@@ -52,9 +52,14 @@ public class UserService {
     public void updateInfoUser(String userRequestJson, MultipartFile fileImg){
         UserRequest userRequest = JsonUtil.toObject(userRequestJson, UserRequest.class);
         Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently()).orElseThrow(()-> new IllegalStateException("Not Found User"));
-        users.setAvatar(amazonUtil.uploadFile(fileImg));
+        if (fileImg != null ) {
+            users.setAvatar(amazonUtil.uploadFile(fileImg));
+        }
         users.setFullName(userRequest.getFullName());
         userRepository.save(users);
     }
 
+    public Users getUserInfoEntity(String email) {
+        return userRepository.findByEmailAndActiveTrue(email).orElseThrow(()-> new IllegalStateException("Not Found User"));
+    }
 }
