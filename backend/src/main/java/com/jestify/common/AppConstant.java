@@ -9,9 +9,6 @@ public class AppConstant {
     public static final String ACCESS_TOKEN_CLAIM = "act";
     public static final String REFRESH_TOKEN_CLAIM = "rft";
     public static final String ROLE_CLAIM = "role";
-    public static final String AVATAR_CLAIM = "avatar";
-    public static final String FULL_NAME_CLAIM = "fullName";
-
     public static final String ERROR_MESSAGE = "Internal Server Error";
 
     // Role Code

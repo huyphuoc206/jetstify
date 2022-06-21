@@ -10,7 +10,7 @@ const initState = () => ({
 });
 
 const mutations = {
-  [TYPES.SET_USER_INFO]: (state, { fullName,avatar, role, accessToken }) => { 
+  [TYPES.SET_USER_INFO]: (state, { fullName, avatar, role, accessToken }) => { 
     state.token = accessToken;
     state.fullName = fullName;
     state.role = role;
@@ -19,7 +19,7 @@ const mutations = {
 
   [TYPES.UPDATE_USER_INFO]: (state, { fullName, avatar }) => { 
     state.fullName = fullName;
-    state.fullName = avatar;
+    state.avatar = avatar;
   },
 
   [TYPES.RESET_USER_INFO]: state => Object.assign(state, initState())
