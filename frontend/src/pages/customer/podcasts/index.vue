@@ -14,11 +14,21 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import DataPodcast from './data-podcast.vue';
 
 export default {
   components: { DataPodcast },
   name: "Artists",
+   methods: {
+    ...mapActions("users", ["getListPodcastFollow"]),
+    async listFollowPodcast(){
+      await this.getListPodcastFollow();
+    }
+  },
+  async created() {
+    await this.listFollowPodcast();
+  },
 };
 </script>
 

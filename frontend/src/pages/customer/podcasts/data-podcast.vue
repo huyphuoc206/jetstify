@@ -7,29 +7,27 @@
             cols="6"
             sm="4"
             lg="2"
-            v-for="(song, index) in allSong"
+            v-for="(podcast, index) in follows"
             :key="index"
           >
-            <podcast-cart :song="song"></podcast-cart>
+            <podcast-cart :podcast="podcast"></podcast-cart>
           </v-col>
         </v-row>
 </template>
 
 <script>
 import yourEpisodes from './your-episodes.vue'
-import { mapActions, mapGetters } from 'vuex';
+import {  mapGetters } from 'vuex';
 import PodcastCart from '@/components/customer/PodcastCart.vue';
 export default {
   components: { yourEpisodes, PodcastCart },
 methods: {
-    ...mapActions("songs", ["fetchSong"]),
+    
   },
   computed: {
-    ...mapGetters("songs", ["allSong"]),
+    ...mapGetters("users", ["follows"]),
   },
-  async created() {
-    await this.fetchSong();
-  },
+  
 }
 </script>
 

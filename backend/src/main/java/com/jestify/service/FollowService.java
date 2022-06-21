@@ -2,9 +2,12 @@ package com.jestify.service;
 
 import com.jestify.converter.FollowConverter;
 import com.jestify.entity.Follows;
+import com.jestify.entity.Users;
 import com.jestify.payload.FollowRequest;
 import com.jestify.payload.FollowResponse;
 import com.jestify.repository.FollowRepository;
+import com.jestify.repository.UserRepository;
+import com.jestify.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +19,12 @@ import java.util.List;
 public class FollowService {
     private final FollowRepository followRepository;
     private final FollowConverter followConverter;
+    private final UserRepository userRepository;
 
     public FollowResponse follow(FollowRequest followRequest) {
+        Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently())
+                .orElseThrow(() -> new IllegalStateException("not Found User"));
+        followRequest.setUserId(users.getId());
         Follows follows = followRepository.save(followConverter.toEntity(followRequest));
         return followConverter.toResponse(follows);
     }

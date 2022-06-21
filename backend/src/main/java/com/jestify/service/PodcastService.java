@@ -1,22 +1,23 @@
 package com.jestify.service;
 
-import com.jestify.converter.EpisodeConverter;
+import com.jestify.common.AppConstant;
 import com.jestify.converter.PodcastConverter;
-import com.jestify.entity.Episodes;
+import com.jestify.entity.Follows;
 import com.jestify.entity.Podcasts;
 import com.jestify.entity.Users;
 import com.jestify.payload.EpisodeResponse;
 import com.jestify.payload.FollowResponse;
 import com.jestify.payload.PodcastResponse;
-import com.jestify.repository.EpisodeRepository;
+import com.jestify.repository.FollowRepository;
 import com.jestify.repository.PodcastRepository;
 import com.jestify.repository.UserRepository;
+import com.jestify.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +28,7 @@ public class PodcastService {
     private final UserRepository userRepository;
     private final PodcastConverter podcastConverter;
     private final FollowService followService;
+    private final FollowRepository followRepository;
 
     public List<EpisodeResponse> getPodcastEpisode(Long podcastId) {
         return episodeService.getEpisodeByIdPodcast(podcastId);
@@ -37,7 +39,10 @@ public class PodcastService {
                 .orElseThrow(() -> new IllegalStateException("Podcast not found"));
         Users user =userRepository.findById((podcasts.getUserId()))
                 .orElseThrow(() -> new IllegalStateException("User not found"));
+        Users userNowLogin = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently()) .orElseThrow(() -> new IllegalStateException("User not found"));
         PodcastResponse podcastResponse = podcastConverter.toResponse(podcasts);
+        Optional<Follows> follows = followRepository.findByObjectIdAndTypeAndUserId(podcastId, AppConstant.PODCAST, userNowLogin.getId());
+        follows.ifPresent(value -> podcastResponse.setFollowId(value.getId()));
         podcastResponse.setEpisodeResponseList(getPodcastEpisode(podcastId));
         podcastResponse.setFullNameUser(user.getFullName());
         return podcastResponse;

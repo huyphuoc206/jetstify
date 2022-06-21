@@ -1,0 +1,1 @@
+export const follows = state => state.follows;

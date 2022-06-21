@@ -1,6 +1,12 @@
 <template>
   <v-hover style="cursor: pointer">
-    <v-card class="common-card" flat height="250" width="180">
+    <v-card
+      class="common-card"
+      flat
+      height="250"
+      width="180"
+      @click="goDetail()"
+    >
       <v-card-text>
         <v-img
           :style="{
@@ -9,7 +15,7 @@
           width="200"
           height="150"
           class="elevation-3"
-          :src="song.img"
+          :src="podcast.thumbnail"
         >
         </v-img>
       </v-card-text>
@@ -25,11 +31,11 @@
               },
             }"
           >
-            {{ song.name }}
+            {{ podcast.id }}
           </router-link>
         </p>
         <p class="caption font-weight-light mb-4 text-truncate">
-          {{ song.artist }}
+          {{ podcast.podcastId }}
         </p>
       </v-card-text>
     </v-card>
@@ -38,8 +44,14 @@
 
 <script>
 export default {
-  props: ["song"],
-  data: () => ({}),
+  methods: {
+    goDetail() {
+      this.$router.push(`/podcast/${this.podcast.podcastId}`);
+    },
+  },
+  props: ["podcast"],
+  data: () => ({
+  }),
   name: "PodcastCard",
 };
 </script>

@@ -14,9 +14,19 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import dataArtist from "./data-artist.vue";
 export default {
   components: { dataArtist },
   name: "Artists",
+  methods: {
+    ...mapActions("users", ["getFollows"]),
+    async loadArtistFollow(){
+      await this.getFollows();
+    }
+  },
+  async created() {
+    await this.loadArtistFollow();
+  },
 };
 </script>
