@@ -4,7 +4,7 @@
     <v-card
       @click="dialog = true"
       class="mt-2 thumbnailArtist"
-      :img="artist.photos[0].link"
+      :img="this.artist.photos[0].link"
       height="516"
       width="1032"
     >
@@ -13,10 +13,7 @@
           >489.439 người nghe hàng tháng</v-card-text
         >
         <v-card-text class="font-weight-black">
-          Nguyễn Thanh Tùng (born 5 July 1994 in Thái Bình Province), known
-          professionally as Sơn Tùng M-TP is a Vietnamese singer-songwriter.
-          Most of his songs, such as "Cơn mưa ngang qua" (The Rain of
-          Love)</v-card-text
+         {{this.artist.info}}</v-card-text
         >
       </v-card-title>
     </v-card>
@@ -114,7 +111,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "ArtistAbout",
   computed: {
-    ...mapGetters("artist", ["artist", "photos"]),
+    ...mapGetters("artist", ["artist"]),
   },
   data: () => ({
     dialog: false,

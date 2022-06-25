@@ -4,7 +4,7 @@ import notice from "@/core/notice";
 // import { DELETE_SUCCESS, SAVE_SUCCESS } from "@/core/constants";
 
 const PUBLIC = "/public";
-const BASE_URL = "/artist";
+const BASE_URL = "/public/artist";
 const USER = "/user";
 const FOLLOW = "/follow"
 
@@ -12,6 +12,7 @@ export const getSongs = async({ commit }, artistId) => {
     const { success, data, message } = await $rest.get(
         `${PUBLIC}${USER}/${artistId}/songs`
     );
+
     if (success) {
         commit(TYPES.SET_SONGS, data);
     } else {
@@ -21,20 +22,18 @@ export const getSongs = async({ commit }, artistId) => {
 
 export const getPhotos = async({ commit }, artistId) => {
     const { success, data, message } = await $rest.get(
-        `${PUBLIC}${BASE_URL}/${artistId}/photos`
+        `${BASE_URL}/${artistId}/photos`
     );
-
     if (success) {
-        commit(TYPES.SET_IMAGES, data);
+        commit(TYPES.SET_PHOTOS, data);
     } else {
         notice.error(message);
     }
 };
 export const getArtist = async({ commit }, artistId) => {
-    const { success, data, message } = await $rest.get(`${PUBLIC}${BASE_URL}/${artistId}`);
-
+    const { success, data, message } = await $rest.get(`${BASE_URL}/${artistId}`);
     if (success) {
-        commit(TYPES.SET_ARTISTS, data);
+        commit(TYPES.SET_ARTIST, data);
     } else {
         notice.error(message);
     }
