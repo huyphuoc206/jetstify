@@ -53,12 +53,17 @@ export const logout = async ({ commit, getters }) => {
 const saveUserInfo = response => {
     const { success, data } = response;
     if (success) {
-        const { accessToken } = data;
-        const { fullName, role } = getPayloadFromToken(accessToken);
+        const { accessToken, fullName, avatar } = data;
+        const { role } = getPayloadFromToken(accessToken);
         $rest.setAccessToken(accessToken);
-        store.commit(`auth/${TYPES.SET_USER_INFO}`, { fullName, role, accessToken });
+        store.commit(`auth/${TYPES.SET_USER_INFO}`, { fullName, avatar, role, accessToken });
     }
     return response;
+};
+
+
+export const updateUserInfo = ({commit} , data) => {
+    commit(TYPES.UPDATE_USER_INFO, data);
 };
 
 const autoRefreshToken = async () => {

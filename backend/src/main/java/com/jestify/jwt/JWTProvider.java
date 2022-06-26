@@ -45,9 +45,7 @@ public class JWTProvider {
     public Users getUserFromToken(String token) {
         if (isNoneValidToken(token)) return null;
         String role = getClaimValue(token, AppConstant.ROLE_CLAIM, String.class);
-        String fullName = getClaimValue(token, AppConstant.FULL_NAME_CLAIM, String.class);
         return Users.builder()
-                .fullName(fullName)
                 .email(getClaimValue(token, PublicClaims.SUBJECT, String.class))
                 .roles(Roles.builder().code(role).build())
                 .build();
@@ -92,7 +90,6 @@ public class JWTProvider {
                 .withSubject(appUser.getEmail())
                 .withExpiresAt(calendar.getTime())
                 .withIssuedAt(new Date())
-                .withClaim(AppConstant.FULL_NAME_CLAIM, appUser.getFullName())
                 .withClaim(AppConstant.ROLE_CLAIM, appUser.getRoles().getCode());
 
         if (isRefreshToken) {

@@ -91,7 +91,7 @@ public class UserController {
         }
     }
     @PostMapping("/user")
-    public ResponseEntity<?> updateInfoUser(@RequestPart(value = "userRequest") String userRequest, @RequestPart(value = "fileImg")MultipartFile fileImg){
+    public ResponseEntity<?> updateInfoUser(@RequestPart(value = "userRequest") String userRequest, @RequestPart(value = "fileImg", required = false)MultipartFile fileImg){
         try{
             userService.updateInfoUser(userRequest,fileImg);
             return ResponseEntity.ok(ResponseCommon.success(null));

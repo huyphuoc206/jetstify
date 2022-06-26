@@ -129,4 +129,8 @@ public class AuthService {
             throw new IllegalArgumentException("Reset Password Link Expired");
         }
     }
+
+    public Users getByEmail(String email) {
+        return userRepository.findByEmailAndActiveTrue(email).orElseThrow(() -> new IllegalStateException("User not found"));
+    }
 }

@@ -4,11 +4,13 @@ import global from "./global";
 import songs from "./songs";
 import auth from "./auth";
 import category from "./category";
+
 import artists from "./artists"
 import artist from "./artist"
 import podcast from "./podcast";
 import podcasts from "./podcasts";
-import users from "./users"
+import user from "./user";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -18,9 +20,9 @@ export default new Vuex.Store({
         songs,
         category,
         podcast,
-        users,
         podcasts,
         artists,
-        artist
+        artist,
+        user,
     },
 });

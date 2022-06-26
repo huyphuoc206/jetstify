@@ -9,7 +9,6 @@ import com.jestify.payload.AuthResponse;
 import com.jestify.payload.RegisterRequest;
 import com.jestify.payload.ResetPasswordRequest;
 import com.jestify.service.AuthService;
-import com.jestify.utils.EmailUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -137,9 +136,14 @@ public class AuthController {
             log.error("Fail to refresh token.");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        Users appUser = jwtProvider.getUserFromToken(tokenCookie.getValue());
-        String accessToken = jwtProvider.generateAccessToken(appUser);
-        AuthResponse authResponse = AuthResponse.builder().accessToken(accessToken).build();
+        Users appUserFromToken = jwtProvider.getUserFromToken(tokenCookie.getValue());
+        String accessToken = jwtProvider.generateAccessToken(appUserFromToken);
+        Users appUser = authService.getByEmail(appUserFromToken.getEmail());
+        AuthResponse authResponse = AuthResponse.builder()
+                .accessToken(accessToken)
+                .fullName(appUser.getFullName())
+                .avatar(appUser.getAvatar())
+                .build();
         return ResponseEntity.ok(ResponseCommon.success(authResponse));
     }
 
@@ -147,7 +151,11 @@ public class AuthController {
         String accessToken = jwtProvider.generateAccessToken(appUser);
         String refreshToken = jwtProvider.generateRefreshToken(appUser, isRemember);
         addRefreshTokenToCookie(response, refreshToken, jwtProvider.getRefreshTokenLifeTimeMinutes(isRemember) * 60);
-        return AuthResponse.builder().accessToken(accessToken).build();
+        return AuthResponse.builder()
+                .accessToken(accessToken)
+                .fullName(appUser.getFullName())
+                .avatar(appUser.getAvatar())
+                .build();
     }
 
     private void addRefreshTokenToCookie(HttpServletResponse response, String refreshToken, int maxAgeSeconds) {
