@@ -1,15 +1,15 @@
-import * as getters from "./getters";
 import * as actions from "./actions";
-import * as TYPES from "./types"
+import * as getters from "./getters";
+import * as TYPES from "./types";
 
 const initState = () => ({
-    artists: [],
+    podcasts: [],
+    toggleAbout: false,
 });
 
 const mutations = {
-
-    [TYPES.SET_FOLLOWS](state, artists) {
-        state.artists = [...artists]
+    [TYPES.SET_FOLLOWS]: (state, podcasts) => {
+        state.podcasts = [...podcasts];
     },
 
 };

@@ -18,7 +18,7 @@
           </v-col>
 
           <v-col>
-            <p class="subtitle-2">Name</p>
+            <p class="subtitle-2">{{ song.name }}</p>
           </v-col>
 
           <v-col class="py-0" cols="auto">

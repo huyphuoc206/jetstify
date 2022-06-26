@@ -7,7 +7,7 @@
             cols="6"
             sm="4"
             lg="2"
-            v-for="(podcast, index) in follows"
+            v-for="(podcast, index) in podcasts"
             :key="index"
           >
             <podcast-cart :podcast="podcast"></podcast-cart>
@@ -17,7 +17,7 @@
 
 <script>
 import yourEpisodes from './your-episodes.vue'
-import {  mapGetters } from 'vuex';
+import {   mapGetters } from 'vuex';
 import PodcastCart from '@/components/customer/PodcastCart.vue';
 export default {
   components: { yourEpisodes, PodcastCart },
@@ -25,7 +25,7 @@ methods: {
     
   },
   computed: {
-    ...mapGetters("users", ["follows"]),
+    ...mapGetters("podcasts", ["podcasts"]),
   },
   
 }

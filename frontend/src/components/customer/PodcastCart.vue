@@ -22,20 +22,11 @@
 
       <v-card-text class="pt-0 ma-auto">
         <p class="body-2 font-weight-medium ma-0 text-truncate white--text">
-          <router-link
-            class="white--text text-decoration-none"
-            :to="{
-              name: 'Album',
-              params: {
-                id: 1,
-              },
-            }"
-          >
-            {{ podcast.id }}
-          </router-link>
+          
+            {{ podcast.namePodcast }}
         </p>
         <p class="caption font-weight-light mb-4 text-truncate">
-          {{ podcast.podcastId }}
+          {{ podcast.fullNameUser }}
         </p>
       </v-card-text>
     </v-card>

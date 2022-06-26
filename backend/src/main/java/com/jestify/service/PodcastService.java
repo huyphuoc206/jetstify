@@ -37,12 +37,16 @@ public class PodcastService {
     public PodcastResponse getPodcastById(Long podcastId) {
         Podcasts podcasts = podcastRepository.findById(podcastId)
                 .orElseThrow(() -> new IllegalStateException("Podcast not found"));
-        Users user =userRepository.findById((podcasts.getUserId()))
+        Users user = userRepository.findById((podcasts.getUserId()))
                 .orElseThrow(() -> new IllegalStateException("User not found"));
-        Users userNowLogin = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently()) .orElseThrow(() -> new IllegalStateException("User not found"));
+        Users userNowLogin = userRepository
+                .findByEmailAndActiveTrue(UserUtil.getUserCurrently()).orElse(null);
         PodcastResponse podcastResponse = podcastConverter.toResponse(podcasts);
-        Optional<Follows> follows = followRepository.findByObjectIdAndTypeAndUserId(podcastId, AppConstant.PODCAST, userNowLogin.getId());
-        follows.ifPresent(value -> podcastResponse.setFollowId(value.getId()));
+        if (userNowLogin != null) {
+            Optional<Follows> follows = followRepository
+                    .findByObjectIdAndTypeAndUserId(podcastId, AppConstant.PODCAST, userNowLogin.getId());
+            follows.ifPresent(value -> podcastResponse.setFollowId(value.getId()));
+        }
         podcastResponse.setEpisodeResponseList(getPodcastEpisode(podcastId));
         podcastResponse.setFullNameUser(user.getFullName());
         return podcastResponse;

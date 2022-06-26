@@ -9,7 +9,7 @@
           width="250"
           height="150"
           class="elevation-3"
-          :src="song.img"
+          src="song.thumbnail"
         >
           <div
             :style="{
@@ -36,11 +36,11 @@
               },
             }"
           >
-            {{ song.name }}
+            <!-- {{ song.name }} -->
           </router-link>
         </p>
         <p class="caption font-weight-light mb-4 text-truncate">
-          {{ song.artist }}
+          <!-- {{ song.artist }} -->
         </p>
       </v-card-text>
     </v-card>

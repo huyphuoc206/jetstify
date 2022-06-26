@@ -18,5 +18,6 @@ public class ArtistResponse {
     private Long artistId;
     private String nickName;
     private String info;
+    private Long followId;
     private List<ArtistPhotoReponse> photos;
 }

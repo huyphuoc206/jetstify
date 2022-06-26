@@ -19,7 +19,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "ArtistInfo",
   computed: {
-    ...mapGetters("artists", ["artist"]),
+    ...mapGetters("artist", ["artist"]),
   },
 
   components: {},

@@ -19,9 +19,9 @@ import DataPodcast from './data-podcast.vue';
 
 export default {
   components: { DataPodcast },
-  name: "Artists",
+  name: "Podcast",
    methods: {
-    ...mapActions("users", ["getListPodcastFollow"]),
+    ...mapActions("podcasts", ["getListPodcastFollow"]),
     async listFollowPodcast(){
       await this.getListPodcastFollow();
     }

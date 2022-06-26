@@ -8,7 +8,7 @@
         width="100%"
         height="100%"
         class="elevation-3"
-        :src="s"
+        src=""
       >
         <div
           :style="{

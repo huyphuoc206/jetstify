@@ -1,0 +1,1 @@
+export const podcasts = (state) => state.podcasts;

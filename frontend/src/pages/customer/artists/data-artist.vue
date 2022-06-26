@@ -5,7 +5,7 @@
       sm="6"
       md="4"
       lg="2"
-      v-for="(artist, index) in follows"
+      v-for="(artist, index) in artists"
       :key="index"
     >
       <artist-card :artist="artist"></artist-card>
@@ -14,21 +14,15 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import ArtistCard from '@/components/customer/ArtistCard.vue';
+import {  mapGetters } from "vuex";
 export default {
   name: "DataArtist",
-  methods: {
-    ...mapActions("songs", ["fetchSong"]),
-  },
-  computed: {
-    ...mapGetters("songs", ["allSong"],
-    "users", ["follows"]),
-  },
-  async created() {
-    await this.fetchSong();
+ computed: {
+    ...mapGetters("artists", ["artists"]),
   },
   components: {
-    ArtistCard: () => import("@/components/customer/ArtistCard.vue"),
+    ArtistCard,
   },
 };
 </script>
