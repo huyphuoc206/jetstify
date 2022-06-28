@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/category")
+@RequestMapping("/api/public/category")
 public class CategoryController {
     private final CategoryService categoryService;
 
@@ -23,7 +23,16 @@ public class CategoryController {
         try {
             return ResponseEntity.ok(ResponseCommon.success(categoryService.getSongByCategoryId(categoryId)));
         }catch (Exception ex){
-            log.error("API Error /api/category/{categoryId} - getSongByCategory", ex);
+            log.error("API Error /api/public/category/{categoryId} - getSongByCategory", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+    @GetMapping
+    public ResponseEntity<?> getCategory(){
+        try {
+            return ResponseEntity.ok(ResponseCommon.success(categoryService.getCategories()));
+        }catch (Exception ex){
+            log.error("API Error /api/public/category/ - getCategory", ex);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
