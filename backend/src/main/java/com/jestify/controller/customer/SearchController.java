@@ -19,7 +19,7 @@ public class SearchController {
         try {
             return ResponseEntity.ok(ResponseCommon.success(searchService.searchResponses(name)));
         }catch (Exception ex){
-            log.error("API Error /api/podcast/{podcastId}/podcasts - getPodcastEpisodeByArtistId", ex);
+            log.error("API Error /api/public/search - getSearch", ex);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
