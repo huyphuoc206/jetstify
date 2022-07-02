@@ -15,6 +15,6 @@ public interface FollowRepository extends JpaRepository<Follows, Long> {
 
     @Query(value = "SELECT OBJECT_ID \n" +
             "FROM (\n" +
-            "SELECT OBJECT_ID, COUNT(*) FROM follows WHERE type = :type GROUP BY OBJECT_ID ORDER BY COUNT DESC) K", nativeQuery = true)
+            "SELECT OBJECT_ID, COUNT(*) FROM follows WHERE type = :type GROUP BY OBJECT_ID ORDER BY COUNT DESC) K LIMIT 20", nativeQuery = true)
     List<Long> findByFollowers(@Param("type") String type);
 }
