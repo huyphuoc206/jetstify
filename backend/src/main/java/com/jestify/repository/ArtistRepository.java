@@ -11,4 +11,9 @@ public interface ArtistRepository extends JpaRepository<Artists, Long> {
 
     @Query(value = "SELECT * FROM artists where verify = true ORDER BY RANDOM() LIMIT 20", nativeQuery = true)
     List<Artists> findRandomArtists();
+
+    @Query(value = "SELECT * FROM artists ORDER BY created_date DESC LIMIT 20", nativeQuery = true)
+    List<Artists> findSongNew();
+
+
 }

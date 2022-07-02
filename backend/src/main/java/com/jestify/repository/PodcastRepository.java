@@ -11,4 +11,8 @@ public interface PodcastRepository extends JpaRepository<Podcasts, Long> {
 
     @Query(value = "SELECT * FROM podcasts where active = true ORDER BY RANDOM() LIMIT 20", nativeQuery = true)
     List<Podcasts> findRandomPodcasts();
+
+    @Query(value = "SELECT * FROM podcasts ORDER BY created_date DESC LIMIT 20", nativeQuery = true)
+    List<Podcasts> findPodcastsNew();
+
 }
