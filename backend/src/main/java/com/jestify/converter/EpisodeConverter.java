@@ -2,6 +2,7 @@ package com.jestify.converter;
 
 
 import com.jestify.entity.Episodes;
+import com.jestify.payload.EpisodeRequest;
 import com.jestify.payload.EpisodeResponse;
 import org.springframework.stereotype.Component;
 
@@ -19,5 +20,13 @@ public class EpisodeConverter {
                     .createdDate(entity.getCreatedDate())
                     .build();
         }
-
+    public Episodes toEntity(EpisodeRequest episodeRequest){
+        return Episodes
+                .builder()
+                .description(episodeRequest.getDescription())
+                .link(episodeRequest.getLink())
+                .name(episodeRequest.getName())
+                .thumbnail(episodeRequest.getThumbnail())
+                .build();
+    }
 }
