@@ -1,21 +1,46 @@
 server:
-  port: ${PORT:5000}
+  port: 8081
+
 spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
   datasource:
-    url: ${DATABASE_HOST}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/jestify
+    username: postgres
+    password: postgres
   jpa:
     hibernate:
-      ddl-auto: ${JPA_DDL_AUTO}
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jestify.nlu.team@gmail.com
+    password: gdxqrgsxctllwzpn
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            protocols: TLSv1.2
 jestify-app:
   token:
-    access_lifetime_minutes: ${ACCESS_TOKEN_LIFE_TIME_MINUTES}
-    refresh_lifetime_minutes: ${REFRESH_TOKEN_LIFE_TIME_MINUTES}
+    access_lifetime_minutes: 100
+    refresh_lifetime_minutes: 1440
   remember_me:
-    expired_days: ${REMEMBER_ME_DAYS}
+    expired_days: 30
+
+amazonProperties:
+  endpointUrl: ${AMAZON_ENDPOINT}
+  accessKey: ${AMAZON_ACCESS_KEY}
+  secretKey: ${AMAZON_SECRET_KEY}
+  bucketName: ${AMAZON_BUCKET_NAME}
