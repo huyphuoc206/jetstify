@@ -9,7 +9,7 @@
           width="250"
           height="150"
           class="elevation-3"
-          src="song.thumbnail"
+          :src="song.thumbnail"
         >
           <div
             :style="{
@@ -27,17 +27,9 @@
 
       <v-card-text class="pt-0 ma-auto">
         <p class="body-2 font-weight-medium ma-0 text-truncate white--text">
-          <router-link
-            class="white--text text-decoration-none"
-            :to="{
-              name: 'Album',
-              params: {
-                id: 1,
-              },
-            }"
-          >
-            <!-- {{ song.name }} -->
-          </router-link>
+        
+            {{ song.name }}
+       
         </p>
         <p class="caption font-weight-light mb-4 text-truncate">
           <!-- {{ song.artist }} -->
