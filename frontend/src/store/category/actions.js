@@ -3,9 +3,19 @@ import notice from "@/core/notice";
 import * as TYPES from "./types";
 import { DELETE_SUCCESS, SAVE_SUCCESS } from "@/core/constants";
 
+const PUBLIC_URL = "/public/category"
 const BASE_URL = "/admin/category"
 
-export const getCategories = async ({ commit }) => {
+export const getCategoriesToClient = async({ commit }) => {
+    const { success, data, message } = await $rest.get(PUBLIC_URL);
+    if (success) {
+        commit(TYPES.SET_CATEGORIES, data);
+    } else {
+        notice.error(message)
+    }
+}
+
+export const getCategories = async({ commit }) => {
     const { success, data, message } = await $rest.get(BASE_URL);
     if (success) {
         commit(TYPES.SET_CATEGORIES, data);
@@ -14,7 +24,7 @@ export const getCategories = async ({ commit }) => {
     }
 }
 
-export const getCategoryDetails = async ({ commit }, id) => {
+export const getCategoryDetails = async({ commit }, id) => {
     if (id) {
         const { success, data, message } = await $rest.get(`${BASE_URL}/${id}`);
         if (success) {
@@ -28,7 +38,7 @@ export const getCategoryDetails = async ({ commit }, id) => {
     }
 }
 
-export const saveCategory = async ({ getters, commit }) => {
+export const saveCategory = async({ getters, commit }) => {
     const { id, name, code } = getters.selected;
     let response;
     if (id) {
@@ -40,14 +50,14 @@ export const saveCategory = async ({ getters, commit }) => {
     if (success) {
         notice.success(SAVE_SUCCESS);
         const { id } = data || {};
-        !!id && await getCategoryDetails({ commit }, id); 
+        !!id && await getCategoryDetails({ commit }, id);
         await getCategories({ commit });
     } else {
         notice.error(message);
     }
 }
 
-export const deleteCategory = async ({ commit }, id) => {
+export const deleteCategory = async({ commit }, id) => {
     const { success, message } = await $rest.delete(`${BASE_URL}/${id}`);
     if (success) {
         notice.success(DELETE_SUCCESS);

@@ -10,6 +10,7 @@ import artist from "./artist"
 import podcast from "./podcast";
 import podcasts from "./podcasts";
 import user from "./user";
+import home from "./home";
 
 Vue.use(Vuex);
 
@@ -24,5 +25,6 @@ export default new Vuex.Store({
         artists,
         artist,
         user,
+        home
     },
 });

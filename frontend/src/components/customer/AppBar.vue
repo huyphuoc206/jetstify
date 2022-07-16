@@ -27,7 +27,7 @@
 
       <!--  -->
       <v-col cols="auto" class="align-end">
-        <v-btn rounded color="black" dark> UPGRADE </v-btn>
+   
 
         <v-btn
           v-if="isAuthenticated"
@@ -60,6 +60,14 @@
                   <v-divider class="my-3"></v-divider>
                   <v-btn depressed rounded text to="/user">
                     Account Settings
+                  </v-btn>
+                   <v-divider class="my-3"></v-divider>
+                      <v-btn depressed rounded text to="/artist-setting">
+                    Artist Settings
+                  </v-btn>
+                   <v-divider class="my-3"></v-divider>
+                      <v-btn depressed rounded text to="/podcast-setting">
+                    Podcast Settings
                   </v-btn>
                   <v-divider class="my-3"></v-divider>
                   <v-btn depressed rounded text @click="handleLogout()">
