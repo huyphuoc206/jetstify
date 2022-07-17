@@ -101,18 +101,18 @@ export default {
   }),
 
   computed: {
-    ...mapGetters("user", ["toggleDialog", "userInfo"]),
+    ...mapGetters("artistSetting", ["toggleDialog", "artistInfo"]),
 
     checkAvatar() {
       if (this.flagAvatar) {
-        return !!this.userInfo.avatar;
+        return !!this.artistInfo.avatar;
       }
       return !!this.linkAvatar;
     },
 
     defaultAvatar() {
       if (this.flagName) {
-        return this.userInfo.fullName ? this.userInfo.fullName.charAt(0) : "";
+        return this.artistInfo.nickName ? this.artistInfo.nickName.charAt(0) : "";
       }
 
       return this.nameAccount.trim().charAt(0);
@@ -120,7 +120,7 @@ export default {
 
     avatar: {
       get() {
-        return this.linkAvatar ? this.linkAvatar : this.userInfo.avatar;
+        return this.linkAvatar ? this.linkAvatar : this.artistInfo.avatar;
       },
 
       set(newValue) {
@@ -135,7 +135,7 @@ export default {
 
     fullNameAccount: {
       get() {
-        return this.nameAccount ? this.nameAccount : this.userInfo.fullName;
+        return this.nameAccount ? this.nameAccount : this.artistInfo.nickName;
       },
 
       set(newValue) {
@@ -153,8 +153,8 @@ export default {
   },
 
   methods: {
-    ...mapActions("user", ["setToggleDialog", "getInfoUser", "editInfoUser"]),
-    ...mapActions("auth", ["updateUserInfo"]),
+    ...mapActions("artistSetting", ["setToggleDialog", "getInfoArtist", "updateInfoArtist"]),
+    ...mapActions("auth", ["updateArtistInfo"]),
 
     handleEdit() {
       this.setToggleDialog();
@@ -183,7 +183,7 @@ export default {
         userRequest: JSON.stringify({
           fullName: (this.nameAccount
             ? this.nameAccount
-            : this.userInfo.fullName
+            : this.artistInfo.nickName
           ).trim(),
         }),
       };
@@ -194,12 +194,12 @@ export default {
 
       if (success) {
         this.handleEdit();
-        await this.getInfoUser();
+        await this.getInfoArtist();
         const data = {
-          fullName: this.userInfo.fullName,
-          avatar: this.userInfo.avatar,
+          nickName: this.artistInfo.nickName,
+          avatar: this.artistInfo.avatar,
         };
-        await this.updateUserInfo(data);
+        await this.updateArtistInfo(data);
       } else {
         this.$notice.error(message);
       }

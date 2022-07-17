@@ -101,18 +101,18 @@ export default {
   }),
 
   computed: {
-    ...mapGetters("user", ["toggleDialog", "userInfo"]),
+    ...mapGetters("podcastSetting", ["toggleDialog", "podcastInfo"]),
 
     checkAvatar() {
       if (this.flagAvatar) {
-        return !!this.userInfo.avatar;
+        return !!this.podcastInfo.thumbnail;
       }
       return !!this.linkAvatar;
     },
 
     defaultAvatar() {
       if (this.flagName) {
-        return this.userInfo.fullName ? this.userInfo.fullName.charAt(0) : "";
+        return this.podcastInfo.namePodcast ? this.podcastInfo.namePodcast.charAt(0) : "";
       }
 
       return this.nameAccount.trim().charAt(0);
@@ -120,7 +120,7 @@ export default {
 
     avatar: {
       get() {
-        return this.linkAvatar ? this.linkAvatar : this.userInfo.avatar;
+        return this.linkAvatar ? this.linkAvatar : this.podcastInfo.thumbnail;
       },
 
       set(newValue) {
@@ -135,7 +135,7 @@ export default {
 
     fullNameAccount: {
       get() {
-        return this.nameAccount ? this.nameAccount : this.userInfo.fullName;
+        return this.nameAccount ? this.nameAccount : this.podcastInfo.thumbnail;
       },
 
       set(newValue) {
@@ -153,7 +153,7 @@ export default {
   },
 
   methods: {
-    ...mapActions("user", ["setToggleDialog", "getInfoUser", "editInfoUser"]),
+    ...mapActions("podcastSetting", ["setToggleDialog", "getInfoPodcast", "updateInfoPodcast"]),
     ...mapActions("auth", ["updateUserInfo"]),
 
     handleEdit() {
@@ -180,10 +180,10 @@ export default {
 
       const jsonObject = {
         fileImg: this.fileAvatar,
-        userRequest: JSON.stringify({
+        podcastRequest: JSON.stringify({
           fullName: (this.nameAccount
             ? this.nameAccount
-            : this.userInfo.fullName
+            : this.podcastInfo.namePodcast
           ).trim(),
         }),
       };
@@ -196,10 +196,10 @@ export default {
         this.handleEdit();
         await this.getInfoUser();
         const data = {
-          fullName: this.userInfo.fullName,
-          avatar: this.userInfo.avatar,
+          fullName: this.infoPodcast.namePodcast,
+          avatar: this.infoPodcast.thumbnail,
         };
-        await this.updateUserInfo(data);
+        await this.updateInfoPodcast(data);
       } else {
         this.$notice.error(message);
       }

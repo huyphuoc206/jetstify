@@ -2,15 +2,14 @@ import notice from "@/core/notice";
 import { $rest } from "@/core/rest-client";
 import * as TYPES from "./types";
 
-const BASE_URL = "/user";
+const BASE_URL = "/podcastInfo";
 
 
 export const getInfoPodcast = async({ commit }) => {
     const { success, data, message } = await $rest.get(`${BASE_URL}`);
 
     if (success) {
-        const { fullName, email, avatar } = data;
-        commit(TYPES.USER_INFO, { fullName, email, avatar });
+        commit(TYPES.PODCAST_INFO, data);
     } else {
         notice.error(message);
     }

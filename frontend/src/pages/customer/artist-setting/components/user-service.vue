@@ -20,11 +20,11 @@ export default {
   name: "UserService",
 
   computed: {
-    ...mapGetters('user', ['toggleDialog'])
+    ...mapGetters('artistSetting', ['toggleDialog'])
   },
 
   methods: {
-    ...mapActions('user', ['setToggleDialog']),
+    ...mapActions('artistSetting', ['setToggleDialog']),
 
     handleEdit () {
       this.setToggleDialog();
