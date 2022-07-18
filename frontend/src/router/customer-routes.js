@@ -171,5 +171,27 @@ export const CUSTOMER_ROUTES = [{
         component: () =>
             import ( /* webpackChunkName: "customer-pages" */ "@/pages/customer/user"),
     },
+    {
+        path: "/artist-setting",
+        name: "Artist-setting",
+        meta: {
+            title: 'Artist',
+            requiresAuth: true,
+            role: ROLE_CODE.CUSTOMER
+        },
+        component: () =>
+            import ( /* webpackChunkName: "customer-pages" */ "@/pages/customer/artist-setting"),
+    },
+    {
+        path: "/podcast-setting",
+        name: "Podcast-setting",
+        meta: {
+            title: 'Podcast',
+            requiresAuth: true,
+            role: ROLE_CODE.CUSTOMER
+        },
+        component: () =>
+            import ( /* webpackChunkName: "customer-pages" */ "@/pages/customer/podcast-setting"),
+    },
 
 ];

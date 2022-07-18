@@ -8,7 +8,7 @@
       v-for="(song, index) in allSong"
       :key="index"
     >
-      <album-card :total="10" :song="song"></album-card>
+      <!-- <album-card :total="10" :song="song"></album-card> -->
     </v-col>
   </v-row>
 </template>
@@ -28,7 +28,7 @@ export default {
   },
 
   components: {
-    AlbumCard: () => import("@/components/customer/AlbumCard.vue"),
+    // AlbumCard: () => import("@/components/customer/AlbumCard.vue"),
   },
 };
 </script>

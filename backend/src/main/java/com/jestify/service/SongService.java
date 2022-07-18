@@ -54,5 +54,21 @@ public class SongService {
                 .map(songConverter::toResponse)
                 .collect(Collectors.toList());
     }
+    @Transactional
+    public void updateSong(Long songId, String songRequestJson,MultipartFile fileMp3,MultipartFile fileJpg){
+        Songs songs = songRepository.findById(songId).orElse(null);
+        SongRequest songRequest = JsonUtil.toObject(songRequestJson, SongRequest.class);
+        Category category = categoryRepository.findById(songRequest.getCategoryId()).orElseThrow(() -> new IllegalStateException("not found category"));
+        songs.setName(songRequest.getName());
+        songs.setThumbnail(amazonUtil.uploadFile(fileJpg));
+        songs.setLink(amazonUtil.uploadFile(fileMp3));
+        songs.setCategory(category);
+        songRepository.save(songs);
+    }
 
+    public void deleteSong(Long songId){
+        Songs songs = songRepository.findById(songId).orElse(null);
+        songs.setActive(false);
+        songRepository.save(songs);
+    }
 }

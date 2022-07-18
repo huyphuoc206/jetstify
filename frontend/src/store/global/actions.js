@@ -23,3 +23,8 @@ export const showWarningNotice = ({ commit }, message) => {
 export const closeNotice = ({ commit }) => {
     commit(TYPES.CLOSE_NOTICE);
 }
+
+export const setPlaying = ({commit}, {isPlaying = false, songId }) => {
+    commit(TYPES.SET_PLAYING, isPlaying);
+    songId && commit(TYPES.SET_CURRENT_SONG, songId);
+}

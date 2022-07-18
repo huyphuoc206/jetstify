@@ -32,5 +32,27 @@ public class SongController {
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
-
+    @PutMapping("/{songId}")
+    public ResponseEntity<?> updateSong(@RequestPart(value = "fileMp3") MultipartFile fileMp3,
+                                       @RequestPart(value = "fileImg") MultipartFile fileImg,
+                                       @RequestPart(value = "songRequest") String songRequest,
+                                        @PathVariable Long songId) {
+        try {
+            songService.updateSong(songId,songRequest, fileMp3,fileImg);
+            return ResponseEntity.ok(ResponseCommon.success(null));
+        } catch (Exception ex) {
+            log.error("API Error /api/song/{songId} - updateSong", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+    @DeleteMapping("/{songId}")
+    public ResponseEntity<?> deleteSong(@PathVariable Long songId) {
+        try {
+            songService.deleteSong(songId);
+            return ResponseEntity.ok(ResponseCommon.success(null));
+        } catch (Exception ex) {
+            log.error("API Error /api/song/{songId} - deleteSong", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
 }

@@ -1,17 +1,17 @@
 <template>
   <div class="ml-10 mr-10 mt-10 mb-10">
-    <user-start></user-start>
+    <!-- <user-start></user-start>
   <artist-home></artist-home>
-  <podcast-home></podcast-home>
+  <podcast-home></podcast-home> -->
 <data-home></data-home>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import ArtistHome from './artist-home.vue';
-import UserStart from './user-start.vue';
-import PodcastHome from './podcast-home.vue';
+import { mapActions } from "vuex";
+// import ArtistHome from './artist-home.vue';
+// import UserStart from './user-start.vue';
+// import PodcastHome from './podcast-home.vue';
 import DataHome from './data-home.vue';
 
 export default {
@@ -26,20 +26,20 @@ export default {
       { name: "Select of Jetstify", type: "" },
     ],
   }),
-  computed: { ...mapGetters("songs", ["allSong"]) },
+  
   methods: {
-    ...mapActions("songs", ["fetchSong"]),
-    async getSong() {
-      await this.fetchSong();
+    ...mapActions("home", ["getDataHome"]),
+    async getHome() {
+      await this.getDataHome();
     },
   },
   async created() {
-    await this.getSong();
+    await this.getHome();
   },
   components: {
-    UserStart,
-    ArtistHome,
-    PodcastHome,
+    // UserStart,
+    // ArtistHome,
+    // PodcastHome,
     DataHome,
   },
 };

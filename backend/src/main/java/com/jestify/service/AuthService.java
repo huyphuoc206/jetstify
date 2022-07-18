@@ -1,10 +1,14 @@
 package com.jestify.service;
 
 import com.jestify.common.AppConstant;
+import com.jestify.entity.Artists;
+import com.jestify.entity.Podcasts;
 import com.jestify.entity.Users;
 import com.jestify.payload.AuthRequest;
 import com.jestify.payload.RegisterRequest;
 import com.jestify.payload.ResetPasswordRequest;
+import com.jestify.repository.ArtistRepository;
+import com.jestify.repository.PodcastRepository;
 import com.jestify.repository.RoleRepository;
 import com.jestify.repository.UserRepository;
 import com.jestify.utils.EmailMessageUtil;
@@ -16,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -27,7 +32,8 @@ public class AuthService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailUtils emailUtils;
-
+    private final PodcastRepository podcastRepository;
+    private final ArtistRepository artistRepository;
     public Users checkLoginCustomer(AuthRequest loginRequest) {
         Users user = userRepository.findByEmailAndRolesCode(loginRequest.getEmail(), AppConstant.CUSTOMER_ROLE)
                 .orElse(null);
@@ -72,6 +78,7 @@ public class AuthService {
                 .build());
     }
 
+    @Transactional
     public void verifyRegister(String key) {
         if (StringUtils.isBlank(key)) {
             throw new IllegalStateException();
@@ -81,6 +88,15 @@ public class AuthService {
         user.setKey(null);
         user.setKeyTime(null);
         userRepository.save(user);
+        podcastRepository.save(Podcasts.builder()
+                .active(true)
+                .userId(user.getId())
+                .name(user.getFullName()).build());
+        artistRepository.save(Artists.builder()
+                .verify(true)
+                .nickName(user.getFullName())
+                .userId(user.getId())
+                .build());
     }
 
     public void forgotPassword(String email) {
