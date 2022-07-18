@@ -112,7 +112,9 @@ export default {
 
     defaultAvatar() {
       if (this.flagName) {
-        return this.artistInfo.nickName ? this.artistInfo.nickName.charAt(0) : "";
+        return this.artistInfo.nickName
+          ? this.artistInfo.nickName.charAt(0)
+          : "";
       }
 
       return this.nameAccount.trim().charAt(0);
@@ -126,6 +128,7 @@ export default {
       set(newValue) {
         if (newValue === null) {
           this.flagAvatar = true;
+          this.linkAvatar = newValue;
         } else {
           this.flagAvatar = false;
           this.linkAvatar = newValue;
@@ -153,8 +156,7 @@ export default {
   },
 
   methods: {
-    ...mapActions("artistSetting", ["setToggleDialog", "getInfoArtist", "updateInfoArtist"]),
-    ...mapActions("auth", ["updateArtistInfo"]),
+    ...mapActions("artistSetting", ["setToggleDialog", "getInfoArtist"]),
 
     handleEdit() {
       this.setToggleDialog();
@@ -180,8 +182,8 @@ export default {
 
       const jsonObject = {
         fileImg: this.fileAvatar,
-        userRequest: JSON.stringify({
-          fullName: (this.nameAccount
+        artistRequest: JSON.stringify({
+          nickName: (this.nameAccount
             ? this.nameAccount
             : this.artistInfo.nickName
           ).trim(),
@@ -190,16 +192,11 @@ export default {
 
       const formData = jsonToFormData(jsonObject);
 
-      const { success, message } = await $rest.upload("/user", formData);
+      const { success, message } = await $rest.upload("/artistInfo", formData);
 
       if (success) {
         this.handleEdit();
         await this.getInfoArtist();
-        const data = {
-          nickName: this.artistInfo.nickName,
-          avatar: this.artistInfo.avatar,
-        };
-        await this.updateArtistInfo(data);
       } else {
         this.$notice.error(message);
       }

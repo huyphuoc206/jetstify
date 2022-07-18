@@ -15,16 +15,6 @@ export const getInfoArtist = async({ commit }) => {
     }
 }
 
-export const updateInfoArtist = async({ commit }) => {
-    const { success, data, message } = await $rest.post(`${BASE_URL}`);
-
-    if (success) {
-        commit(TYPES.ARTIST_INFO, data);
-    } else {
-        notice.error(message);
-    }
-}
-
 
 export const setToggleDialog = ({ commit }) => {
     commit(TYPES.SET_TOGGLE);

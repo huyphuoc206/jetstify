@@ -5,9 +5,9 @@
         <v-img height="320px">
           <v-card class="card d-flex">
             <v-avatar class="profile" color="brown" size="200">
-              <v-img v-if="artistInfo.thumbnail" :src="artistInfo.thumbnail"></v-img>
+              <v-img v-if="checkAvatar" :src="avatar"></v-img>
               <span v-else class="white--text text-h1 mt font-weight-regular">{{
-                avatar
+                avatarDefault
               }}</span>
             </v-avatar>
             <v-card-title class="white--text d-block titleArtits">
@@ -32,7 +32,16 @@ export default {
   computed: {
     ...mapGetters("artistSetting", ["artistInfo"]),
 
+    checkAvatar() {
+      const photo = this.artistInfo.photo ? this.artistInfo.photo : [];
+      return photo.length === 0 ? false : true;
+    },
+
     avatar() {
+      return this.artistInfo.photo[0].link;
+    },
+
+    avatarDefault() {
       return this.artistInfo.nickName ? this.artistInfo.nickName.charAt(0) : "";
     },
   },
