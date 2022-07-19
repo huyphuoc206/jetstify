@@ -112,7 +112,9 @@ export default {
 
     defaultAvatar() {
       if (this.flagName) {
-        return this.podcastInfo.namePodcast ? this.podcastInfo.namePodcast.charAt(0) : "";
+        return this.podcastInfo.namePodcast
+          ? this.podcastInfo.namePodcast.charAt(0)
+          : "";
       }
 
       return this.nameAccount.trim().charAt(0);
@@ -126,6 +128,7 @@ export default {
       set(newValue) {
         if (newValue === null) {
           this.flagAvatar = true;
+          this.linkAvatar = newValue;
         } else {
           this.flagAvatar = false;
           this.linkAvatar = newValue;
@@ -153,7 +156,11 @@ export default {
   },
 
   methods: {
-    ...mapActions("podcastSetting", ["setToggleDialog", "getInfoPodcast", "updateInfoPodcast"]),
+    ...mapActions("podcastSetting", [
+      "setToggleDialog",
+      "getInfoPodcast",
+      "updateInfoPodcast",
+    ]),
     ...mapActions("auth", ["updateUserInfo"]),
 
     handleEdit() {

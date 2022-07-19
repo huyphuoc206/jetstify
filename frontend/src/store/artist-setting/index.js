@@ -5,6 +5,7 @@ import * as TYPES from "./types";
 const initState = () => ({
     artistInfo: {},
     toggleDialog: false,
+    toggleDialogCreate: true,
 });
 
 const mutations = {
@@ -14,6 +15,10 @@ const mutations = {
 
     [TYPES.SET_TOGGLE]: (state) => {
         state.toggleDialog = !state.toggleDialog;
+    },
+
+    [TYPES.SET_TOGGLE_CREATE]: (state) => {
+        state.toggleDialogCreate = !state.toggleDialogCreate;
     },
 };
 

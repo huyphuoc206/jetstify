@@ -27,7 +27,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
-  name: "UserInfo",
+  name: "ArtisSettingInfo",
 
   computed: {
     ...mapGetters("artistSetting", ["artistInfo"]),

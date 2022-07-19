@@ -19,3 +19,7 @@ export const getInfoArtist = async({ commit }) => {
 export const setToggleDialog = ({ commit }) => {
     commit(TYPES.SET_TOGGLE);
 };
+
+export const setToggleDialogCreateSong = ({ commit }) => {
+    commit(TYPES.SET_TOGGLE_CREATE);
+};
