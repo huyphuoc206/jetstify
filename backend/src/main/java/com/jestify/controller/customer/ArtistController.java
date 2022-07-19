@@ -6,10 +6,8 @@ import com.jestify.service.ArtistService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,6 +15,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class ArtistController {
     private final ArtistService artistService;
+
+    @GetMapping("/artistInfo")
+    public ResponseEntity<?> getByArtistInfo() {
+        try {
+            return ResponseEntity.ok(ResponseCommon.success(artistService.getArtistInfo()));
+        }catch(IllegalStateException ex){
+            log.error("API Error /api/artist/{artistId} - getByArtistId", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
+
+        }catch (Exception ex){
+            log.error("API Error /api/artist/{artistId} - getByArtistId", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+    @PostMapping("/artistInfo")
+    public ResponseEntity<?> updateInfoArtist(@RequestPart(value = "artistRequest") String artistRequest, @RequestPart(value = "fileImg", required = false) MultipartFile fileImg){
+        try{
+            artistService.updateInfoArtist(artistRequest,fileImg);
+            return ResponseEntity.ok(ResponseCommon.success(null));
+        }catch (IllegalStateException ex){
+            log.error("API Error api/artistInfo/ - updateInfoArtist", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
+        }catch (Exception ex){
+            log.error("API Error api/artistInfo/ - updateInfoArtist", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
 
     @GetMapping("/public/artist/{artistId}")
     public ResponseEntity<?> getByArtistId(@PathVariable Long artistId) {

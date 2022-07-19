@@ -80,7 +80,7 @@ import { $rest } from "@/core/rest-client";
 // import userStore from "@/store/user";
 
 export default {
-  name: "UserEditForm",
+  name: "ArtistSetingForm",
 
   data: () => ({
     dialog: false,
@@ -101,18 +101,20 @@ export default {
   }),
 
   computed: {
-    ...mapGetters("user", ["toggleDialog", "userInfo"]),
+    ...mapGetters("artistSetting", ["toggleDialog", "artistInfo"]),
 
     checkAvatar() {
       if (this.flagAvatar) {
-        return !!this.userInfo.avatar;
+        return !!this.artistInfo.avatar;
       }
       return !!this.linkAvatar;
     },
 
     defaultAvatar() {
       if (this.flagName) {
-        return this.userInfo.fullName ? this.userInfo.fullName.charAt(0) : "";
+        return this.artistInfo.nickName
+          ? this.artistInfo.nickName.charAt(0)
+          : "";
       }
 
       return this.nameAccount.trim().charAt(0);
@@ -120,12 +122,13 @@ export default {
 
     avatar: {
       get() {
-        return this.linkAvatar ? this.linkAvatar : this.userInfo.avatar;
+        return this.linkAvatar ? this.linkAvatar : this.artistInfo.avatar;
       },
 
       set(newValue) {
         if (newValue === null) {
           this.flagAvatar = true;
+          this.linkAvatar = newValue;
         } else {
           this.flagAvatar = false;
           this.linkAvatar = newValue;
@@ -135,7 +138,7 @@ export default {
 
     fullNameAccount: {
       get() {
-        return this.nameAccount ? this.nameAccount : this.userInfo.fullName;
+        return this.nameAccount ? this.nameAccount : this.artistInfo.nickName;
       },
 
       set(newValue) {
@@ -153,8 +156,7 @@ export default {
   },
 
   methods: {
-    ...mapActions("user", ["setToggleDialog", "getInfoUser", "editInfoUser"]),
-    ...mapActions("auth", ["updateUserInfo"]),
+    ...mapActions("artistSetting", ["setToggleDialog", "getInfoArtist"]),
 
     handleEdit() {
       this.setToggleDialog();
@@ -180,26 +182,21 @@ export default {
 
       const jsonObject = {
         fileImg: this.fileAvatar,
-        userRequest: JSON.stringify({
-          fullName: (this.nameAccount
+        artistRequest: JSON.stringify({
+          nickName: (this.nameAccount
             ? this.nameAccount
-            : this.userInfo.fullName
+            : this.artistInfo.nickName
           ).trim(),
         }),
       };
 
       const formData = jsonToFormData(jsonObject);
 
-      const { success, message } = await $rest.upload("/user", formData);
+      const { success, message } = await $rest.upload("/artistInfo", formData);
 
       if (success) {
         this.handleEdit();
-        await this.getInfoUser();
-        const data = {
-          fullName: this.userInfo.fullName,
-          avatar: this.userInfo.avatar,
-        };
-        await this.updateUserInfo(data);
+        await this.getInfoArtist();
       } else {
         this.$notice.error(message);
       }

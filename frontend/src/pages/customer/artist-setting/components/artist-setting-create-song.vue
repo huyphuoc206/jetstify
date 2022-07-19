@@ -1,10 +1,11 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="toggleDialog" persistent max-width="600px">
+    <v-dialog v-model="toggleDialogCreate" persistent max-width="600px">
       <v-card>
         <v-card-title>
           <h3 class="display-1 font-weight-bold">Profile details</h3>
         </v-card-title>
+
         <v-card-text>
           <v-container>
             <v-row>
@@ -24,6 +25,7 @@
                           >{{ defaultAvatar }}</span
                         >
                       </v-avatar>
+
                       <v-file-input
                         :rules="rules"
                         @change="handleFileUpload"
@@ -31,22 +33,43 @@
                         placeholder="Pick an avatar"
                         label="Avatar"
                       ></v-file-input>
+
+                      <v-file-input
+                        :rules="SongRules"
+                        @change="handleFileSongUpload"
+                        placeholder="Choose your song"
+                        label="Song"
+                      ></v-file-input>
                     </v-col>
                     <v-col cols="12" sm="7">
                       <v-text-field
-                        v-model="fullNameAccount"
+                        v-model="fullNameSong"
                         label="Name"
                         placeholder="Add display name"
                         outlined
                         :rules="fullNameRules"
-                        @keypress.enter="handleEditProfile()"
+                        @keypress.enter="handleUploadSong()"
                       ></v-text-field>
+
+                      <v-radio-group
+                        @change="handleCategory"
+                        v-model="defaultActiveCategory"
+                      >
+                        <v-radio
+                          v-for="category in categoriesClient"
+                          :key="category.id"
+                          :label="category.name"
+                          :value="category.id"
+                          color="success"
+                        ></v-radio>
+                      </v-radio-group>
+
                       <v-btn
                         class="float-right"
                         rounded
                         color="primary"
                         dark
-                        @click="handleEditProfile()"
+                        @click="handleUploadSong()"
                         >Save</v-btn
                       >
                     </v-col>
@@ -80,7 +103,7 @@ import { $rest } from "@/core/rest-client";
 // import userStore from "@/store/user";
 
 export default {
-  name: "UserEditForm",
+  name: "ArtistSettingCreateSong",
 
   data: () => ({
     dialog: false,
@@ -88,8 +111,10 @@ export default {
     flagAvatar: true,
     flagName: true,
     linkAvatar: "",
-    nameAccount: "",
+    nameSong: "",
     fileAvatar: null,
+    fileSong: null,
+    category: -1,
     rules: [
       (value) =>
         !value ||
@@ -97,32 +122,43 @@ export default {
         "Avatar size should be less than 3 MB!",
     ],
 
+    SongRules: [
+      (value) =>
+        !value || value.size < 5000000 || "Song size should be less than 5 MB!",
+    ],
+
     fullNameRules: [(v) => (!!v && !!v.trim()) || "Full name is required"],
   }),
 
   computed: {
-    ...mapGetters("podcastSetting", ["toggleDialog", "podcastInfo"]),
+    ...mapGetters("artistSetting", ["artistInfo", "toggleDialogCreate"]),
+
+    ...mapGetters("category", ["categoriesClient"]),
+
+    defaultActiveCategory() {
+      return this.categoriesClient[0] ? this.categoriesClient[0].id : "";
+    },
 
     checkAvatar() {
       if (this.flagAvatar) {
-        return !!this.podcastInfo.thumbnail;
+        return !!this.artistInfo.avatar;
       }
       return !!this.linkAvatar;
     },
 
     defaultAvatar() {
       if (this.flagName) {
-        return this.podcastInfo.namePodcast
-          ? this.podcastInfo.namePodcast.charAt(0)
+        return this.artistInfo.nickName
+          ? this.artistInfo.nickName.charAt(0)
           : "";
       }
 
-      return this.nameAccount.trim().charAt(0);
+      return this.nameSong.trim().charAt(0);
     },
 
     avatar: {
       get() {
-        return this.linkAvatar ? this.linkAvatar : this.podcastInfo.thumbnail;
+        return this.linkAvatar ? this.linkAvatar : this.artistInfo.avatar;
       },
 
       set(newValue) {
@@ -136,35 +172,35 @@ export default {
       },
     },
 
-    fullNameAccount: {
+    fullNameSong: {
       get() {
-        return this.nameAccount ? this.nameAccount : this.podcastInfo.thumbnail;
+        return this.nameSong ? this.nameSong : this.artistInfo.nickName;
       },
 
       set(newValue) {
         if (newValue === "") {
-          this.nameAccount = " ";
+          this.nameSong = " ";
         } else if (newValue === null) {
           this.flagName = true;
-          this.nameAccount = newValue;
+          this.nameSong = newValue;
         } else {
           this.flagName = false;
-          this.nameAccount = newValue;
+          this.nameSong = newValue;
         }
       },
     },
   },
 
   methods: {
-    ...mapActions("podcastSetting", [
-      "setToggleDialog",
-      "getInfoPodcast",
-      "updateInfoPodcast",
+    ...mapActions("artistSetting", [
+      "setToggleDialogCreateSong",
+      "getInfoArtist",
     ]),
-    ...mapActions("auth", ["updateUserInfo"]),
+
+    ...mapActions("category", ["getCategoriesToClient"]),
 
     handleEdit() {
-      this.setToggleDialog();
+      this.setToggleDialogCreateSong();
       this.resetFormClose();
     },
 
@@ -179,7 +215,19 @@ export default {
       this.avatar = imgUrl;
     },
 
-    async handleEditProfile() {
+    handleFileSongUpload(files) {
+      if (files) {
+        this.fileSong = files;
+      } else {
+        this.fileSong = new File([""], "");
+      }
+    },
+
+    handleCategory(value) {
+      this.category = value;
+    },
+
+    async handleUploadSong() {
       this.$refs.formProfile.validate();
       if (!this.isValidProfileForm) {
         return;
@@ -187,35 +235,39 @@ export default {
 
       const jsonObject = {
         fileImg: this.fileAvatar,
-        podcastRequest: JSON.stringify({
-          fullName: (this.nameAccount
-            ? this.nameAccount
-            : this.podcastInfo.namePodcast
+        fileMp3: this.fileSong,
+        songRequest: JSON.stringify({
+          name: (this.nameSong
+            ? this.nameSong
+            : this.artistInfo.nickName
           ).trim(),
+          categoryId:
+            this.category === -1 ? this.categoriesClient[0].id : this.category,
         }),
       };
 
       const formData = jsonToFormData(jsonObject);
 
-      const { success, message } = await $rest.upload("/user", formData);
+      const { success, message } = await $rest.upload("/song", formData);
 
       if (success) {
         this.handleEdit();
-        await this.getInfoUser();
-        const data = {
-          fullName: this.infoPodcast.namePodcast,
-          avatar: this.infoPodcast.thumbnail,
-        };
-        await this.updateInfoPodcast(data);
+        await this.getInfoArtist();
       } else {
         this.$notice.error(message);
       }
     },
 
     resetFormClose() {
-      this.fullNameAccount = null;
+      this.fullNameSong = null;
       this.avatar = null;
+      this.fileSong = null;
+      this.categoryId = -1;
     },
+  },
+
+  async created() {
+    await this.getCategoriesToClient();
   },
 };
 </script>

@@ -7,20 +7,20 @@ import * as TYPES from "./types";
 import { getPayloadFromToken } from "@/utils/rest-utils";
 import __isNumber from "lodash/isNumber";
 
-export const loadAuthentication = async () => {
+export const loadAuthentication = async() => {
     try {
         const { success, status } = saveUserInfo(await $rest.get('/token/refresh'));
-    if (success) {
-        intervalTokenJob.start();
-    } else if (status === API_REQUEST.STATUS_CODES.SERVER_ERROR) {
-        router.replace('/server-error')
-    }
+        if (success) {
+            intervalTokenJob.start();
+        } else if (status === API_REQUEST.STATUS_CODES.SERVER_ERROR) {
+            router.replace('/server-error')
+        }
     } finally {
         store.dispatch("global/setReady", true);
     }
 };
 
-export const login = async (dispatch, payload) => {
+export const login = async(dispatch, payload) => {
     const { role } = payload;
     const request = {
         email: payload.email,
@@ -39,7 +39,7 @@ export const login = async (dispatch, payload) => {
     };
 };
 
-export const logout = async ({ commit, getters }) => {
+export const logout = async({ commit, getters }) => {
     const role = getters.role || ROLE_CODE.CUSTOMER;
     intervalTokenJob.suspend();
     $rest.removeAccessToken();
@@ -62,11 +62,11 @@ const saveUserInfo = response => {
 };
 
 
-export const updateUserInfo = ({commit} , data) => {
+export const updateUserInfo = ({ commit }, data) => {
     commit(TYPES.UPDATE_USER_INFO, data);
 };
 
-const autoRefreshToken = async () => {
+const autoRefreshToken = async() => {
     const token = store.getters['auth/token'];
     const { ext } = getPayloadFromToken(token);
     if (__isNumber(ext)) {

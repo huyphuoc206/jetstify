@@ -1,10 +1,12 @@
 package com.jestify.repository;
 
+import com.jestify.entity.Artists;
 import com.jestify.entity.Podcasts;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PodcastRepository extends JpaRepository<Podcasts, Long> {
     List<Podcasts> findByNameContainingIgnoreCaseAndActiveTrue(String name);
@@ -14,5 +16,7 @@ public interface PodcastRepository extends JpaRepository<Podcasts, Long> {
 
     @Query(value = "SELECT * FROM podcasts ORDER BY created_date DESC LIMIT 20", nativeQuery = true)
     List<Podcasts> findPodcastsNew();
+
+    Optional<Podcasts> findByUserId(Long userId);
 
 }

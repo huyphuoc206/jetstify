@@ -1,20 +1,23 @@
 <template>
   <div>
-    <user-info />
-    <user-service />
-    <user-edit-form />
+    <artis-setting-info />
+    <artist-setting-service />
+    <artist-seting-form />
+    <artist-setting-create-song />
   </div>
 </template>
 <script>
-import UserEditForm from "./components/user-edit-form.vue";
-import UserInfo from "./components/user-info.vue";
-import UserService from "./components/user-service.vue";
+import ArtistSetingForm from "./components/artist-setting-edit-form.vue";
+import ArtisSettingInfo from "./components/artist-setting-info.vue";
+import ArtistSettingService from "./components/artist-setting-service.vue";
+import ArtistSettingCreateSong from "./components/artist-setting-create-song.vue";
 export default {
   name: "Playlist",
   components: {
-    UserInfo,
-    UserService,
-    UserEditForm,
+    ArtisSettingInfo,
+    ArtistSettingService,
+    ArtistSetingForm,
+    ArtistSettingCreateSong,
   },
 };
 </script>

@@ -5,7 +5,7 @@
         <v-img height="320px">
           <v-card class="card d-flex">
             <v-avatar class="profile" color="brown" size="200">
-              <v-img v-if="userInfo.avatar" :src="userInfo.avatar"></v-img>
+              <v-img v-if="podcastInfo.thumbnail" :src="podcastInfo.thumbnail"></v-img>
               <span v-else class="white--text text-h1 mt font-weight-regular">{{
                 avatar
               }}</span>
@@ -13,7 +13,7 @@
             <v-card-title class="white--text d-block titleArtits">
               <h3 class="mb-7 font-weight-bold">Profile</h3>
               <h1 class="display-3 font-weight-bold" @click="handleEdit">
-                {{ userInfo.fullName }}
+                {{ podcastInfo.namePodcast }}
               </h1>
             </v-card-title>
           </v-card>
@@ -30,15 +30,15 @@ export default {
   name: "UserInfo",
 
   computed: {
-    ...mapGetters("user", ["userInfo"]),
+    ...mapGetters("podcastSetting", ["podcastInfo"]),
 
     avatar() {
-      return this.userInfo.fullName ? this.userInfo.fullName.charAt(0) : "";
+      return this.podcastInfo.namePodcast ? this.podcastInfo.namePodcast.charAt(0) : "";
     },
   },
 
   methods: {
-    ...mapActions("user", ["getInfoUser", "setToggleDialog"]),
+    ...mapActions("podcastSetting", ["getInfoPodcast", "setToggleDialog"]),
 
     handleEdit() {
       this.setToggleDialog();
@@ -46,7 +46,7 @@ export default {
   },
 
   async created() {
-    await this.getInfoUser();
+    await this.getInfoPodcast();
   },
 };
 </script>

@@ -6,7 +6,7 @@
       </template>
       <v-list>
         
-          <v-list-item-title>Upload music</v-list-item-title>
+          <v-list-item-title>Upload podcast</v-list-item-title>
           <v-list-item-title @click="handleEdit">Edit profile</v-list-item-title>
       
       </v-list>
@@ -20,11 +20,11 @@ export default {
   name: "UserService",
 
   computed: {
-    ...mapGetters('user', ['toggleDialog'])
+    ...mapGetters('podcastSetting', ['toggleDialog'])
   },
 
   methods: {
-    ...mapActions('user', ['setToggleDialog']),
+    ...mapActions('podcastSetting', ['setToggleDialog']),
 
     handleEdit () {
       this.setToggleDialog();

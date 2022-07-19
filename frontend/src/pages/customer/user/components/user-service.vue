@@ -6,7 +6,7 @@
       </template>
       <v-list>
         
-          <v-list-item-title>Upload music</v-list-item-title>
+          
           <v-list-item-title @click="handleEdit">Edit profile</v-list-item-title>
       
       </v-list>

@@ -2,22 +2,23 @@ package com.jestify.service;
 
 import com.jestify.common.AppConstant;
 import com.jestify.converter.PodcastConverter;
-import com.jestify.entity.Follows;
-import com.jestify.entity.Podcasts;
-import com.jestify.entity.Users;
-import com.jestify.payload.EpisodeResponse;
-import com.jestify.payload.FollowResponse;
-import com.jestify.payload.PodcastResponse;
+import com.jestify.entity.*;
+import com.jestify.payload.*;
 import com.jestify.repository.FollowRepository;
 import com.jestify.repository.PodcastRepository;
 import com.jestify.repository.UserRepository;
+import com.jestify.utils.JsonUtil;
 import com.jestify.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -63,5 +64,30 @@ public class PodcastService {
         return podcastResponseList;
     }
 
+    public PodcastResponse getPodcastInfo() {
+
+        Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently())
+                .orElse(null);
+        Podcasts podcasts = podcastRepository.findByUserId(users.getId())
+                .orElseThrow(() -> new IllegalStateException("Artist not found"));
+        PodcastResponse podcastResponse = podcastConverter.toResponse(podcasts);
+
+        podcastResponse.setThumbnail(podcasts.getThumbnail());
+        return podcastResponse;
+    }
+    @Transactional
+    public void updateInfoPodcast(String podcastRequestJson, MultipartFile fileImg) {
+        PodcastRequest podcastRequest = JsonUtil.toObject(podcastRequestJson, PodcastRequest.class);
+
+        Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently()).orElseThrow(() -> new IllegalStateException("Not Found User"));
+        Podcasts podcasts = podcastRepository.findByUserId(users.getId()).orElse(null);
+
+
+        if (fileImg != null) {
+            podcasts.setThumbnail(podcastRequest.getAvatar());
+        }
+        podcasts.setName(podcastRequest.getNamePodcast());
+        podcastRepository.save(podcasts);
+    }
 
 }
