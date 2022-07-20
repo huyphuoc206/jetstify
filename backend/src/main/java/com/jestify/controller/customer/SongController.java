@@ -27,8 +27,11 @@ public class SongController {
                                        @RequestPart(value = "songRequest") String songRequest) {
         try {
             return ResponseEntity.ok(ResponseCommon.success(songService.uploadSongs( fileMp3,fileImg,songRequest)));
-        } catch (Exception ex) {
+        }catch(IllegalStateException ex){
             log.error("API Error /api/song - creatSong", ex);
+            return ResponseEntity.ok(ResponseCommon.fail(ex.getMessage()));
+        }catch (Exception ex){
+            log.error("API Error /api/song - creatSong  ", ex);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
