@@ -105,7 +105,8 @@ export default {
 
     checkAvatar() {
       if (this.flagAvatar) {
-        return !!this.artistInfo.avatar;
+        const photoList = this.artistInfo.photos ? this.artistInfo.photos : [];
+        return  photoList.length > 0 && photoList[0].link ? true : false ; 
       }
       return !!this.linkAvatar;
     },
@@ -122,7 +123,8 @@ export default {
 
     avatar: {
       get() {
-        return this.linkAvatar ? this.linkAvatar : this.artistInfo.avatar;
+        const avatarInit = this.artistInfo.photos ? this.artistInfo.photos[0].link : []
+        return this.linkAvatar ? this.linkAvatar : avatarInit;
       },
 
       set(newValue) {

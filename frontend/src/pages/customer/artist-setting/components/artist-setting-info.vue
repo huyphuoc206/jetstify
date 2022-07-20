@@ -33,12 +33,12 @@ export default {
     ...mapGetters("artistSetting", ["artistInfo"]),
 
     checkAvatar() {
-      const photo = this.artistInfo.photo ? this.artistInfo.photo : [];
+      const photo = this.artistInfo.photos ? this.artistInfo.photos : [];
       return photo.length === 0 ? false : true;
     },
 
     avatar() {
-      return this.artistInfo.photo[0].link;
+      return this.artistInfo.photos[0].link;
     },
 
     avatarDefault() {
