@@ -27,15 +27,23 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
+
+    <v-list>
+      <playlist></playlist>
+    </v-list>
   </v-navigation-drawer>
 </template>
 <script>
+import Playlist from "./Playlist.vue";
 export default {
-  name: "AppNavigation",
+    components: { Playlist },
+
+
   data() {
     return {
       drawer: true,
       mini: true,
+
       items: [
         { title: "Home", icon: "mdi-home-city", link: "/", name: "Home" },
         {
@@ -49,7 +57,7 @@ export default {
           title: "Create Playlist",
           icon: "mdi-plus",
           link: "/playlist",
-          name: "Playlist",
+          name: "CreatePlaylist",
         },
         {
           title: "Playlists",

@@ -57,6 +57,8 @@ public class ArtistService {
                 .orElseThrow(() -> new IllegalStateException("Artist not found"));
         ArtistResponse artistResponse = artistConverter.toResponse(artists);
 
+        artistResponse.setSongResponseList(songService.getSongByCurrentUser());
+
         artistResponse.setPhotos(artists.getArtistPhotos()
                 .stream()
                 .map(artistPhotoConverter::toResponse)
@@ -104,14 +106,18 @@ public class ArtistService {
         Artists artists = artistRepository.findByUserId(users.getId()).orElse(null);
 
         List<ArtistPhoto> artistPhotos = artistPhotoRepository.findByArtists_idAndActive(artists.getId(), true);
+        ArtistPhoto artistPhoto = new ArtistPhoto();
         if (CollectionUtils.isEmpty(artistPhotos)) {
-            ArtistPhoto artistPhoto = new ArtistPhoto();
+            Long id = artistPhotos.get(artistPhotos.size() - 1).getId();
+            artistPhoto.setId( id+ 1L);
             artistPhoto.setLink("");
+            artistPhoto.setActive(true);
             artistPhotos.add(artistPhoto);
-
-        } else {
+        }else{
             artistPhotos.get(0).setLink(amazonUtil.uploadFile(fileImg));
         }
+
+
         if (fileImg != null) {
             artists.setArtistPhotos(artistPhotos);
         }

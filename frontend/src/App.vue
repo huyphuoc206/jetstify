@@ -56,7 +56,7 @@
 
 <script>
 import AppBar from "@/components/customer/AppBar.vue";
-import AppNavigation from "@/components/customer/Navigation.vue";
+import AppNavigation from "@/components/customer/navigation";
 import AppBarAdmin from "@/components/admin/AppBar.vue";
 import AppNavigationAdmin from "@/components/admin/Navigation.vue";
 import AppPlayer from "@/components/customer/Player";

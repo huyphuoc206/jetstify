@@ -20,4 +20,5 @@ public class ArtistResponse {
     private String info;
     private Long followId;
     private List<ArtistPhotoReponse> photos;
+    private List<SongResponse> songResponseList;
 }
