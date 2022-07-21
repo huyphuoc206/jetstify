@@ -6,11 +6,11 @@
           <v-card class="card d-flex">
             <v-avatar class="profile" color="grey" size="200" tile>
               <v-img
-                src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+                :src="playlist.thumbnail"
               ></v-img>
             </v-avatar>
             <v-card-title class="white--text d-block titleArtits">
-              <h1 class="display-3 font-weight-bold">Foreign Fields</h1>
+              <h1 class="display-3 font-weight-bold">{{playlist.namePlaylist}}</h1>
               <h3 class="caption">110,491 MONTHLY LISTENERS</h3>
             </v-card-title>
           </v-card>
@@ -22,8 +22,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   name: "PlaylistInfo",
+   computed: {
+    ...mapGetters("playlist", ["playlist"])
+  },
 };
 </script>
 

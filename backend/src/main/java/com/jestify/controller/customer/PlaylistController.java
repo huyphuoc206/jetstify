@@ -38,6 +38,20 @@ public class PlaylistController {
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
+
+    @GetMapping("/playlist/{playlistId}")
+    public ResponseEntity<?> getPlaylistById(@PathVariable Long playlistId){
+        try {
+
+            return ResponseEntity.ok(ResponseCommon.success(  playlistService.getPlayListById(playlistId)));
+        } catch (IllegalStateException e) {
+            log.error("API Error /api/playlist/{playlistId} - getPlaylistById: ", e);
+            return ResponseEntity.ok(ResponseCommon.fail(e.getMessage()));
+        } catch (Exception e) {
+            log.error("API Error /api/playlist/{playlistId}- getPlaylistById: ", e);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
     @PutMapping("/playlist/{playlistId}")
     public ResponseEntity<?> updatePlaylist(@PathVariable Long playlistId, @RequestBody PlaylistRequest request){
         try {

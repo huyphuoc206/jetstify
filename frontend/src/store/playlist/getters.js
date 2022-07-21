@@ -1,1 +1,2 @@
-export const home = state => state.home;
+export const playlists = state => state.playlists;
+export const playlist = state => state.playlist;

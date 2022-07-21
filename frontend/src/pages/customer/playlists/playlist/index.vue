@@ -1,11 +1,12 @@
 <template>
   <div>
-    <playlist-info/>
+    <playlist-info />
     <playlist-service />
   </div>
 </template>
 <script>
-import PlaylistInfo from './playlist-info.vue';
+import { mapActions } from "vuex";
+import PlaylistInfo from "./playlist-info.vue";
 import PlaylistService from "./playlist-service.vue";
 export default {
   name: "Playlist",
@@ -13,8 +14,17 @@ export default {
     PlaylistService,
     PlaylistInfo,
   },
+  methods: {
+    ...mapActions("playlist", ["getPlaylistById"]),
+    playlistById(playlistId) {
+      this.getPlaylistById(playlistId);
+    },
+  },
+
+  async created() {
+    const playlistId = this.$route.params.id;
+    await this.playlistById(playlistId);
+  },
 };
 </script>
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

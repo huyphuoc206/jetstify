@@ -31,6 +31,11 @@ public class PlaylistService {
         return playlistResponses;
 
     }
+    public PlaylistResponse getPlayListById(Long playlistId){
+        Playlists playlists = playlistRepository.findById(playlistId).orElse(null);
+        PlaylistResponse playlistResponse = playlistConverter.toResponse(playlists);
+        return playlistResponse;
+    }
     public PlaylistResponse createPlaylist(){
         PlaylistRequest playlistRequest = PlaylistRequest.builder().build();
         int indexPlaylist = getListPlaylistByUserPresent().size() + 1;

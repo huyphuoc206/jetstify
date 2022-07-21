@@ -34,11 +34,14 @@
   </v-navigation-drawer>
 </template>
 <script>
-import Playlist from "./Playlist.vue";
+
+import Playlist from "./playlist/index";
 export default {
     components: { Playlist },
 
-
+  methods:{
+    
+  },
   data() {
     return {
       drawer: true,
