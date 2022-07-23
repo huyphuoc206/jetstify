@@ -1,13 +1,9 @@
 package com.jestify.converter;
 
 import com.jestify.entity.Artists;
-import com.jestify.entity.Users;
 import com.jestify.payload.ArtistRequest;
 import com.jestify.payload.ArtistResponse;
-import com.jestify.payload.UserRequest;
 import org.springframework.stereotype.Component;
-
-import java.util.Collections;
 
 
 @Component

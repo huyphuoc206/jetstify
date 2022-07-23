@@ -2,7 +2,6 @@ package com.jestify.controller.customer;
 
 import com.jestify.common.AppConstant;
 import com.jestify.common.ResponseCommon;
-import com.jestify.payload.CategoryRequest;
 import com.jestify.payload.PlaylistRequest;
 import com.jestify.service.PlaylistService;
 import lombok.RequiredArgsConstructor;
@@ -75,6 +74,19 @@ public class PlaylistController {
             return ResponseEntity.ok(ResponseCommon.fail(e.getMessage()));
         } catch (Exception e) {
             log.error("API Error /api/playlist/{playlistId}- deletePlaylist: ", e);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+    @PutMapping("/playlist")
+    public ResponseEntity<?> addSongToPlaylist(@RequestBody PlaylistRequest playlistRequest){
+        try {
+            playlistService.addSongToPlaylist(playlistRequest.getSongId(), playlistRequest.getPlaylistId());
+            return ResponseEntity.ok(ResponseCommon.success(null));
+        } catch (IllegalStateException e) {
+            log.error("API Error /api/playlist - addSongToPlaylist: ", e);
+            return ResponseEntity.ok(ResponseCommon.fail(e.getMessage()));
+        } catch (Exception e) {
+            log.error("API Error /api/playlist - addSongToPlaylist: ", e);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
