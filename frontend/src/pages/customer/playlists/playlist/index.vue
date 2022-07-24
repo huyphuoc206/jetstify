@@ -14,10 +14,11 @@ export default {
     PlaylistService,
     PlaylistInfo,
   },
+
   methods: {
     ...mapActions("playlist", ["getPlaylistById"]),
-    playlistById(playlistId) {
-      this.getPlaylistById(playlistId);
+    async playlistById(playlistId) {
+      await this.getPlaylistById(playlistId);
     },
   },
 

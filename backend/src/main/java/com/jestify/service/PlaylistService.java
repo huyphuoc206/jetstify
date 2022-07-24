@@ -27,7 +27,7 @@ public class PlaylistService {
     public List<PlaylistResponse> getListPlaylistByUserPresent() {
         String emailUser = UserUtil.getUserCurrently();
         List<PlaylistResponse> playlistResponses = playlistRepository
-                .findByCreatedBy(emailUser)
+                .findByCreatedByOrderByIdDesc(emailUser)
                 .stream()
                 .map(playlistConverter::toResponse)
                 .collect(Collectors.toList());

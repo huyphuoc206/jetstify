@@ -57,12 +57,6 @@ export default {
         },
 
         {
-          title: "Create Playlist",
-          icon: "mdi-plus",
-          link: "/playlist",
-          name: "CreatePlaylist",
-        },
-        {
           title: "Playlists",
           icon: "mdi-plus",
           link: "/playlists",

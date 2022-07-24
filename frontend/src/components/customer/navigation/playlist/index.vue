@@ -3,7 +3,6 @@
     <v-list-item
       v-for="item in itemMain"
       :key="item.title"
-      :to="link"
       link
       dense
       exact
@@ -21,15 +20,18 @@
       </div>
     </v-list-item>
     <div style="height: calc(20vh); overflow: auto">
-      <v-list-item
+      <v-list>
+        <v-list-item
         v-for="item in playlists"
         :key="item.idPlaylist"
+        :to="`/playlist/${item.idPlaylist}`"
         link
         dense
         exact
       >
         <item-playlist :item="item"></item-playlist>
       </v-list-item>
+      </v-list>
     </div>
   </div>
 </template>
@@ -52,21 +54,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("playlist", ["playlists", "playlist"]),
-    link: {
-      get() {
-        return `/playlist/${this.playlists.length + 1}`;
-      },
-    },
+    ...mapGetters("playlist", ["playlists"]),
+
   },
 
   methods: {
-    ...mapActions("playlist", ["createPlaylist", "getPlaylist", "getPlaylistById"]),
-    onSelect() {
-      this.createPlaylist();
+    ...mapActions("playlist", ["createPlaylist", "getPlaylist"]),
+   async onSelect() {
+      await this.createPlaylist();
     },
-    loadPlaylist() {
-      this.getPlaylist();
+    async loadPlaylist() {
+      await this.getPlaylist();
     },
   },
   async created() {

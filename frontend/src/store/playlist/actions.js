@@ -1,7 +1,7 @@
 import { $rest } from "@/core/rest-client";
 import notice from "@/core/notice";
 import * as TYPES from "./types";
-
+import router from "@/router";
 const PUBLIC_URL = "/playlist"
 
 export const getPlaylist = async({ commit }) => {
@@ -13,12 +13,12 @@ export const getPlaylist = async({ commit }) => {
     }
 }
 
-export const createPlaylist = async({ commit, getters }) => {
-    const { idPlaylist } = getters.playlist;
-    const { success, message } = await $rest.post(PUBLIC_URL);
+export const createPlaylist = async({ commit }) => {
+    const { success, data, message } = await $rest.post(PUBLIC_URL);
     if (success) {
-        getPlaylist({ commit });
-        getPlaylistById({ commit }, idPlaylist);
+        await getPlaylist({ commit });
+        await getPlaylistById({ commit }, data.idPlaylist);
+        router.push(`/playlist/${data.idPlaylist}`)
     } else {
         notice.error(message)
     }
@@ -26,6 +26,7 @@ export const createPlaylist = async({ commit, getters }) => {
 export const getPlaylistById = async({ commit }, id) => {
     const { success, data, message } = await $rest.get(`${PUBLIC_URL}/${id}`);
     if (success) {
+        console.log(data);
         commit(TYPES.SET_PLAYLIST, data);
     } else {
         notice.error(message)

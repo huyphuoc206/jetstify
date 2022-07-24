@@ -19,15 +19,11 @@ export default {
 
   methods: {
     ...mapActions("playlist", ["getPlaylistById"]),
-    goDetail() {
-      this.getPlaylistById(this.item.idPlaylist);
-      const path = `/playlist/${this.item.idPlaylist}`;
-      if (this.$route.path !== path) this.$router.push(path);
+    async goDetail() {
+      await this.getPlaylistById(this.item.idPlaylist);
     },
   },
-  created() {
-    this.goDetail();
-  },
+
 };
 </script>
 
