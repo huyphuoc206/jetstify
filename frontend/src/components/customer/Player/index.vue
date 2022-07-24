@@ -1,7 +1,7 @@
 <template>
   <v-row class="grow-column" style="height: 110px">
     <v-col class="py-0" cols="4" sm="4">
-      <v-row class="align-center" style="height: 100%">
+      <v-row v-if="canPlay" class="align-center" style="height: 100%">
         <v-col cols="auto">
           <v-img
             class="elevation-10 mt-5"
@@ -12,11 +12,7 @@
         </v-col>
         <v-col class="pl-1 text-truncate mt-5">
           <span class="body-2 font-weight-medium ma-0 link_text white--text">
-            <!-- <router-link
-             
-            > -->
             {{ name || "" }}
-            <!-- </router-link> -->
           </span>
           <br />
           <!-- <span class="caption font-weight-light">
@@ -49,9 +45,15 @@
       />
     </v-col>
     <v-col class="d-flex justify-end align-center">
-      <v-btn :to="{ name: 'Queue' }" icon>
-        <v-icon>mdi-playlist-play</v-icon>
-      </v-btn>
+      <v-tooltip left>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn v-bind="attrs" v-on="on" :to="{ name: 'Queue' }" icon>
+            <v-icon>mdi-playlist-play</v-icon>
+          </v-btn>
+        </template>
+
+        <span>Go to Queue</span>
+      </v-tooltip>
     </v-col>
   </v-row>
 </template>
@@ -63,6 +65,9 @@ export default {
     AudioPlayer,
   },
   computed: {
+    canPlay() {
+      return this.audioList && this.audioList.length > 0;
+    },
   },
   data() {
     return {
@@ -86,8 +91,7 @@ export default {
       setTimeout(() => this.$refs.audioPlayer.pause());
     });
   },
-  methods: {
-  },
+  methods: {},
 };
 </script>
 
