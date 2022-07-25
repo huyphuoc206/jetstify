@@ -1,7 +1,7 @@
 <template>
   <v-hover v-slot:default="{ hover }">
     <v-list color="#121212">
-      <v-list-item class="pl-0" :dense="dense" link>
+      <v-list-item class="pl-0" link>
         <v-list-item-content class="py-0">
           <v-row class="align-center">
             <v-col class="py-0 ml-2" cols="auto"
@@ -63,6 +63,6 @@
 export default {
   name: "SongListItem",
 
-  props: ["dense"],
+  props: ["song"],
 };
 </script>

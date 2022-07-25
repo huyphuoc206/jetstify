@@ -1,10 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import global from "./global";
-import songs from "./songs";
+import player from "./player";
 import auth from "./auth";
 import category from "./category";
-
 import artists from "./artists"
 import artist from "./artist"
 import podcast from "./podcast";
@@ -19,7 +18,6 @@ export default new Vuex.Store({
     modules: {
         auth,
         global,
-        songs,
         category,
         podcast,
         podcasts,
@@ -28,6 +26,7 @@ export default new Vuex.Store({
         user,
         artistSetting,
         podcastSetting,
-        home
+        home,
+        player,
     },
 });

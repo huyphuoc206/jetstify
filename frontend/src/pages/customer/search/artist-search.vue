@@ -11,7 +11,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col
+          <!-- <v-col
             cols="12"
             sm="6"
             md="4"
@@ -20,26 +20,16 @@
             :key="index"
           >
             <artist-card :song="song"></artist-card>
-          </v-col>
+          </v-col> -->
         </v-row>
       </v-col>
     </v-row>
 </template>
 
 <script>
-import ArtistCard from '@/components/customer/ArtistCard.vue'
-import { mapActions, mapGetters } from 'vuex';
+// import ArtistCard from '@/components/customer/ArtistCard.vue'
 export default {
-  components: { ArtistCard },
-   methods: { ...mapActions("songs", ["fetchSong"]) },
-  computed: { ...mapGetters("songs", ["allSong"]) },
-  async created() {
-    await this.fetchSong();
-  },
-
+  // components: { ArtistCard },
+  
 }
 </script>
-
-<style>
-
-</style>

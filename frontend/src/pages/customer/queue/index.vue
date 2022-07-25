@@ -2,36 +2,28 @@
   <v-container id="playlist" fluid>
     <v-row>
       <v-col>
-        <h1>Play Queue</h1>
+        <h1>Queue</h1>
 
-        <v-subheader>ACTUAL</v-subheader>
+        <div>
+          <v-subheader>Now playing</v-subheader>
+          <song-list-item v-for="i in 1" :key="i"></song-list-item>
+        </div>
 
-        <song-list :total="1"></song-list>
-
-        <v-list style="background: none">
-          <v-subheader>NEXT</v-subheader>
-
+        <div>
+          <v-subheader>Next</v-subheader>
           <song-list-item v-for="i in 5" :key="i"></song-list-item>
-        </v-list>
+        </div>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import SongListItem from "@/components/customer/SongListItem.vue";
 export default {
   name: "Queue",
-
-  computed: { ...mapActions("songs", ["allSong"]) },
-  methods: {
-    ...mapGetters("songs", ["fetchSong"]),
-  },
-  async created() {
-    await this.fetchSong();
-  },
   components: {
-    SongListItem: () => import("@/components/customer/SongListItem.vue"),
+    SongListItem,
   },
 };
 </script>

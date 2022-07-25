@@ -77,23 +77,18 @@ export default {
   data: () => ({}),
   name: "AlbumCard2",
   computed: {
-    ...mapGetters("global", ["isPlaying", "currentSongId"]),
+    ...mapGetters("player", ["isPlaying", "currentSongId"]),
   },
   methods: {
-    ...mapActions("global", ["setPlaying"]),
+    ...mapActions("player", ["setPlaying", "playSong"]),
     handlePlaySong() {
-      this.$root.$emit("playAudio", this.song);
-      this.setPlaying({
-        isPlaying: true,
-        songId: this.song ? this.song.songId : null,
-      });
+      this.$root.$emit("playAudio");
+      this.playSong(this.song);
+      this.setPlaying(true);
     },
     handlePauseSong() {
       this.$root.$emit("pauseAudio");
-      this.setPlaying({
-        isPlaying: false,
-        songId: null,
-      });
+      this.setPlaying(false);
     },
 
     addToQueue() {
@@ -108,13 +103,3 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
