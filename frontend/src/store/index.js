@@ -7,6 +7,7 @@ import category from "./category";
 
 import artists from "./artists"
 import artist from "./artist"
+import search from "./search"
 import podcast from "./podcast";
 import podcasts from "./podcasts";
 import user from "./user";
@@ -18,6 +19,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     modules: {
         auth,
+        search,
         global,
         songs,
         category,

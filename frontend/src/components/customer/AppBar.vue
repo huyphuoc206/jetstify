@@ -20,6 +20,7 @@
             label="Search for Artists, songs, or podcasts"
             prepend-inner-icon="mdi-magnify"
             rounded
+            @input="handleOnchangeSearchBox"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -27,8 +28,6 @@
 
       <!--  -->
       <v-col cols="auto" class="align-end">
-   
-
         <v-btn
           v-if="isAuthenticated"
           class="ml-7 mr-5"
@@ -61,12 +60,12 @@
                   <v-btn depressed rounded text to="/user">
                     Account Settings
                   </v-btn>
-                   <v-divider class="my-3"></v-divider>
-                      <v-btn depressed rounded text to="/artist-setting">
+                  <v-divider class="my-3"></v-divider>
+                  <v-btn depressed rounded text to="/artist-setting">
                     Artist Settings
                   </v-btn>
-                   <v-divider class="my-3"></v-divider>
-                      <v-btn depressed rounded text to="/podcast-setting">
+                  <v-divider class="my-3"></v-divider>
+                  <v-btn depressed rounded text to="/podcast-setting">
                     Podcast Settings
                   </v-btn>
                   <v-divider class="my-3"></v-divider>
@@ -94,6 +93,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import {debounce} from "lodash";
 export default {
   name: "AppBar",
 
@@ -106,7 +106,16 @@ export default {
   },
 
   methods: {
-    ...mapActions("auth", ["logout"]),
+    ...mapActions('search', ['getSearchData']),
+    ...mapActions('auth', ["logout"]),
+
+    handleOnchangeSearchBox: debounce(async function (event) {
+      const obj = {name:event};
+     await this.getSearchData(obj);
+  }, 1000),
+    
+
+
 
     checkInputSearch() {
       if (this.$route.name === "Search") return true;
@@ -114,7 +123,7 @@ export default {
     },
 
     async handleLogout() {
-      await this.logout();
+      await  this.logout();
       this.$router.go(this.$router.currentRoute);
     },
   },

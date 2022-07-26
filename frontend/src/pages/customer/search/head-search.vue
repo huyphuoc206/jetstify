@@ -22,7 +22,7 @@
           </v-row>
           <v-col>
             <v-list class="pa-0">
-              <song-list-item v-for="i in 4" :key="i"></song-list-item>
+              <song-list-item v-for="(song, index) in dataSearch['songResponseList']" :key="index"></song-list-item>
             </v-list>
           </v-col>
         </v-col>
@@ -34,10 +34,11 @@
 <script>
 import SongListItem from "@/components/customer/SongListItem.vue";
 import ResultCard from "@/components/customer/ResultCard.vue";
+import { mapGetters } from 'vuex';
 export default {
   name: "HeadSearch",
   components: { SongListItem, ResultCard },
-  
+    computed: { ...mapGetters("search", ["dataSearch"]) },
 };
 </script>
 

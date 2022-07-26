@@ -16,10 +16,10 @@
             sm="6"
             md="4"
             lg="2"
-            v-for="(song, index) in allSong"
+            v-for="(artist, index) in dataSearch['artistResponseList']"
             :key="index"
           >
-            <artist-card :song="song"></artist-card>
+            <artist-card :artist="artist"></artist-card>
           </v-col>
         </v-row>
       </v-col>
@@ -28,13 +28,13 @@
 
 <script>
 import ArtistCard from '@/components/customer/ArtistCard.vue'
-import { mapActions, mapGetters } from 'vuex';
+import {  mapGetters } from 'vuex';
 export default {
   components: { ArtistCard },
-   methods: { ...mapActions("songs", ["fetchSong"]) },
-  computed: { ...mapGetters("songs", ["allSong"]) },
+
+  computed: { ...mapGetters("search", ["dataSearch"]) },
   async created() {
-    await this.fetchSong();
+    
   },
 
 }
