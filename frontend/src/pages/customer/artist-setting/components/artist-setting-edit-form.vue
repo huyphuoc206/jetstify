@@ -105,7 +105,6 @@ export default {
 
     checkAvatar() {
       if (this.flagAvatar) {
-        console.log("hahahah");
         const photoList = this.artistInfo.photos || [];
 
         return photoList.length > 0 && photoList[0].link ? true : false;

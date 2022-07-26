@@ -2,6 +2,7 @@
   <v-container>
     <h1 class="headline font-weight-bold">About</h1>
     <v-card
+      v-if="this.artist.photos"
       @click="dialog = true"
       class="mt-2 thumbnailArtist"
       :img="this.artist.photos[0].link"
@@ -13,7 +14,7 @@
           >489.439 người nghe hàng tháng</v-card-text
         >
         <v-card-text class="font-weight-black">
-         {{this.artist.info}}</v-card-text
+          {{ this.artist.info }}</v-card-text
         >
       </v-card-title>
     </v-card>
@@ -86,17 +87,12 @@
             <v-col class="right">
               <v-card-text>{{ artist.info }}</v-card-text>
 
-          
-
               <v-card-text>
                 <v-avatar>
-                  <img
-                    :src="artist.thumbnail"
-                    alt="Son Tung"
-                  />
+                  <img :src="artist.thumbnail" alt="Son Tung" />
                 </v-avatar>
 
-                Posted By {{artist.nickName}}
+                Posted By {{ artist.nickName }}
               </v-card-text>
             </v-col>
           </v-row>
@@ -116,8 +112,7 @@ export default {
   data: () => ({
     dialog: false,
   }),
-  created() {
-  },
+  created() {},
 };
 </script>
 

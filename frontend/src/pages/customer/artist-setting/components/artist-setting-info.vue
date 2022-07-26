@@ -48,15 +48,11 @@ export default {
   },
 
   methods: {
-    ...mapActions("artistSetting", ["getInfoArtist", "setToggleDialog"]),
+    ...mapActions("artistSetting", ["setToggleDialog"]),
 
     handleEdit() {
       this.setToggleDialog();
     },
-  },
-
-  async created() {
-    await this.getInfoArtist();
   },
 };
 </script>
