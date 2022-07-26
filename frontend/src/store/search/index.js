@@ -8,7 +8,7 @@ const initState = () => ({
 
 const mutations = {
     [TYPES.SET_SEARCH]: (state, dataSearch) => {
-        state.dataSearch = [...dataSearch];
+        state.dataSearch = {...dataSearch };
     },
 
 };

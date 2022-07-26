@@ -12,7 +12,7 @@ export const getSearchData = async({ commit }, nameSearch) => {
         // `${SEARCH}?name=a`
     );
     if (success) {
-        console.log(data);
+
         commit(TYPES.SET_SEARCH, data);
 
     } else {

@@ -6,7 +6,7 @@
           <v-row class="align-center">
             <v-col class="py-0 ml-2" cols="auto"
               ><v-img
-                :src="song.link"
+                :src="song.thumbnail"
                 width="45px"
                 height="60px"
               >
@@ -63,6 +63,6 @@
 export default {
   name: "SongListItem",
 
-  props: ["dense"],
+  props: ["song"],
 };
 </script>
