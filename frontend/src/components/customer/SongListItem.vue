@@ -6,7 +6,7 @@
           <v-row class="align-center">
             <v-col class="py-0 ml-2" cols="auto"
               ><v-img
-                src="https://i.ytimg.com/vi/FN7ALfpGxiI/maxresdefault.jpg"
+                :src="song.thumbnail"
                 width="45px"
                 height="60px"
               >
@@ -27,7 +27,7 @@
                       },
                     }"
                   >
-                    Siento Miedo de Pensar
+                    {{song.name}}
                   </router-link>
                 </v-list-item-title>
                 <v-list-item-subtitle>
@@ -63,6 +63,6 @@
 export default {
   name: "SongListItem",
 
-  props: ["dense"],
+  props: ["song"],
 };
 </script>

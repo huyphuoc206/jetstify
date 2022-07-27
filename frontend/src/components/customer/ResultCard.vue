@@ -2,8 +2,7 @@
   <v-row>
     <v-col
     
-      v-for="song of songs"
-      :key="song.name"
+     
     >
       <v-hover style="cursor: pointer">
         <v-card class="common-card" flat height="100%" width="500">
@@ -15,7 +14,7 @@
               width="100"
               height="100"
               class="elevation-3"
-              :src="song.img"
+              :src="song.thumbnail"
             >
             </v-img>
           </v-card-text>
@@ -48,14 +47,9 @@
 </template>
 <script>
 export default {
+  props:["song"],
   data: () => ({
-    songs: [
-      {
-        name: "Nơi này có anh",
-        artist: "Sơn Tùng MTP",
-        img: "https://i.ytimg.com/vi/FN7ALfpGxiI/maxresdefault.jpg",
-      },
-    ],
+    
   }),
 };
 </script>
