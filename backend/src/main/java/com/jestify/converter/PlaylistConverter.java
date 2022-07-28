@@ -22,6 +22,7 @@ public class PlaylistConverter {
                 .name(playlistRequest.getName())
                 .thumbnail(playlistRequest.getThumbnail())
                 .description(playlistRequest.getDescription())
+                .active(true)
                 .build();
     }
 }

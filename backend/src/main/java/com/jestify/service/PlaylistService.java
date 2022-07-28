@@ -4,11 +4,13 @@ import com.jestify.converter.PlaylistConverter;
 import com.jestify.converter.SongConverter;
 import com.jestify.entity.Playlists;
 import com.jestify.entity.Songs;
+import com.jestify.entity.Users;
 import com.jestify.payload.PlaylistRequest;
 import com.jestify.payload.PlaylistResponse;
 import com.jestify.payload.SongResponse;
 import com.jestify.repository.PlaylistRepository;
 import com.jestify.repository.SongRepository;
+import com.jestify.repository.UserRepository;
 import com.jestify.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,13 +23,14 @@ import java.util.stream.Collectors;
 public class PlaylistService {
     private final PlaylistConverter playlistConverter;
     private final PlaylistRepository playlistRepository;
+    private final UserRepository userRepository;
     private final SongConverter songConverter;
     private final SongRepository songRepository;
 
     public List<PlaylistResponse> getListPlaylistByUserPresent() {
         String emailUser = UserUtil.getUserCurrently();
         List<PlaylistResponse> playlistResponses = playlistRepository
-                .findByCreatedByOrderByIdDesc(emailUser)
+                .findByCreatedByAndActiveTrueOrderByIdDesc(emailUser)
                 .stream()
                 .map(playlistConverter::toResponse)
                 .collect(Collectors.toList());
@@ -36,7 +39,7 @@ public class PlaylistService {
     }
 
     public PlaylistResponse getPlayListById(Long playlistId) {
-        Playlists playlists = playlistRepository.findById(playlistId).orElse(null);
+        Playlists playlists = playlistRepository.findByIdAndActiveTrue(playlistId).orElse(null);
         PlaylistResponse playlistResponse = playlistConverter.toResponse(playlists);
         List<SongResponse> songResponseList = songRepository
                 .findByPlaylists_idAndActiveTrue(playlists.getId())
@@ -49,16 +52,20 @@ public class PlaylistService {
 
     public PlaylistResponse createPlaylist() {
         PlaylistRequest playlistRequest = PlaylistRequest.builder().build();
+        Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently()).orElse(null);
         int indexPlaylist = getListPlaylistByUserPresent().size() + 1;
         playlistRequest.setName("My Playlist #" + indexPlaylist);
-
+        playlistRequest.setNameUserCreate(users.getFullName());
         Playlists playlists = playlistRepository.save(playlistConverter.toEntity(playlistRequest));
+
         return playlistConverter.toResponse(playlists);
     }
 
     public void updatePlaylist(Long id, PlaylistRequest playlistRequest) {
+
         Playlists playlists = playlistRepository.findById(id).orElse(null);
-        playlistConverter.toEntity(playlistRequest);
+        playlists.setName(playlistRequest.getName());
+        playlists.setThumbnail(playlistRequest.getThumbnail());
         playlistRepository.save(playlists);
     }
 
