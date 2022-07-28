@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -52,9 +53,9 @@ public class PlaylistController {
         }
     }
     @PutMapping("/playlist/{playlistId}")
-    public ResponseEntity<?> updatePlaylist(@PathVariable Long playlistId, @RequestBody PlaylistRequest request){
+    public ResponseEntity<?> updatePlaylist(@PathVariable Long playlistId, @RequestPart(value = "playlistRequest") String playlistRequest, @RequestPart(value = "fileImg", required = false) MultipartFile fileImg){
         try {
-            playlistService.updatePlaylist(playlistId,request);
+            playlistService.updatePlaylist(playlistId,playlistRequest, fileImg);
             return ResponseEntity.ok(ResponseCommon.success(null));
         } catch (IllegalStateException e) {
             log.error("API Error /api/playlist/{playlistId} - updatePlaylist: ", e);

@@ -20,7 +20,6 @@ public class PlaylistConverter {
         return Playlists
                 .builder()
                 .name(playlistRequest.getName())
-                .thumbnail(playlistRequest.getThumbnail())
                 .description(playlistRequest.getDescription())
                 .active(true)
                 .build();
