@@ -105,8 +105,9 @@ export default {
 
     checkAvatar() {
       if (this.flagAvatar) {
-        const photoList = this.artistInfo.photos ? this.artistInfo.photos : [];
-        return  photoList.length > 0 && photoList[0].link ? true : false ; 
+        const photoList = this.artistInfo.photos || [];
+
+        return photoList.length > 0 && photoList[0].link ? true : false;
       }
       return !!this.linkAvatar;
     },
@@ -123,7 +124,11 @@ export default {
 
     avatar: {
       get() {
-        const avatarInit = this.artistInfo.photos ? this.artistInfo.photos[0].link : []
+        console.log(this.artistInfo.photos);
+        const avatarInit =
+          this.artistInfo.photos.length !== 0
+            ? this.artistInfo.photos[0].link
+            : [];
         return this.linkAvatar ? this.linkAvatar : avatarInit;
       },
 

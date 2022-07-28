@@ -33,8 +33,9 @@ export default {
     ...mapGetters("artistSetting", ["artistInfo"]),
 
     checkAvatar() {
-      const photo = this.artistInfo.photos ? this.artistInfo.photos : [];
-      return photo.length === 0 ? false : true;
+      const photo = this.artistInfo.photos || [];
+
+      return photo.length === 0 || !photo[0].link ? false : true;
     },
 
     avatar() {
@@ -47,15 +48,11 @@ export default {
   },
 
   methods: {
-    ...mapActions("artistSetting", ["getInfoArtist", "setToggleDialog"]),
+    ...mapActions("artistSetting", ["setToggleDialog"]),
 
     handleEdit() {
       this.setToggleDialog();
     },
-  },
-
-  async created() {
-    await this.getInfoArtist();
   },
 };
 </script>

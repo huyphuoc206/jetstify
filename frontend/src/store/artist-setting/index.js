@@ -5,7 +5,7 @@ import * as TYPES from "./types";
 const initState = () => ({
     artistInfo: {},
     toggleDialog: false,
-    toggleDialogCreate: true,
+    toggleDialogCreate: false,
 });
 
 const mutations = {
