@@ -2,10 +2,10 @@
   <v-app-bar dark app>
     <v-row align="center" justify="space-between">
       <v-col cols="auto">
-        <v-btn class="mx-2 d-in" fab dark small color="black">
+        <v-btn class="mx-2 d-in" fab dark small color="black" @click="$router.go(-1)">
           <v-icon dark> mdi-chevron-left </v-icon>
         </v-btn>
-        <v-btn class="mx-2" fab dark small color="black">
+        <v-btn class="mx-2" fab dark small color="black" @click="$router.go(1)">
           <v-icon dark> mdi-chevron-right </v-icon>
         </v-btn>
       </v-col>

@@ -14,7 +14,7 @@
   "resolved" "https://registry.npmjs.org/@any-touch/compute/-/compute-2.1.1.tgz"
   "version" "2.1.1"
   dependencies:
-    "@any-touch/shared" "^2.1.1"
+    "@any-touch/shared" "^2.1.1
     "@any-touch/vector" "^2.1.1"
     "tslib" "^2.3.1"
 
@@ -5286,6 +5286,11 @@
   "resolved" "https://registry.npmjs.org/pluralize/-/pluralize-8.0.0.tgz"
   "version" "8.0.0"
 
+"popper.js@1.14.4":
+  "integrity" "sha512-VKAPR2KCx8Uw0oVn0Rt4iggzat+MJ1wu1uJiDnfnMiQcGQRBIopZLfXMKsK/K8NPEerY5kefaYtYjTLb3F6ncw=="
+  "resolved" "https://registry.npmjs.org/popper.js/-/popper.js-1.14.4.tgz"
+  "version" "1.14.4"
+
 "portfinder@^1.0.26", "portfinder@^1.0.28":
   "integrity" "sha512-Se+2isanIcEqf2XMHjyUKskczxbPH7dQnlMjXX6+dybayyHvAf/TCgyMRlzf/B6QDhAEFOGes0pzRo3by4AbMA=="
   "resolved" "https://registry.npmjs.org/portfinder/-/portfinder-1.0.28.tgz"
@@ -6312,7 +6317,7 @@
   "integrity" "sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw=="
   "resolved" "https://registry.npmjs.org/split-on-first/-/split-on-first-1.1.0.tgz"
   "version" "1.1.0"
-
+  
 "sprintf-js@~1.0.2":
   "integrity" "sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw="
   "resolved" "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz"
@@ -6752,6 +6757,11 @@
     "null-loader" "^4.0.1"
     "semver" "^7.1.2"
     "shelljs" "^0.8.3"
+    
+"vue-click-outside@^1.1.0":
+  "integrity" "sha512-pNyvAA9mRXJwPHlHJyjMb4IONSc7khS5lxGcMyE2EIKgNMAO279PWM9Hyq0d5J4FkiSRdmFLwnbjDd5UtPizHQ=="
+  "resolved" "https://registry.npmjs.org/vue-click-outside/-/vue-click-outside-1.1.0.tgz"
+  "version" "1.1.0"
 
 "vue-eslint-parser@^8.0.1":
   "integrity" "sha512-dzHGG3+sYwSf6zFBa0Gi9ZDshD7+ad14DGOdTLjruRVgZXe2J+DcZ9iUhyR48z5g1PqRa20yt3Njna/veLJL/g=="

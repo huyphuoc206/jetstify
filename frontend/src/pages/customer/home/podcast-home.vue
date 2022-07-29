@@ -12,7 +12,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col
+        <!-- <v-col
           cols="12"
           sm="6"
           md="4"
@@ -21,27 +21,16 @@
           :key="index"
         >
           <podcast-cart :song="song"></podcast-cart>
-        </v-col>
+        </v-col> -->
       </v-row>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import PodcastCart from '@/components/customer/PodcastCart.vue';
-import { mapActions, mapGetters } from "vuex";
+// import PodcastCart from '@/components/customer/PodcastCart.vue';
 export default {
-  components: { PodcastCart },
-  computed: { ...mapGetters("songs", ["allSong"]) },
-  methods: {
-    ...mapActions("songs", ["fetchSong"]),
-    async getSong() {
-      await this.fetchSong();
-    },
-  },
-  async created() {
-    await this.getSong();
-  },
+  // components: { PodcastCart },
 };
 </script>
 
