@@ -6,6 +6,7 @@ const initState = () => ({
     playlists: [],
     playlist: {},
     toggleDialog: false,
+    toggleDialogRemove: false,
 });
 
 const mutations = {
@@ -13,6 +14,9 @@ const mutations = {
     [TYPES.SET_PLAYLIST]: (state, playlist) => state.playlist = playlist,
     [TYPES.SET_TOGGLE]: (state) => {
         state.toggleDialog = !state.toggleDialog;
+    },
+    [TYPES.SET_TOGGLE_REMOVE]: (state) => {
+        state.toggleDialogRemove = !state.toggleDialogRemove;
     },
 
 };

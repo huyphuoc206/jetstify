@@ -37,3 +37,7 @@ export const getPlaylistById = async({ commit }, id) => {
 export const setToggleDialog = ({ commit }) => {
     commit(TYPES.SET_TOGGLE);
 };
+
+export const setToggleDialogRemove = ({ commit }) => {
+    commit(TYPES.SET_TOGGLE_REMOVE);
+};
