@@ -15,7 +15,6 @@ import com.jestify.utils.AmazonUtil;
 import com.jestify.utils.JsonUtil;
 import com.jestify.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;

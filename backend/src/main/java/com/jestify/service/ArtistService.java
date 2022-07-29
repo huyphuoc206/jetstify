@@ -108,19 +108,19 @@ public class ArtistService {
         List<ArtistPhoto> artistPhotos = artistPhotoRepository.findByArtists_idAndActive(artists.getId(), true);
         ArtistPhoto artistPhoto = new ArtistPhoto();
         if (CollectionUtils.isEmpty(artistPhotos)) {
-            Long id = artistPhotos.get(artistPhotos.size() - 1).getId();
-            artistPhoto.setId( id+ 1L);
-            artistPhoto.setLink("");
+            artistPhoto.setArtists(artists);
+            artistPhoto.setLink(amazonUtil.uploadFile(fileImg));
             artistPhoto.setActive(true);
+            artistPhoto = artistPhotoRepository.save(artistPhoto);
             artistPhotos.add(artistPhoto);
-        }else{
+        }else if(fileImg != null){
             artistPhotos.get(0).setLink(amazonUtil.uploadFile(fileImg));
         }
-
 
         if (fileImg != null) {
             artists.setArtistPhotos(artistPhotos);
         }
+
         artists.setNickName(artistRequest.getNickName());
         artistRepository.save(artists);
     }

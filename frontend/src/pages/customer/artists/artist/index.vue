@@ -2,7 +2,7 @@
   <div>
     <artist-info />
     <artist-service />
-    <artist-song-list />
+    <artist-song-list :listSong="songs" />
     <!-- <album-card-2 /> -->
     <artist-about />
   </div>
@@ -13,8 +13,8 @@
 import ArtistAbout from "./components/artist-about.vue";
 import ArtistInfo from "./components/artist-info.vue";
 import ArtistService from "./components/artist-service.vue";
-import ArtistSongList from "./components/artist-song-list.vue";
-import { mapActions } from "vuex";
+import ArtistSongList from "../../../../components/customer/artist-song-list.vue";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "artist",
   components: {
@@ -23,6 +23,10 @@ export default {
     ArtistInfo,
     ArtistSongList,
     // AlbumCard2,
+  },
+
+  computed: {
+    ...mapGetters("artist", ["songs"]),
   },
 
   methods: {
@@ -39,7 +43,6 @@ export default {
   },
   async created() {
     const artistId = this.$route.params.id;
-    console.log(artistId);
     await this.getSong(artistId);
     await this.loadArtist(artistId);
     await this.loadPhoto(artistId);

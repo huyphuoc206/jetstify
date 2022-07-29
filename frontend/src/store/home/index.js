@@ -3,12 +3,13 @@ import * as actions from "./actions";
 import * as TYPES from "./types";
 
 const initState = () => ({
-    home: {},
-
+    homeData: {},
+    homeDataDisplay: {},
 });
 
 const mutations = {
-    [TYPES.SET_HOME]: (state, item) => state.home = item,
+    [TYPES.SET_HOME]: (state, item) => state.homeData = item,
+    [TYPES.SET_HOME_DISPLAY]: (state, item) => state.homeDataDisplay = item,
 
 };
 

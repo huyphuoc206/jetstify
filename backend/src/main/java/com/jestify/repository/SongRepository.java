@@ -19,4 +19,6 @@ public interface SongRepository extends JpaRepository<Songs, Long> {
     @Query(value = "SELECT * FROM songs ORDER BY created_date DESC LIMIT 20", nativeQuery = true)
     List<Songs> findSongsNew();
 
+    List<Songs> findByPlaylists_idAndActiveTrue(Long playlistId);
+
 }

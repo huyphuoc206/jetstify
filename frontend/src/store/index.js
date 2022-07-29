@@ -14,6 +14,7 @@ import user from "./user";
 import home from "./home";
 import artistSetting from "./artist-setting";
 import podcastSetting from "./podcast-setting";
+import playlist from "./playlist";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -23,6 +24,7 @@ export default new Vuex.Store({
         global,
         songs,
         category,
+        playlist,
         podcast,
         podcasts,
         artists,
