@@ -1,4 +1,5 @@
 import * as TYPES from "./types";
+import _ from "lodash";
 
 export const setPlaying = ({ commit }, isPlaying) => {
     commit(TYPES.SET_PLAYING, isPlaying);
@@ -9,14 +10,28 @@ export const playSong = ({ commit, getters }, song) => {
     addSong({ commit, getters }, { song: song, isQueue: false });
 }
 
+export const playSongInQueue = ({ commit, getters }, song) => {
+    const songs = getters.songs;
+    const currentSong = getters.currentSong;
+    // Remove current song and new current song
+    const newSongs = songs.filter(e => e.songId !== currentSong.songId);
+    commit(TYPES.SET_SONGS, newSongs);
+    setCurrentSong({ commit }, song);
+}
+
 export const addSong = ({ commit, getters }, { song, isQueue }) => {
-    const songs = [...getters.songs];
+    const songs = getters.songs;
+    const currentSong = getters.currentSong;
+    const newSongs = songs.filter(s => s.songId !== song.songId);
     if (isQueue) {
-        songs.push(song);
+        newSongs.push(song);
     } else {
-        songs.unshift(song);
+        newSongs.unshift(song);
     }
-    commit(TYPES.SET_SONGS, songs);
+    commit(TYPES.SET_SONGS, newSongs);
+    if (_.isEmpty(currentSong)) {
+        setCurrentSong({ commit }, song);
+    }
 }
 
 export const setCurrentSong = ({ commit }, song) => {
@@ -25,6 +40,7 @@ export const setCurrentSong = ({ commit }, song) => {
 
 export const nextPrevSong = ({ commit, getters }, isNext) => {
     const songs = getters.songs;
+    if (songs.length <= 1) return;
     const currentSong = getters.currentSong;
     const currentSongIndex = songs.findIndex(song => song.songId === currentSong.songId);
     let newCurrentSong;
@@ -34,4 +50,7 @@ export const nextPrevSong = ({ commit, getters }, isNext) => {
         newCurrentSong = currentSongIndex === 0 ? songs[songs.length - 1] : songs[currentSongIndex - 1];
     }
     setCurrentSong({ commit }, newCurrentSong);
+
+    const newSongs = songs.filter(s => s.songId !== currentSong.songId);
+    commit(TYPES.SET_SONGS, newSongs);
 }

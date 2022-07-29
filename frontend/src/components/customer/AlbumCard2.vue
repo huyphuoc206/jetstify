@@ -80,11 +80,11 @@ export default {
     ...mapGetters("player", ["isPlaying", "currentSongId"]),
   },
   methods: {
-    ...mapActions("player", ["setPlaying", "playSong"]),
+    ...mapActions("player", ["setPlaying", "playSong", "addSong"]),
     handlePlaySong() {
-      this.$root.$emit("playAudio");
       this.playSong(this.song);
       this.setPlaying(true);
+      this.$root.$emit("playAudio");
     },
     handlePauseSong() {
       this.$root.$emit("pauseAudio");
@@ -92,14 +92,14 @@ export default {
     },
 
     addToQueue() {
-      console.log('hello');
+      this.addSong({ song: this.song, isQueue: true });
       this.$refs.menu.close();
     },
 
     addToPlaylist() {
-      console.log('hi');
+      console.log("hi");
       this.$refs.menu.close();
-    }
+    },
   },
 };
 </script>
