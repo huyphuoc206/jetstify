@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Left from "./left.vue";
 import Right from './right.vue';
 export default {
@@ -24,5 +25,15 @@ export default {
       "Little Girl",
     ],
   }),
+  methods:{
+     ...mapActions("category", ["getSongByCategory"]),
+    async listSongByCategory(categoryId) {
+      await this.getSongByCategory(categoryId);
+    },
+  },
+    async created() {
+      const categoryId = this.$route.params.id;
+    await this.listSongByCategory(categoryId);
+  },
 };
 </script>
