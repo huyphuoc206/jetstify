@@ -33,10 +33,7 @@ public class Songs extends BaseEntity {
     private Category category;
     @OneToMany(mappedBy = "songs")
     private List<LikedSong> likedSongs;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "playlist_song",
-            joinColumns = @JoinColumn(name = "playlist_id"),
-            inverseJoinColumns = @JoinColumn(name = "song_id"))
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "songs")
     private List<Playlists> playlists;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "song_user",

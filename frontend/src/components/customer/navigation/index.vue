@@ -34,11 +34,14 @@
   </v-navigation-drawer>
 </template>
 <script>
-import Playlist from "./Playlist.vue";
+
+import Playlist from "./playlist/index";
 export default {
     components: { Playlist },
 
-
+  methods:{
+    
+  },
   data() {
     return {
       drawer: true,
@@ -53,12 +56,6 @@ export default {
           name: "Search",
         },
 
-        {
-          title: "Create Playlist",
-          icon: "mdi-plus",
-          link: "/playlist",
-          name: "CreatePlaylist",
-        },
         {
           title: "Playlists",
           icon: "mdi-plus",

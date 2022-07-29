@@ -14,16 +14,12 @@
                   <v-row>
                     <v-col cols="12" sm="5">
                       <v-avatar class="ms-8" size="150" color="brown">
-                        <v-img
-                          v-if="checkAvatar"
-                          :src="avatar"
-                          alt="avatar"
-                        ></v-img>
-                        <span
+                        <v-img :src="avatar" alt="avatar"></v-img>
+                        <!-- <span
                           v-else
                           class="white--text text-h2 mt font-weight-regular"
                           >{{ defaultAvatar }}</span
-                        >
+                        > -->
                       </v-avatar>
 
                       <v-file-input
@@ -127,7 +123,7 @@ export default {
         !value || value.size < 5000000 || "Song size should be less than 5 MB!",
     ],
 
-    fullNameRules: [(v) => (!!v && !!v.trim()) || "Full name is required"],
+    fullNameRules: [(v) => !!v.trim() || "Full name is required"],
   }),
 
   computed: {
@@ -137,23 +133,6 @@ export default {
 
     defaultActiveCategory() {
       return this.categoriesClient[0] ? this.categoriesClient[0].id : "";
-    },
-
-    checkAvatar() {
-      if (this.flagAvatar) {
-        return !!this.artistInfo.avatar;
-      }
-      return !!this.linkAvatar;
-    },
-
-    defaultAvatar() {
-      if (this.flagName) {
-        return this.artistInfo.nickName
-          ? this.artistInfo.nickName.charAt(0)
-          : "";
-      }
-
-      return this.nameSong.trim().charAt(0);
     },
 
     avatar: {
@@ -174,17 +153,13 @@ export default {
 
     fullNameSong: {
       get() {
-        return this.nameSong ? this.nameSong : this.artistInfo.nickName;
+        return this.nameSong;
       },
 
       set(newValue) {
         if (newValue === "") {
           this.nameSong = " ";
-        } else if (newValue === null) {
-          this.flagName = true;
-          this.nameSong = newValue;
         } else {
-          this.flagName = false;
           this.nameSong = newValue;
         }
       },
@@ -259,7 +234,7 @@ export default {
     },
 
     resetFormClose() {
-      this.fullNameSong = null;
+      this.fullNameSong = "";
       this.avatar = null;
       this.fileSong = null;
       this.categoryId = -1;

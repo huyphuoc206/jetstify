@@ -2,13 +2,13 @@ package com.jestify.controller.customer;
 
 import com.jestify.common.AppConstant;
 import com.jestify.common.ResponseCommon;
-import com.jestify.payload.CategoryRequest;
 import com.jestify.payload.PlaylistRequest;
 import com.jestify.service.PlaylistService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,10 +38,24 @@ public class PlaylistController {
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
-    @PutMapping("/playlist/{playlistId}")
-    public ResponseEntity<?> updatePlaylist(@PathVariable Long playlistId, @RequestBody PlaylistRequest request){
+
+    @GetMapping("/playlist/{playlistId}")
+    public ResponseEntity<?> getPlaylistById(@PathVariable Long playlistId){
         try {
-            playlistService.updatePlaylist(playlistId,request);
+
+            return ResponseEntity.ok(ResponseCommon.success(  playlistService.getPlayListById(playlistId)));
+        } catch (IllegalStateException e) {
+            log.error("API Error /api/playlist/{playlistId} - getPlaylistById: ", e);
+            return ResponseEntity.ok(ResponseCommon.fail(e.getMessage()));
+        } catch (Exception e) {
+            log.error("API Error /api/playlist/{playlistId}- getPlaylistById: ", e);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+    @PostMapping("/playlist/{playlistId}")
+    public ResponseEntity<?> updatePlaylist(@PathVariable Long playlistId, @RequestPart(value = "playlistRequest") String playlistRequest, @RequestPart(value = "fileImg", required = false) MultipartFile fileImg){
+        try {
+            playlistService.updatePlaylist(playlistId,playlistRequest, fileImg);
             return ResponseEntity.ok(ResponseCommon.success(null));
         } catch (IllegalStateException e) {
             log.error("API Error /api/playlist/{playlistId} - updatePlaylist: ", e);
@@ -61,6 +75,19 @@ public class PlaylistController {
             return ResponseEntity.ok(ResponseCommon.fail(e.getMessage()));
         } catch (Exception e) {
             log.error("API Error /api/playlist/{playlistId}- deletePlaylist: ", e);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
+    @PutMapping("/playlist")
+    public ResponseEntity<?> addSongToPlaylist(@RequestBody PlaylistRequest playlistRequest){
+        try {
+            playlistService.addSongToPlaylist(playlistRequest.getSongId(), playlistRequest.getPlaylistId());
+            return ResponseEntity.ok(ResponseCommon.success(null));
+        } catch (IllegalStateException e) {
+            log.error("API Error /api/playlist - addSongToPlaylist: ", e);
+            return ResponseEntity.ok(ResponseCommon.fail(e.getMessage()));
+        } catch (Exception e) {
+            log.error("API Error /api/playlist - addSongToPlaylist: ", e);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }

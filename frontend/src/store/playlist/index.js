@@ -3,12 +3,21 @@ import * as actions from "./actions";
 import * as TYPES from "./types";
 
 const initState = () => ({
-    home: {},
-
+    playlists: [],
+    playlist: {},
+    toggleDialog: false,
+    toggleDialogRemove: false,
 });
 
 const mutations = {
-    [TYPES.SET_HOME]: (state, item) => state.home = item,
+    [TYPES.SET_PLAYLISTS]: (state, playlists) => state.playlists = playlists,
+    [TYPES.SET_PLAYLIST]: (state, playlist) => state.playlist = playlist,
+    [TYPES.SET_TOGGLE]: (state) => {
+        state.toggleDialog = !state.toggleDialog;
+    },
+    [TYPES.SET_TOGGLE_REMOVE]: (state) => {
+        state.toggleDialogRemove = !state.toggleDialogRemove;
+    },
 
 };
 

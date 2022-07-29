@@ -1,15 +1,15 @@
-import * as getters from "./getters";
 import * as actions from "./actions";
+import * as getters from "./getters";
 import * as TYPES from "./types";
 
 const initState = () => ({
-    homeData: {},
-    homeDataDisplay: {},
+    dataSearch: {}
 });
 
 const mutations = {
-    [TYPES.SET_HOME]: (state, item) => state.homeData = item,
-    [TYPES.SET_HOME_DISPLAY]: (state, item) => state.homeDataDisplay = item,
+    [TYPES.SET_SEARCH]: (state, dataSearch) => {
+        state.dataSearch = {...dataSearch };
+    },
 
 };
 
