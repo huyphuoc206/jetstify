@@ -6,12 +6,21 @@
           <v-card class="card d-flex">
             <v-avatar class="profile" color="grey" size="200" tile>
               <v-img
+                v-if="playlist.thumbnail"
                 :src="playlist.thumbnail"
               ></v-img>
+
+              <v-icon v-else dark size="50"> fa-thin fa-music</v-icon>
             </v-avatar>
             <v-card-title class="white--text d-block titleArtits">
-              <h1 class="display-3 font-weight-bold">{{playlist.namePlaylist}}</h1>
-              <h3 class="caption">110,491 MONTHLY LISTENERS</h3>
+              <h1
+                class="display-3 font-weight-bold"
+                @click="handleSettingPlaylist"
+              >
+                {{ playlist.namePlaylist }}
+              </h1>
+              <h3 class="caption">{{ playlist.description }}</h3>
+              <h3 class="caption">{{ playlist.nameUserCreate }}</h3>
             </v-card-title>
           </v-card>
         </v-img>
@@ -22,11 +31,19 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "PlaylistInfo",
-   computed: {
-    ...mapGetters("playlist", ["playlist"])
+  computed: {
+    ...mapGetters("playlist", ["playlist"]),
+  },
+
+  methods: {
+    ...mapActions("playlist", ["setToggleDialog"]),
+
+    handleSettingPlaylist() {
+      this.setToggleDialog();
+    },
   },
 };
 </script>

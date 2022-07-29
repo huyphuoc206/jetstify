@@ -2,10 +2,12 @@
   <div>
     <playlist-info />
     <playlist-service />
+    <playlist-edit-form />
   </div>
 </template>
 <script>
 import { mapActions } from "vuex";
+import PlaylistEditForm from "./playlist-edit-form.vue";
 import PlaylistInfo from "./playlist-info.vue";
 import PlaylistService from "./playlist-service.vue";
 export default {
@@ -13,6 +15,7 @@ export default {
   components: {
     PlaylistService,
     PlaylistInfo,
+    PlaylistEditForm,
   },
 
   methods: {

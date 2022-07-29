@@ -44,6 +44,8 @@ export default {
       { name: "Follow", type: "" },
       { name: "Go to artist radio", type: "" },
       { name: "Copy link to artist", type: "" },
+      { name: "Copy link to artist", type: "" },
+      { name: "Copy link to artist", type: "" },
     ],
     desserts: [
       { title: "Follow", album: "a", date: "1 day ago", time: "3:03" },

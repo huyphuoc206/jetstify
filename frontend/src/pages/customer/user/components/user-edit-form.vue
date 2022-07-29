@@ -208,6 +208,7 @@ export default {
     resetFormClose() {
       this.fullNameAccount = null;
       this.avatar = null;
+      this.fileAvatar = null;
     },
   },
 };

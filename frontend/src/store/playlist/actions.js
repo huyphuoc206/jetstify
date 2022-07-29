@@ -26,9 +26,14 @@ export const createPlaylist = async({ commit }) => {
 export const getPlaylistById = async({ commit }, id) => {
     const { success, data, message } = await $rest.get(`${PUBLIC_URL}/${id}`);
     if (success) {
-        console.log(data);
+
         commit(TYPES.SET_PLAYLIST, data);
     } else {
         notice.error(message)
     }
 }
+
+
+export const setToggleDialog = ({ commit }) => {
+    commit(TYPES.SET_TOGGLE);
+};

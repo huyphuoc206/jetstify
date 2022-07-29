@@ -74,7 +74,10 @@ public class PlaylistService {
         PlaylistRequest playlistRequest = JsonUtil.toObject(playlistRequestJson, PlaylistRequest.class);
         Playlists playlists = playlistRepository.findById(id).orElseThrow(() -> new IllegalStateException("Not Found User"));
         playlists.setName(playlistRequest.getName());
-        playlists.setThumbnail(amazonUtil.uploadFile(fileImg));
+        if(fileImg != null) {
+            playlists.setThumbnail(amazonUtil.uploadFile(fileImg));
+        }
+
         playlists.setDescription(playlistRequest.getDescription());
         playlistRepository.save(playlists);
     }

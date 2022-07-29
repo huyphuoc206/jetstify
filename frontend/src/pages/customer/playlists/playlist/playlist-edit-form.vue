@@ -12,35 +12,39 @@
                 <v-form ref="formProfile" v-model="isValidProfileForm">
                   <v-row>
                     <v-col cols="12" sm="5">
-                      <v-avatar class="ms-8" size="150" color="brown">
+                      <v-avatar tile class="ms-8" size="150">
                         <v-img
                           v-if="checkAvatar"
                           :src="avatar"
                           alt="avatar"
                         ></v-img>
-                        <span
-                          v-else
-                          class="white--text text-h2 mt font-weight-regular"
-                          >{{ defaultAvatar }}</span
-                        >
+
+                        <v-icon v-else dark size="50"> fa-thin fa-music</v-icon>
                       </v-avatar>
                       <v-file-input
                         :rules="rules"
                         @change="handleFileUpload"
                         accept="image/png, image/jpeg,  image/jpg"
-                        placeholder="Pick an avatar"
-                        label="Avatar"
+                        placeholder="Pick an thumbnail"
+                        label="Thumbnail"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="12" sm="7">
                       <v-text-field
-                        v-model="fullNameAccount"
+                        v-model="fullNamePlayList"
                         label="Name"
                         placeholder="Add display name"
                         outlined
                         :rules="fullNameRules"
                         @keypress.enter="handleEditProfile()"
                       ></v-text-field>
+                      <v-textarea
+                        v-model="descriptionPlayList"
+                        outlined
+                        name="input-7-4"
+                        label="Description"
+                        :value="descriptionPlayList"
+                      ></v-textarea>
                       <v-btn
                         class="float-right"
                         rounded
@@ -80,7 +84,7 @@ import { $rest } from "@/core/rest-client";
 // import userStore from "@/store/user";
 
 export default {
-  name: "ArtistSetingForm",
+  name: "UserEditForm",
 
   data: () => ({
     dialog: false,
@@ -89,6 +93,7 @@ export default {
     flagName: true,
     linkAvatar: "",
     nameAccount: "",
+    description: null,
     fileAvatar: null,
     rules: [
       (value) =>
@@ -101,41 +106,23 @@ export default {
   }),
 
   computed: {
-    ...mapGetters("artistSetting", ["toggleDialog", "artistInfo"]),
+    ...mapGetters("playlist", ["toggleDialog", "playlist"]),
 
     checkAvatar() {
       if (this.flagAvatar) {
-        const photoList = this.artistInfo.photos || [];
-
-        return photoList.length > 0 && photoList[0].link ? true : false;
+        return !!this.playlist.thumbnail;
       }
       return !!this.linkAvatar;
     },
 
-    defaultAvatar() {
-      if (this.flagName) {
-        return this.artistInfo.nickName
-          ? this.artistInfo.nickName.charAt(0)
-          : "";
-      }
-
-      return this.nameAccount.trim().charAt(0);
-    },
-
     avatar: {
       get() {
-        console.log(this.artistInfo.photos);
-        const avatarInit =
-          this.artistInfo.photos.length !== 0
-            ? this.artistInfo.photos[0].link
-            : [];
-        return this.linkAvatar ? this.linkAvatar : avatarInit;
+        return this.linkAvatar ? this.linkAvatar : this.playlist.thumbnail;
       },
 
       set(newValue) {
         if (newValue === null) {
           this.flagAvatar = true;
-          this.linkAvatar = newValue;
         } else {
           this.flagAvatar = false;
           this.linkAvatar = newValue;
@@ -143,27 +130,34 @@ export default {
       },
     },
 
-    fullNameAccount: {
+    fullNamePlayList: {
       get() {
-        return this.nameAccount ? this.nameAccount : this.artistInfo.nickName;
+        return this.nameAccount ? this.nameAccount : this.playlist.namePlaylist;
       },
 
       set(newValue) {
         if (newValue === "") {
           this.nameAccount = " ";
-        } else if (newValue === null) {
-          this.flagName = true;
-          this.nameAccount = newValue;
-        } else {
-          this.flagName = false;
-          this.nameAccount = newValue;
-        }
+        } else this.nameAccount = newValue;
+      },
+    },
+
+    descriptionPlayList: {
+      get() {
+        return this.description || this.description === ""
+          ? this.description
+          : this.playlist.description;
+      },
+
+      set(newValue) {
+        this.description = newValue;
       },
     },
   },
 
   methods: {
-    ...mapActions("artistSetting", ["setToggleDialog", "getInfoArtist"]),
+    ...mapActions("playlist", ["setToggleDialog", "getPlaylistById"]),
+    // ...mapActions("auth", ["updateUserInfo"]),
 
     handleEdit() {
       this.setToggleDialog();
@@ -189,29 +183,39 @@ export default {
 
       const jsonObject = {
         fileImg: this.fileAvatar,
-        artistRequest: JSON.stringify({
-          nickName: (this.nameAccount
+        playlistRequest: JSON.stringify({
+          name: (this.nameAccount
             ? this.nameAccount
-            : this.artistInfo.nickName
+            : this.playlist.namePlaylist
+          ).trim(),
+          description: (this.description || this.description === ""
+            ? this.description
+            : this.playlist.description
           ).trim(),
         }),
       };
 
+      const idPlaylist = this.playlist.idPlaylist;
+
       const formData = jsonToFormData(jsonObject);
 
-      const { success, message } = await $rest.upload("/artistInfo", formData);
+      const { success, message } = await $rest.upload(
+        `/playlist/${idPlaylist}`,
+        formData
+      );
 
       if (success) {
         this.handleEdit();
-        await this.getInfoArtist();
+        await this.getPlaylistById(idPlaylist);
       } else {
         this.$notice.error(message);
       }
     },
 
     resetFormClose() {
-      this.fullNameAccount = null;
+      this.fullNamePlayList = null;
       this.avatar = null;
+      this.descriptionPlayList = null;
       this.fileAvatar = null;
     },
   },

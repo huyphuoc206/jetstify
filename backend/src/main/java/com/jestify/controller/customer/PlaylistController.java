@@ -52,7 +52,7 @@ public class PlaylistController {
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
-    @PutMapping("/playlist/{playlistId}")
+    @PostMapping("/playlist/{playlistId}")
     public ResponseEntity<?> updatePlaylist(@PathVariable Long playlistId, @RequestPart(value = "playlistRequest") String playlistRequest, @RequestPart(value = "fileImg", required = false) MultipartFile fileImg){
         try {
             playlistService.updatePlaylist(playlistId,playlistRequest, fileImg);

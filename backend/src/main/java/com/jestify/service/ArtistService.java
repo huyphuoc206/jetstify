@@ -113,14 +113,14 @@ public class ArtistService {
             artistPhoto.setActive(true);
             artistPhoto = artistPhotoRepository.save(artistPhoto);
             artistPhotos.add(artistPhoto);
-        }else{
+        }else if(fileImg != null){
             artistPhotos.get(0).setLink(amazonUtil.uploadFile(fileImg));
         }
-
 
         if (fileImg != null) {
             artists.setArtistPhotos(artistPhotos);
         }
+
         artists.setNickName(artistRequest.getNickName());
         artistRepository.save(artists);
     }

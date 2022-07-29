@@ -4,13 +4,16 @@ import * as TYPES from "./types";
 
 const initState = () => ({
     playlists: [],
-    playlist: {}
-
+    playlist: {},
+    toggleDialog: false,
 });
 
 const mutations = {
     [TYPES.SET_PLAYLISTS]: (state, playlists) => state.playlists = playlists,
     [TYPES.SET_PLAYLIST]: (state, playlist) => state.playlist = playlist,
+    [TYPES.SET_TOGGLE]: (state) => {
+        state.toggleDialog = !state.toggleDialog;
+    },
 
 };
 
