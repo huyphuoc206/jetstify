@@ -91,7 +91,7 @@ export const CUSTOMER_ROUTES = [{
             import ( /* webpackChunkName: "customer-pages" */ "@/pages/customer/artists"),
     },
     {
-        path: "/album/1",
+        path: "/album/:id",
         name: "Album",
         meta: {
             title: 'Album Details',
@@ -99,6 +99,19 @@ export const CUSTOMER_ROUTES = [{
         },
         component: () =>
             import ( /* webpackChunkName: "customer-pages" */ "@/pages/customer/albums/album"),
+    },
+    {
+        path: "/category/:id",
+        name: "Category",
+        meta: {
+            title: 'Category Details',
+            role: ROLE_CODE.CUSTOMER
+        },
+        component: () =>
+            import ( /* webpackChunkName: "customer-pages" */ "@/pages/customer/category"),
+        props: (route) => ({
+            ...route.params
+        })
     },
     {
         path: "/artist/:id",

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import {  mapGetters } from "vuex";
 import CategoryCard from "@/components/customer/CategoryCard.vue";
 export default {
   components: { CategoryCard },
@@ -31,6 +31,7 @@ export default {
   computed: {
     ...mapGetters("category", ["categoriesClient"]),
   },
+ 
 };
 </script>
 
