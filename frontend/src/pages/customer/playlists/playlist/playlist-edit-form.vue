@@ -156,7 +156,7 @@ export default {
   },
 
   methods: {
-    ...mapActions("playlist", ["setToggleDialog", "getPlaylistById"]),
+    ...mapActions("playlist", ["setToggleDialog", "getPlaylistById", "getPlaylist"]),
     // ...mapActions("auth", ["updateUserInfo"]),
 
     handleEdit() {
@@ -207,6 +207,7 @@ export default {
       if (success) {
         this.handleEdit();
         await this.getPlaylistById(idPlaylist);
+        await this.getPlaylist();
       } else {
         this.$notice.error(message);
       }
