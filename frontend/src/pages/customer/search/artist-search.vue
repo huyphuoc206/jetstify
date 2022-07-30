@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row v-if="results.length > 0">
     <v-col>
       <v-row class="align-start">
         <v-col>
@@ -12,7 +12,7 @@
           sm="6"
           md="4"
           lg="2"
-          v-for="(artist, index) in dataSearch['artistResponseList'].slice(0,6)"
+          v-for="(artist, index) in results"
           :key="index"
         >
           <artist-card :artist="artist"></artist-card>
@@ -27,12 +27,13 @@ import ArtistCard from "@/components/customer/ArtistCard.vue";
 import { mapGetters } from "vuex";
 export default {
   components: { ArtistCard },
-  methods: {
-
-  },
-  computed: { ...mapGetters("search", ["dataSearch"]) },
-  async created() {
-    console.log(this.dataSearch);
+  methods: {},
+  computed: {
+    ...mapGetters("search", ["dataSearch"]),
+    results() {
+      if (!this.dataSearch["artistResponseList"]) return [];
+      return this.dataSearch["artistResponseList"].slice(0, 6);
+    },
   },
 };
 </script>

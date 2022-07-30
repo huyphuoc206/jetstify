@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import {convertMinutes} from "@/utils/time-utils"
+import { generateTime } from "@/utils/song-utils";
 export default {
   props: ["song"],
   name: "SongListItem2",
@@ -58,19 +58,9 @@ export default {
       { name: "Copy link to artist", type: "" },
     ],
   }),
-  methods: {
-    generateTime() {
-      let sound = new Audio(this.song.link);
-      sound.onloadedmetadata = () => {
-        this.duration = convertMinutes(Math.floor(sound.duration));
-      };
-    },
-   
-  },
-  created() {
-    this.generateTime();
+
+  async created() {
+    this.duration = await generateTime(this.song.link);
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

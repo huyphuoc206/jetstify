@@ -10,6 +10,7 @@
             v-for="song in currentSongArr"
             :key="song.songId"
             :song="song"
+            type="Q"
           ></song-list-item>
         </div>
 
@@ -19,6 +20,7 @@
             v-for="song in songsWithoutCurrent"
             :key="song.songId"
             :song="song"
+            type="Q"
           ></song-list-item>
         </div>
 

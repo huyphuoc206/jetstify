@@ -3,12 +3,13 @@
     <v-col class="py-0" cols="4" sm="4">
       <v-row v-if="canPlay" class="align-center" style="height: 100%">
         <v-col cols="auto">
-          <v-img
-            class="elevation-10 mt-5"
-            :src="currentSong.thumbnail"
-            width="60"
-            height="60"
-          ></v-img>
+          <v-avatar class="elevation-10 mt-5">
+            <img
+              :class="{['rotate-img']: isPlaying}"
+              :src="currentSong.thumbnail"
+              alt=""
+            />
+          </v-avatar>
         </v-col>
         <v-col class="pl-1 text-truncate mt-5">
           <span class="body-2 font-weight-medium ma-0 link_text white--text">
@@ -29,11 +30,11 @@
             </router-link>
           </span> -->
         </v-col>
-        <v-col class="mt-4">
+        <!-- <v-col class="mt-4">
           <v-btn icon>
             <v-icon>mdi-heart-outline</v-icon>
           </v-btn>
-        </v-col>
+        </v-col> -->
       </v-row>
     </v-col>
     <v-col cols="6" sm="4">
@@ -71,7 +72,7 @@ export default {
     AudioPlayer,
   },
   computed: {
-    ...mapGetters("player", ["songs", "currentSong"]),
+    ...mapGetters("player", ["songs", "currentSong", "isPlaying"]),
     canPlay() {
       return this.songs && this.songs.length > 0;
     },
