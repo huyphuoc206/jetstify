@@ -3,7 +3,7 @@
     <h1 class="headline font-weight-bold">Popular</h1>
     <v-row class="mt-2" v-for="(song, index) in listSong" :key="index">
       <v-col>
-        <artist-song :song="song" />
+        <song-list-item :song="song" />
       </v-col>
     </v-row>
     <v-row class="mb-2">
@@ -14,13 +14,15 @@
 
 <script>
 // import { mapGetters } from "vuex";
-import artistSong from "./artist-song.vue";
+// import artistSong from "./artist-song.vue";
+import SongListItem from "./SongListItem.vue";
 export default {
-  components: { artistSong },
+  components: { 
+    // artistSong,
+    SongListItem },
   name: "SongListItem2",
   props: ["listSong"],
   data() {
-    console.log(this.listSong);
     return {};
   },
 

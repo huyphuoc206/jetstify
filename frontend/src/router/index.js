@@ -15,6 +15,13 @@ const router = new VueRouter({
     routes,
 });
 
+const waitForStorageToBeReady = async (to, from, next) => {
+    await store.restored
+    next()
+}
+
+router.beforeEach(waitForStorageToBeReady)
+
 router.beforeEach((to, from, next) => {
     const { title } = to.meta;
     if (title) {
@@ -24,7 +31,6 @@ router.beforeEach((to, from, next) => {
     }
     next();
 });
-
 router.beforeEach((to, from, next) => {
     try {
         const { requiresAuth, role } = to.meta;

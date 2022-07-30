@@ -1,5 +1,6 @@
 import * as TYPES from "./types";
 import _ from "lodash";
+import notice from "@/core/notice"
 
 export const setPlaying = ({ commit }, isPlaying) => {
     commit(TYPES.SET_PLAYING, isPlaying);
@@ -32,6 +33,8 @@ export const addSong = ({ commit, getters }, { song, isQueue }) => {
     if (_.isEmpty(currentSong)) {
         setCurrentSong({ commit }, song);
     }
+
+    isQueue && notice.success('Add song to queue successfully');
 }
 
 export const setCurrentSong = ({ commit }, song) => {

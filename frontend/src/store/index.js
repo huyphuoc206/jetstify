@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import VuexPersistence from 'vuex-persist'
 import global from "./global";
 import player from "./player";
 import auth from "./auth";
@@ -14,7 +15,19 @@ import home from "./home";
 import artistSetting from "./artist-setting";
 import podcastSetting from "./podcast-setting";
 import playlist from "./playlist";
+
 Vue.use(Vuex);
+
+const vuexLocal = new VuexPersistence({
+    storage: window.localStorage,
+    supportCircular: true,
+    reducer: state => ({
+        player: {
+            currentSong: state.player.currentSong,
+            songs: state.player.songs
+        }
+    })
+})
 
 export default new Vuex.Store({
     modules: {
@@ -33,4 +46,5 @@ export default new Vuex.Store({
         home,
         player,
     },
+    plugins: [vuexLocal.plugin],
 });

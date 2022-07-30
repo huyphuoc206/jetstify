@@ -14,5 +14,5 @@ module.exports = defineConfig({
             }
         }
     },
-    transpileDependencies: ["vuetify"],
+    transpileDependencies: ["vuetify", "vuex-persist"],
 });

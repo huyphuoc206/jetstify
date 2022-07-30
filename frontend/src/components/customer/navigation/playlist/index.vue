@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isAuthenticated">
     <v-list-item
       v-for="item in itemMain"
       :key="item.title"
@@ -55,6 +55,7 @@ export default {
   },
   computed: {
     ...mapGetters("playlist", ["playlists"]),
+    ...mapGetters("auth", ["isAuthenticated"]),
 
   },
 
@@ -68,7 +69,7 @@ export default {
     },
   },
   async created() {
-    await this.loadPlaylist();
+    this.isAuthenticated && await this.loadPlaylist();
   },
 };
 </script>
