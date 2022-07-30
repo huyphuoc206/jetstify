@@ -55,13 +55,6 @@ export default {
           link: "/search",
           name: "Search",
         },
-
-        {
-          title: "Playlists",
-          icon: "mdi-plus",
-          link: "/playlists",
-          name: "Playlists",
-        },
         {
           title: "Queue",
           icon: "mdi-format-list-checkbox",

@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="toggleDialogCreate" persistent max-width="600px">
+    <v-dialog v-if="toggleDialogCreate" v-model="toggleDialogCreate" persistent max-width="600px">
       <v-card>
         <v-card-title>
           <h3 class="display-1 font-weight-bold">Profile details</h3>
@@ -26,8 +26,8 @@
                         :rules="rules"
                         @change="handleFileUpload"
                         accept="image/png, image/jpeg,  image/jpg"
-                        placeholder="Pick an avatar"
-                        label="Avatar"
+                        placeholder="Pick an thumbnail"
+                        label="Thumbnail"
                       ></v-file-input>
 
                       <v-file-input
@@ -47,18 +47,18 @@
                         @keypress.enter="handleUploadSong()"
                       ></v-text-field>
 
-                      <v-radio-group
+                      <v-combobox
                         @change="handleCategory"
-                        v-model="defaultActiveCategory"
+                        :rules="categoryRules"
+                        :items="
+                          categoriesClient.map((e) => ({
+                            text: e.name,
+                            value: e.id,
+                          }))
+                        "
+                        color="success"
                       >
-                        <v-radio
-                          v-for="category in categoriesClient"
-                          :key="category.id"
-                          :label="category.name"
-                          :value="category.id"
-                          color="success"
-                        ></v-radio>
-                      </v-radio-group>
+                      </v-combobox>
 
                       <v-btn
                         class="float-right"
@@ -96,6 +96,7 @@
 import { jsonToFormData } from "@/utils/rest-utils";
 import { mapActions, mapGetters } from "vuex";
 import { $rest } from "@/core/rest-client";
+// import _ from "lodash";
 // import userStore from "@/store/user";
 
 export default {
@@ -113,17 +114,18 @@ export default {
     category: -1,
     rules: [
       (value) =>
-        !value ||
-        value.size < 3000000 ||
+        (!!value && value.size < 3000000) ||
         "Avatar size should be less than 3 MB!",
     ],
 
     SongRules: [
       (value) =>
-        !value || value.size < 5000000 || "Song size should be less than 5 MB!",
+        (!!value && value.size < 5000000) || "Song size should be less than 5 MB!",
     ],
 
     fullNameRules: [(v) => !!v.trim() || "Full name is required"],
+   categoryRules: [(v) => (!!v && v.value) || "Category is required" ],
+
   }),
 
   computed: {
@@ -199,7 +201,7 @@ export default {
     },
 
     handleCategory(value) {
-      this.category = value;
+      this.category = value.value;
     },
 
     async handleUploadSong() {
