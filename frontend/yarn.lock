@@ -14,7 +14,7 @@
   "resolved" "https://registry.npmjs.org/@any-touch/compute/-/compute-2.1.1.tgz"
   "version" "2.1.1"
   dependencies:
-    "@any-touch/shared" "^2.1.1
+    "@any-touch/shared" "^2.1.1"
     "@any-touch/vector" "^2.1.1"
     "tslib" "^2.3.1"
 
@@ -6317,7 +6317,7 @@
   "integrity" "sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw=="
   "resolved" "https://registry.npmjs.org/split-on-first/-/split-on-first-1.1.0.tgz"
   "version" "1.1.0"
-  
+
 "sprintf-js@~1.0.2":
   "integrity" "sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw="
   "resolved" "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz"
@@ -6757,7 +6757,7 @@
     "null-loader" "^4.0.1"
     "semver" "^7.1.2"
     "shelljs" "^0.8.3"
-    
+
 "vue-click-outside@^1.1.0":
   "integrity" "sha512-pNyvAA9mRXJwPHlHJyjMb4IONSc7khS5lxGcMyE2EIKgNMAO279PWM9Hyq0d5J4FkiSRdmFLwnbjDd5UtPizHQ=="
   "resolved" "https://registry.npmjs.org/vue-click-outside/-/vue-click-outside-1.1.0.tgz"
