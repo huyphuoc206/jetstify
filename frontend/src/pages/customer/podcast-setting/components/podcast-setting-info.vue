@@ -11,10 +11,11 @@
               }}</span>
             </v-avatar>
             <v-card-title class="white--text d-block titleArtits">
-              <h3 class="mb-7 font-weight-bold">Profile</h3>
-              <h1 class="display-3 font-weight-bold" @click="handleEdit">
+              <p class="caption mb-7 font-weight-bold">Podcast Profile</p>
+              <p class="display-3 font-weight-bold" @click="handleEdit">
                 {{ podcastInfo.namePodcast }}
-              </h1>
+              </p>
+              <p class="display-1 font-weight-bold">{{podcastInfo.fullNameUser}}</p>
             </v-card-title>
           </v-card>
         </v-img>
@@ -27,7 +28,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
-  name: "UserInfo",
+  name: "PodcastInfo",
 
   computed: {
     ...mapGetters("podcastSetting", ["podcastInfo"]),

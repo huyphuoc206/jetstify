@@ -4,6 +4,7 @@ import * as TYPES from "./types";
 
 const initState = () => ({
     podcastInfo: {},
+    episodes: [],
     toggleDialog: false,
 });
 
@@ -14,6 +15,10 @@ const mutations = {
 
     [TYPES.SET_TOGGLE]: (state) => {
         state.toggleDialog = !state.toggleDialog;
+    },
+
+    [TYPES.SET_EPISODES]: (state, payload) => {
+        state.episodes = [...payload];
     },
 };
 

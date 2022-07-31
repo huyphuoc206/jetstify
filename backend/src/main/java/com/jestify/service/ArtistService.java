@@ -63,6 +63,7 @@ public class ArtistService {
                 .stream()
                 .map(artistPhotoConverter::toResponse)
                 .collect(Collectors.toList()));
+        artistResponse.setFullNameUser(users.getFullName());
         return artistResponse;
     }
 

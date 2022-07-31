@@ -1,21 +1,20 @@
 <template>
   <div>
-    <user-info />
-    <user-service />
-    <user-edit-form />
+    <podcast-setting-info />
+    <podcast-setting-service />
+    <podcast-setting-edit-form />
   </div>
 </template>
 <script>
-import UserEditForm from "./components/user-edit-form.vue";
-import UserInfo from "./components/user-info.vue";
-import UserService from "./components/user-service.vue";
+import PodcastSettingEditForm from "./components/podcast-setting-edit-form.vue";
+import PodcastSettingInfo from "./components/podcast-setting-info.vue";
+import PodcastSettingService from "./components/podcast-setting-service.vue";
 export default {
-  name: "Playlist",
+  name: "PodcastSettings",
   components: {
-    UserInfo,
-    UserService,
-    UserEditForm,
+    PodcastSettingEditForm,
+    PodcastSettingInfo,
+    PodcastSettingService,
   },
 };
 </script>
-<style lang="scss" scoped></style>

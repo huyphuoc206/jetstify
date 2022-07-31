@@ -1,9 +1,14 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-if="toggleDialogCreate" v-model="toggleDialogCreate" persistent max-width="600px">
+    <v-dialog
+      v-if="toggleDialogCreate"
+      v-model="toggleDialogCreate"
+      persistent
+      max-width="600px"
+    >
       <v-card>
         <v-card-title>
-          <h3 class="display-1 font-weight-bold">Profile details</h3>
+          <h3 class="display-1 font-weight-bold">Upload music</h3>
         </v-card-title>
 
         <v-card-text>
@@ -33,6 +38,7 @@
                       <v-file-input
                         :rules="SongRules"
                         @change="handleFileSongUpload"
+                        accept="audio/mp3, audio/mp4"
                         placeholder="Choose your song"
                         label="Song"
                       ></v-file-input>
@@ -40,8 +46,8 @@
                     <v-col cols="12" sm="7">
                       <v-text-field
                         v-model="fullNameSong"
-                        label="Name"
-                        placeholder="Add display name"
+                        label="Song name"
+                        placeholder="Add song name"
                         outlined
                         :rules="fullNameRules"
                         @keypress.enter="handleUploadSong()"
@@ -96,8 +102,6 @@
 import { jsonToFormData } from "@/utils/rest-utils";
 import { mapActions, mapGetters } from "vuex";
 import { $rest } from "@/core/rest-client";
-// import _ from "lodash";
-// import userStore from "@/store/user";
 
 export default {
   name: "ArtistSettingCreateSong",
@@ -115,17 +119,17 @@ export default {
     rules: [
       (value) =>
         (!!value && value.size < 3000000) ||
-        "Avatar size should be less than 3 MB!",
+        "Thumbnail size should be less than 3 MB!",
     ],
 
     SongRules: [
       (value) =>
-        (!!value && value.size < 5000000) || "Song size should be less than 5 MB!",
+        (!!value && value.size < 10000000) ||
+        "Song size should be less than 5 MB!",
     ],
 
-    fullNameRules: [(v) => !!v.trim() || "Full name is required"],
-   categoryRules: [(v) => (!!v && v.value) || "Category is required" ],
-
+    fullNameRules: [(v) => !!v.trim() || "Song name is required"],
+    categoryRules: [(v) => (!!v && !!v.value) || "Category is required"],
   }),
 
   computed: {
@@ -230,6 +234,7 @@ export default {
       if (success) {
         this.handleEdit();
         await this.getInfoArtist();
+        this.$notice.success('Upload music successfully');
       } else {
         this.$notice.error(message);
       }
@@ -248,5 +253,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

@@ -3,7 +3,7 @@
     <v-dialog v-model="toggleDialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
-          <h3 class="display-1 font-weight-bold">Profile details</h3>
+          <h3 class="display-1 font-weight-bold">Artist Profile details</h3>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -35,8 +35,8 @@
                     <v-col cols="12" sm="7">
                       <v-text-field
                         v-model="fullNameAccount"
-                        label="Name"
-                        placeholder="Add display name"
+                        label="Nickname"
+                        placeholder="Add nickname"
                         outlined
                         :rules="fullNameRules"
                         @keypress.enter="handleEditProfile()"
