@@ -90,9 +90,17 @@ public class PlaylistService {
     }
 
     public void addSongToPlaylist(Long songId, Long playlistId) {
-        Songs songs = songRepository.findById(songId).orElse(null);
-        Playlists playlists = playlistRepository.findById(playlistId).orElse(null);
-        playlists.getSongs().add(songs);
-        playlistRepository.save(playlists);
+        Songs songs = songRepository.findSongById(songId).orElseThrow(()-> new IllegalStateException("Song Not Found"));
+        Playlists playlists = playlistRepository.findByIdAndActiveTrue(playlistId).orElseThrow(()-> new IllegalStateException("Playlist Not Found"));
+        Songs existSong = playlists.getSongs().stream()
+                .filter(song -> song.getId().equals(songId))
+                .findAny()
+                .orElse(null);
+        if (existSong == null) {
+            playlists.getSongs().add(songs);
+            playlistRepository.save(playlists);
+        } else {
+            throw  new IllegalStateException("Song existed in this playlist");
+        }
     }
 }

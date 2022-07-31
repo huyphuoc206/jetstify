@@ -1,11 +1,11 @@
 <template>
   <v-row justify="center">
     <v-dialog :value="dialog" max-width="290" @click:outside="handleCancel">
-      <template v-slot:activator="{ on, attrs }">
+      <!-- <template v-slot:activator="{ on, attrs }">
         <v-btn color="primary" dark v-bind="attrs" v-on="on">
           Open Dialog
         </v-btn>
-      </template>
+      </template> -->
       <v-card>
         <v-card-title class="text-h5"> Delete {{ content }} ?</v-card-title>
 
@@ -28,8 +28,6 @@ export default {
   name: "DialogRemove",
   props: ["dialog", "content", "handleCancel", "handleRemove"],
   data() {
-    console.log(this.dialog);
-    console.log(this.content);
     return {};
   },
 };

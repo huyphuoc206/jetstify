@@ -1,12 +1,6 @@
 <template>
   <div v-if="isAuthenticated">
-    <v-list-item
-      v-for="item in itemMain"
-      :key="item.title"
-      link
-      dense
-      exact
-    >
+    <v-list-item v-for="item in itemMain" :key="item.title" link dense exact>
       <div @click="onSelect()" class="d-flex">
         <v-list-item-icon>
           <v-icon class="item__list" color="grey">{{ item.icon }}</v-icon>
@@ -19,18 +13,18 @@
         </v-list-item-content>
       </div>
     </v-list-item>
-    <div style="height: calc(20vh); overflow: auto">
+    <div style="height: calc(30vh); overflow: auto" id="style-4">
       <v-list>
         <v-list-item
-        v-for="item in playlists"
-        :key="item.idPlaylist"
-        :to="`/playlist/${item.idPlaylist}`"
-        link
-        dense
-        exact
-      >
-        <item-playlist :item="item"></item-playlist>
-      </v-list-item>
+          v-for="item in playlists"
+          :key="item.idPlaylist"
+          :to="`/playlist/${item.idPlaylist}`"
+          link
+          dense
+          exact
+        >
+          <item-playlist :item="item"></item-playlist>
+        </v-list-item>
       </v-list>
     </div>
   </div>
@@ -56,12 +50,11 @@ export default {
   computed: {
     ...mapGetters("playlist", ["playlists"]),
     ...mapGetters("auth", ["isAuthenticated"]),
-
   },
 
   methods: {
     ...mapActions("playlist", ["createPlaylist", "getPlaylist"]),
-   async onSelect() {
+    async onSelect() {
       await this.createPlaylist();
     },
     async loadPlaylist() {
@@ -69,9 +62,11 @@ export default {
     },
   },
   async created() {
-    this.isAuthenticated && await this.loadPlaylist();
+    this.isAuthenticated && (await this.loadPlaylist());
   },
 };
 </script>
 
-<style></style>
+<style>
+
+</style>

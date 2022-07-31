@@ -6,7 +6,21 @@
           Add to queue
         </ContextMenuItem>
         <ContextMenuItem @click.native="addToPlaylist()">
-          Add to playlist
+          <div class="text-center">
+            <v-menu open-on-hover top offset-x>
+              <template v-slot:activator="{ on, attrs }">
+                <v-card-text color="primary" dark v-bind="attrs" v-on="on">
+                  Add to playlist
+                </v-card-text>
+              </template>
+
+              <v-list>
+                <v-list-item v-for="(item, index) in playlists" :key="index">
+                  <v-list-item-title @click="addSongToPlaylist({playlistId:item.idPlaylist,songId:song.songId})">{{ item.namePlaylist }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
         </ContextMenuItem>
       </template>
     </ContextMenu>
@@ -78,9 +92,14 @@ export default {
   name: "AlbumCard2",
   computed: {
     ...mapGetters("player", ["isPlaying", "currentSongId"]),
+    ...mapGetters("playlist", ["playlists"]),
   },
   methods: {
     ...mapActions("player", ["setPlaying", "playSong", "addSong"]),
+    ...mapActions("playlist", ["getPlaylist", "addSongToPlaylist"]),
+    async listPlaylist() {
+      await this.getPlaylist();
+    },
     handlePlaySong() {
       this.playSong(this.song);
       this.setPlaying(true);
@@ -100,6 +119,9 @@ export default {
       console.log("hi");
       this.$refs.menu.close();
     },
+  },
+  async created() {
+    await this.listPlaylist();
   },
 };
 </script>

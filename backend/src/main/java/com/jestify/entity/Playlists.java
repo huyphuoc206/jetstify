@@ -24,7 +24,9 @@ public class Playlists extends BaseEntity {
     private String thumbnail;
     private boolean active;
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "playlist_song", joinColumns = @JoinColumn(name = "playlist_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
+    @JoinTable(name = "playlist_song",
+            joinColumns = @JoinColumn(name = "playlist_id"),
+            inverseJoinColumns = @JoinColumn(name = "song_id"))
     private List<Songs> songs;
 
 }

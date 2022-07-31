@@ -8,6 +8,9 @@
     width="230px"
   >
     <v-list>
+      <v-avatar>
+      
+      </v-avatar>
       <v-list-item
         v-for="item in items"
         :key="item.title"
@@ -55,37 +58,37 @@ export default {
           link: "/search",
           name: "Search",
         },
-        {
-          title: "Queue",
-          icon: "mdi-format-list-checkbox",
-          link: "/queue",
-          name: "Queue",
-        },
+        // {
+        //   title: "Queue",
+        //   icon: "mdi-format-list-checkbox",
+        //   link: "/queue",
+        //   name: "Queue",
+        // },
 
-        {
-          title: "Liked Songs",
-          icon: "mdi-account-group-outline",
-          link: "/track",
-          name: "Track",
-        },
-        {
-          title: "Artist",
-          icon: "mdi-magnify",
-          link: "/artist/1",
-          name: "Artist",
-        },
-        {
-          title: "Album",
-          icon: "mdi-magnify",
-          link: "/album/1",
-          name: "Album",
-        },
-        {
-          title: "Albums",
-          icon: "mdi-magnify",
-          link: "/albums",
-          name: "Albums",
-        },
+        // {
+        //   title: "Liked Songs",
+        //   icon: "mdi-account-group-outline",
+        //   link: "/track",
+        //   name: "Track",
+        // },
+        // {
+        //   title: "Artist",
+        //   icon: "mdi-magnify",
+        //   link: "/artist/1",
+        //   name: "Artist",
+        // },
+        // {
+        //   title: "Album",
+        //   icon: "mdi-magnify",
+        //   link: "/album/1",
+        //   name: "Album",
+        // },
+        // {
+        //   title: "Albums",
+        //   icon: "mdi-magnify",
+        //   link: "/albums",
+        //   name: "Albums",
+        // },
 
         {
           title: "Artists",
@@ -93,18 +96,18 @@ export default {
           link: "/artists",
           name: "Artists",
         },
-        {
-          title: "Podcasts",
-          icon: "mdi-magnify",
-          link: "/podcasts",
-          name: "Podcasts",
-        },
-        {
-          title: "Podcast",
-          icon: "mdi-magnify",
-          link: "/podcast/1",
-          name: "Podcast",
-        },
+        // {
+        //   title: "Podcasts",
+        //   icon: "mdi-magnify",
+        //   link: "/podcasts",
+        //   name: "Podcasts",
+        // },
+        // {
+        //   title: "Podcast",
+        //   icon: "mdi-magnify",
+        //   link: "/podcast/1",
+        //   name: "Podcast",
+        // },
       ],
     };
   },
