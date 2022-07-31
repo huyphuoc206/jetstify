@@ -2,6 +2,7 @@ package com.jestify.service;
 
 import com.jestify.converter.PlaylistConverter;
 import com.jestify.converter.SongConverter;
+import com.jestify.entity.Artists;
 import com.jestify.entity.Playlists;
 import com.jestify.entity.Songs;
 import com.jestify.entity.Users;
@@ -9,6 +10,7 @@ import com.jestify.payload.PlaylistRequest;
 import com.jestify.payload.PlaylistResponse;
 import com.jestify.payload.PodcastRequest;
 import com.jestify.payload.SongResponse;
+import com.jestify.repository.ArtistRepository;
 import com.jestify.repository.PlaylistRepository;
 import com.jestify.repository.SongRepository;
 import com.jestify.repository.UserRepository;
@@ -32,6 +34,7 @@ public class PlaylistService {
     private final SongConverter songConverter;
     private final SongRepository songRepository;
     private final AmazonUtil amazonUtil;
+    private final ArtistRepository artistRepository;
 
     public List<PlaylistResponse> getListPlaylistByUserPresent() {
         String emailUser = UserUtil.getUserCurrently();
@@ -51,7 +54,12 @@ public class PlaylistService {
         List<SongResponse> songResponseList = songRepository
                 .findByPlaylists_idAndActiveTrue(playlists.getId())
                 .stream()
-                .map(songConverter::toResponse)
+                .map(e -> {
+                    Artists artists = artistRepository.findByUserId(users.getId()).orElseThrow(() -> new IllegalStateException("Not Found Artist"));
+                    SongResponse songResponse = songConverter.toResponse(e);
+                    songResponse.setNameArtist(artists.getNickName());
+                    return songResponse;
+                })
                 .collect(Collectors.toList());
         playlistResponse.setSongResponseList(songResponseList);
         playlistResponse.setNameUserCreate(users.getFullName());

@@ -40,7 +40,9 @@ public class SongService {
         Users users = userRepository.findById(artists.getUserId()).orElse(null);
         List<Songs> songsList = songRepository.findByUsers_idAndActive(users.getId(), true);
         for (Songs song : songsList) {
-            songResponseList.add(songConverter.toResponse(song));
+            SongResponse songResponse = songConverter.toResponse(song);
+            songResponse.setNameArtist(artists.getNickName());
+            songResponseList.add(songResponse);
         }
         return songResponseList;
     }
@@ -75,7 +77,13 @@ public class SongService {
     public List<SongResponse> getSongsByCategoryId(Long categoryId) {
         return songRepository.findByCategoryIdAndActive(categoryId, true)
                 .stream()
-                .map(songConverter::toResponse)
+                .map(e -> {
+                    Users users = userRepository.findByEmail(e.getCreatedBy()).orElseThrow(() -> new IllegalStateException("Not Found User"));
+                    Artists artists = artistRepository.findByUserId(users.getId()).orElseThrow(() -> new IllegalStateException("Not Found Artist"));
+                    SongResponse songResponse = songConverter.toResponse(e);
+                    songResponse.setNameArtist(artists.getNickName());
+                    return songResponse;
+                })
                 .collect(Collectors.toList());
     }
     @Transactional

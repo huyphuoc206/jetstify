@@ -3,6 +3,8 @@ package com.jestify.service;
 import com.jestify.converter.ArtistConverter;
 import com.jestify.converter.PodcastConverter;
 import com.jestify.converter.SongConverter;
+import com.jestify.entity.Artists;
+import com.jestify.entity.Users;
 import com.jestify.payload.ArtistResponse;
 import com.jestify.payload.PodcastResponse;
 import com.jestify.payload.SearchResponse;
@@ -10,6 +12,7 @@ import com.jestify.payload.SongResponse;
 import com.jestify.repository.ArtistRepository;
 import com.jestify.repository.PodcastRepository;
 import com.jestify.repository.SongRepository;
+import com.jestify.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,13 +29,20 @@ public class SearchService {
     private final SongConverter songConverter;
     private final ArtistConverter artistConverter;
     private final PodcastConverter podcastConverter;
+    private final UserRepository userRepository;
 
     public SearchResponse searchResponses(String name) {
         SearchResponse searchResponse = SearchResponse.builder().build();
         List<SongResponse> songsResponses = songRepository
                 .findByNameContainingIgnoreCaseAndActiveTrue(name)
                 .stream()
-                .map(songConverter::toResponse)
+                .map(e -> {
+                    Users users = userRepository.findByEmail(e.getCreatedBy()).orElseThrow(()-> new IllegalStateException("Not Found User"));
+                    Artists artists = artistRepository.findByUserId(users.getId()).orElseThrow(()-> new IllegalStateException("Not Found Artist"));
+                    SongResponse songResponse = songConverter.toResponse(e);
+                    songResponse.setNameArtist(artists.getNickName());
+                    return songResponse;
+                })
                 .collect(Collectors.toList());
         List<ArtistResponse> artistResponses = artistRepository
                 .findByNickNameContainingIgnoreCaseAndVerifyTrue(name)

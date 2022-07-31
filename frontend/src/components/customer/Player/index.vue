@@ -16,7 +16,7 @@
             {{ currentSong.name || "" }}
           </span>
           <br />
-          <!-- <span class="caption font-weight-light">
+          <span class="caption font-weight-light">
             <router-link
               class="ma-0 link_text lime--text"
               :to="{
@@ -26,9 +26,9 @@
                 },
               }"
             >
-              Scarlett Johansson
+              {{currentSong.nameArtist}}
             </router-link>
-          </span> -->
+          </span>
         </v-col>
         <!-- <v-col class="mt-4">
           <v-btn icon>

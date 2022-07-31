@@ -55,7 +55,7 @@
                 <v-list-item-title>
                   <strong v-if="type === 'result'">{{ song.name }}</strong>
                   <div v-else>{{ song.name }}</div>
-                  <!-- <v-list-item-subtitle>
+                  <v-list-item-subtitle>
                   <router-link
                     :style="{
                       color: 'rgba(255, 255, 255, 0.7)',
@@ -68,9 +68,9 @@
                       },
                     }"
                   >
-                    Rosario Alfonso
+                    {{song.nameArtist}}
                   </router-link>
-                </v-list-item-subtitle> -->
+                </v-list-item-subtitle>
                 </v-list-item-title>
               </v-col>
             </v-row>

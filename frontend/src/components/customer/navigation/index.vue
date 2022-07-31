@@ -8,10 +8,14 @@
     width="230px"
   >
     <v-list>
-      <v-avatar>
-      
-      </v-avatar>
+      <v-list-item class="mb-5" @click="$router.push('/')">
+        <v-avatar size="70">
+          <img src="@/assets/IMG_0602.jpg" alt="avatar" />
+        </v-avatar>
+        <v-card-text class="text-h5 font-weight-bold">Jestify</v-card-text>
+      </v-list-item>
       <v-list-item
+   
         v-for="item in items"
         :key="item.title"
         :to="item.link"
@@ -37,14 +41,11 @@
   </v-navigation-drawer>
 </template>
 <script>
-
 import Playlist from "./playlist/index";
 export default {
-    components: { Playlist },
+  components: { Playlist },
 
-  methods:{
-    
-  },
+  methods: {},
   data() {
     return {
       drawer: true,
@@ -92,7 +93,7 @@ export default {
 
         {
           title: "Artists",
-          icon: "mdi-magnify",
+          icon: "mdi-human-child ",
           link: "/artists",
           name: "Artists",
         },
@@ -113,7 +114,7 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .item__list-content {
   color: grey;
 }

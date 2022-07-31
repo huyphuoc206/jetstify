@@ -29,7 +29,7 @@
       </v-col>
     </v-row>
     <!-- podcast -->
-    <v-row v-for="type of typePodcasts" :key="type.name">
+    <!-- <v-row v-for="type of typePodcasts" :key="type.name">
       <v-col>
         <v-row class="align-start">
           <v-col>
@@ -56,7 +56,7 @@
           </v-col>
         </v-row>
       </v-col>
-    </v-row>
+    </v-row> -->
     <!-- Type artists -->
     <v-row v-for="type of typeArtists" :key="type.name">
       <v-col>
@@ -91,11 +91,13 @@
 
 <script>
 import AlbumCard2 from "@/components/customer/AlbumCard2.vue";
-import PodcastCart from "@/components/customer/PodcastCart.vue";
+// import PodcastCart from "@/components/customer/PodcastCart.vue";
 import ArtistCard from "@/components/customer/ArtistCard.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
-  components: { AlbumCard2, PodcastCart, ArtistCard },
+  components: { AlbumCard2
+  // , PodcastCart
+  , ArtistCard },
   data: () => ({
     typeSongs: [
       { name: "Your shows", type: "", key: "listSongRandom", isSeeAll: false },
