@@ -78,16 +78,16 @@ public class PlaylistController {
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
-    @PutMapping("/playlist")
+    @PostMapping("/playlist/song")
     public ResponseEntity<?> addSongToPlaylist(@RequestBody PlaylistRequest playlistRequest){
         try {
             playlistService.addSongToPlaylist(playlistRequest.getSongId(), playlistRequest.getPlaylistId());
             return ResponseEntity.ok(ResponseCommon.success(null));
         } catch (IllegalStateException e) {
-            log.error("API Error /api/playlist - addSongToPlaylist: ", e);
+            log.error("API Error /api/playlist/song - addSongToPlaylist: ", e);
             return ResponseEntity.ok(ResponseCommon.fail(e.getMessage()));
         } catch (Exception e) {
-            log.error("API Error /api/playlist - addSongToPlaylist: ", e);
+            log.error("API Error /api/playlist/song - addSongToPlaylist: ", e);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }

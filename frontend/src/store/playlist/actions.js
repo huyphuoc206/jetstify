@@ -4,6 +4,22 @@ import * as TYPES from "./types";
 import router from "@/router";
 const PUBLIC_URL = "/playlist"
 
+export const addSongToPlaylist = async(dispatch, { playlistId, songId }) => {
+    const { success, message } = await $rest.post(`${PUBLIC_URL}/song`, {
+        playlistId,
+        songId,
+
+    });
+    console.log(playlistId + " play");
+    console.log(songId);
+
+    if (success) {
+        console.log("hello");
+    } else {
+        notice.error(message)
+    }
+}
+
 export const getPlaylist = async({ commit }) => {
     const { success, data, message } = await $rest.get(PUBLIC_URL);
     if (success) {

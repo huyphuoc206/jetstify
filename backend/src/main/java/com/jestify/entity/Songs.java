@@ -1,5 +1,6 @@
 package com.jestify.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,6 +34,7 @@ public class Songs extends BaseEntity {
     private Category category;
     @OneToMany(mappedBy = "songs")
     private List<LikedSong> likedSongs;
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "songs")
     private List<Playlists> playlists;
     @ManyToMany(fetch = FetchType.LAZY)
