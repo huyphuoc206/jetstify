@@ -3,7 +3,7 @@
     <v-dialog v-model="toggleDialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
-          <h3 class="display-1 font-weight-bold">Profile details</h3>
+          <h3 class="display-1 font-weight-bold">Podcast profile details</h3>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -13,11 +13,7 @@
                   <v-row>
                     <v-col cols="12" sm="5">
                       <v-avatar class="ms-8" size="150" color="brown">
-                        <v-img
-                          v-if="checkAvatar"
-                          :src="avatar"
-                          alt="avatar"
-                        ></v-img>
+                        <v-img v-if="checkAvatar" :src="avatar" alt=""></v-img>
                         <span
                           v-else
                           class="white--text text-h2 mt font-weight-regular"
@@ -28,15 +24,15 @@
                         :rules="rules"
                         @change="handleFileUpload"
                         accept="image/png, image/jpeg,  image/jpg"
-                        placeholder="Pick an avatar"
-                        label="Avatar"
+                        placeholder="Pick a thumbnail"
+                        label="Thumbnail"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="12" sm="7">
                       <v-text-field
                         v-model="fullNameAccount"
-                        label="Name"
-                        placeholder="Add display name"
+                        label="Podcast name"
+                        placeholder="Add podcast name"
                         outlined
                         :rules="fullNameRules"
                         @keypress.enter="handleEditProfile()"
@@ -76,14 +72,12 @@
 <script>
 import { jsonToFormData } from "@/utils/rest-utils";
 import { mapActions, mapGetters } from "vuex";
-import { $rest } from "@/core/rest-client";
-// import userStore from "@/store/user";
+import { SAVE_SUCCESS } from "@/core/constants";
 
 export default {
-  name: "UserEditForm",
+  name: "PodcastEditForm",
 
   data: () => ({
-    dialog: false,
     isValidProfileForm: false,
     flagAvatar: true,
     flagName: true,
@@ -94,7 +88,7 @@ export default {
       (value) =>
         !value ||
         value.size < 3000000 ||
-        "Avatar size should be less than 3 MB!",
+        "Thumbnail size should be less than 3 MB!",
     ],
 
     fullNameRules: [(v) => (!!v && !!v.trim()) || "Full name is required"],
@@ -138,7 +132,9 @@ export default {
 
     fullNameAccount: {
       get() {
-        return this.nameAccount ? this.nameAccount : this.podcastInfo.thumbnail;
+        return this.nameAccount
+          ? this.nameAccount
+          : this.podcastInfo.namePodcast;
       },
 
       set(newValue) {
@@ -159,9 +155,8 @@ export default {
     ...mapActions("podcastSetting", [
       "setToggleDialog",
       "getInfoPodcast",
-      "updateInfoPodcast",
+      "updatePodcastInfo",
     ]),
-    ...mapActions("auth", ["updateUserInfo"]),
 
     handleEdit() {
       this.setToggleDialog();
@@ -188,7 +183,7 @@ export default {
       const jsonObject = {
         fileImg: this.fileAvatar,
         podcastRequest: JSON.stringify({
-          fullName: (this.nameAccount
+          namePodcast: (this.nameAccount
             ? this.nameAccount
             : this.podcastInfo.namePodcast
           ).trim(),
@@ -197,16 +192,11 @@ export default {
 
       const formData = jsonToFormData(jsonObject);
 
-      const { success, message } = await $rest.upload("/user", formData);
+      const { success, message } = await this.updatePodcastInfo(formData);
 
       if (success) {
         this.handleEdit();
-        await this.getInfoUser();
-        const data = {
-          fullName: this.infoPodcast.namePodcast,
-          avatar: this.infoPodcast.thumbnail,
-        };
-        await this.updateInfoPodcast(data);
+        this.$notice.success(SAVE_SUCCESS);
       } else {
         this.$notice.error(message);
       }
@@ -219,5 +209,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

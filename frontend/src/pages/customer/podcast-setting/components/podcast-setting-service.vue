@@ -5,9 +5,8 @@
         <v-btn class="ml-3" dark v-bind="attrs" v-on="on"> ... </v-btn>
       </template>
       <v-list>
-        
-          <v-list-item-title>Upload podcast</v-list-item-title>
-          <v-list-item-title @click="handleEdit">Edit profile</v-list-item-title>
+          <v-list-item>Upload podcast</v-list-item>
+          <v-list-item @click="handleEdit">Edit profile</v-list-item>
       
       </v-list>
     </v-menu>
@@ -17,7 +16,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 export default {
-  name: "UserService",
+  name: "PodcastService",
 
   computed: {
     ...mapGetters('podcastSetting', ['toggleDialog'])

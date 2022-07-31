@@ -5,10 +5,10 @@
         <v-btn class="ml-3" dark v-bind="attrs" v-on="on"> ... </v-btn>
       </template>
       <v-list>
-        <v-list-item-title @click="handleCreate"
-          >Upload music</v-list-item-title
+        <v-list-item @click="handleCreate"
+          >Upload music</v-list-item
         >
-        <v-list-item-title @click="handleEdit">Edit profile</v-list-item-title>
+        <v-list-item @click="handleEdit">Edit profile</v-list-item>
       </v-list>
     </v-menu>
   </v-container>

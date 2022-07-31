@@ -12,6 +12,7 @@ import com.jestify.payload.PodcastResponse;
 import com.jestify.repository.FollowRepository;
 import com.jestify.repository.PodcastRepository;
 import com.jestify.repository.UserRepository;
+import com.jestify.utils.AmazonUtil;
 import com.jestify.utils.JsonUtil;
 import com.jestify.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class PodcastService {
     private final PodcastConverter podcastConverter;
     private final FollowService followService;
     private final FollowRepository followRepository;
-
+    private final AmazonUtil amazonUtil;
     public List<EpisodeResponse> getPodcastEpisode(Long podcastId) {
         return episodeService.getEpisodeByIdPodcast(podcastId);
     }
@@ -70,12 +71,14 @@ public class PodcastService {
     public PodcastResponse getPodcastInfo() {
 
         Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently())
-                .orElse(null);
+                .orElseThrow(() -> new IllegalStateException("User not found"));
         Podcasts podcasts = podcastRepository.findByUserId(users.getId())
                 .orElseThrow(() -> new IllegalStateException("Artist not found"));
         PodcastResponse podcastResponse = podcastConverter.toResponse(podcasts);
 
         podcastResponse.setThumbnail(podcasts.getThumbnail());
+        podcastResponse.setFullNameUser(users.getFullName());
+        podcastResponse.setEpisodeResponseList(getPodcastEpisode(podcasts.getId()));
         return podcastResponse;
     }
     @Transactional
@@ -83,11 +86,11 @@ public class PodcastService {
         PodcastRequest podcastRequest = JsonUtil.toObject(podcastRequestJson, PodcastRequest.class);
 
         Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently()).orElseThrow(() -> new IllegalStateException("Not Found User"));
-        Podcasts podcasts = podcastRepository.findByUserId(users.getId()).orElse(null);
+        Podcasts podcasts = podcastRepository.findByUserId(users.getId()).orElseThrow(() -> new IllegalStateException("Not Found Podcast"));
 
 
         if (fileImg != null) {
-            podcasts.setThumbnail(podcastRequest.getAvatar());
+            podcasts.setThumbnail(amazonUtil.uploadFile(fileImg));
         }
         podcasts.setName(podcastRequest.getNamePodcast());
         podcastRepository.save(podcasts);

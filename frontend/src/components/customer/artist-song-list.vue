@@ -1,32 +1,22 @@
 <template>
   <v-container>
-    <h1 class="headline font-weight-bold">Popular</h1>
-    <v-row class="mt-2" v-for="(song, index) in listSong" :key="index">
-      <v-col>
-        <song-list-item :song="song" />
-      </v-col>
-    </v-row>
-    <v-row class="mb-2">
-      <v-btn>See more</v-btn>
-    </v-row>
+    <h1 class="headline font-weight-bold mt-4">Popular</h1>
+    <song-list-item
+      v-for="(song, index) in listSong"
+      :key="index"
+      :song="song"
+    />
   </v-container>
 </template>
 
 <script>
-// import { mapGetters } from "vuex";
-// import artistSong from "./artist-song.vue";
 import SongListItem from "./SongListItem.vue";
 export default {
-  components: { 
-    // artistSong,
-    SongListItem },
-  name: "SongListItem2",
-  props: ["listSong"],
-  data() {
-    return {};
+  components: {
+    SongListItem,
   },
-
-  // computed: { ...mapGetters("artist", ["songs"]) },
+  name: "ArtistSongList",
+  props: ["listSong"],
 };
 </script>
 

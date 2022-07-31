@@ -21,4 +21,5 @@ public class ArtistResponse {
     private Long followId;
     private List<ArtistPhotoReponse> photos;
     private List<SongResponse> songResponseList;
+    private String fullNameUser;
 }
