@@ -5,7 +5,7 @@
         <ContextMenuItem @click.native="addToQueue()">
           Add to queue
         </ContextMenuItem>
-        <ContextMenuItem @click.native="addToPlaylist()">
+        <ContextMenuItem v-if="isAuthenticated" @click.native="addToPlaylist()">
           <div class="text-center">
             <v-menu open-on-hover top offset-x>
               <template v-slot:activator="{ on, attrs }">
@@ -70,7 +70,7 @@
             {{ song.name }}
           </p>
           <p class="caption font-weight-light mb-4 text-truncate">
-            <!-- {{ song.artist }} -->
+            {{ song.nameArtist }}
           </p>
         </v-card-text>
       </v-card>
@@ -93,6 +93,7 @@ export default {
   computed: {
     ...mapGetters("player", ["isPlaying", "currentSongId"]),
     ...mapGetters("playlist", ["playlists"]),
+      ...mapGetters("auth", ["isAuthenticated"]),
   },
   methods: {
     ...mapActions("player", ["setPlaying", "playSong", "addSong"]),
@@ -121,7 +122,7 @@ export default {
     },
   },
   async created() {
-    await this.listPlaylist();
+     this.isAuthenticated && (await this.listPlaylist());
   },
 };
 </script>

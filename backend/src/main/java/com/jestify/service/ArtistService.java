@@ -21,7 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,12 +54,16 @@ public class ArtistService {
     public ArtistResponse getArtistInfo() {
 
         Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently())
-                .orElse(null);
+                .orElseThrow(() -> new IllegalStateException("Not Found User"));
         Artists artists = artistRepository.findByUserId(users.getId())
                 .orElseThrow(() -> new IllegalStateException("Artist not found"));
         ArtistResponse artistResponse = artistConverter.toResponse(artists);
 
-        artistResponse.setSongResponseList(songService.getSongByCurrentUser());
+        artistResponse.setSongResponseList(songService.getSongByCurrentUser().stream().map(e -> {
+            e.setNameArtist(artists.getNickName());
+            return e;
+        }).collect(Collectors.toList()));
+
 
         artistResponse.setPhotos(artists.getArtistPhotos()
                 .stream()
@@ -114,7 +120,7 @@ public class ArtistService {
             artistPhoto.setActive(true);
             artistPhoto = artistPhotoRepository.save(artistPhoto);
             artistPhotos.add(artistPhoto);
-        }else if(fileImg != null){
+        } else if (fileImg != null) {
             artistPhotos.get(0).setLink(amazonUtil.uploadFile(fileImg));
         }
 

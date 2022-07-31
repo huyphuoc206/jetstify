@@ -6,14 +6,14 @@
           <v-icon class="item__list" color="grey">{{ item.icon }}</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-content class="item__list-content">
-          <v-list-item-title class="item__list">{{
+        <v-list-item-content class="item__list-content grey--text">
+          <v-list-item-title class="item__list" >{{
             item.title
           }}</v-list-item-title>
         </v-list-item-content>
       </div>
     </v-list-item>
-    <div style="height: calc(30vh); overflow: auto" id="style-4">
+    <div style="height: calc(30vh); overflow: auto">
       <v-list>
         <v-list-item
           v-for="item in playlists"
@@ -23,7 +23,7 @@
           dense
           exact
         >
-          <item-playlist :item="item"></item-playlist>
+          <item-playlist class="grey--text" :item="item"></item-playlist>
         </v-list-item>
       </v-list>
     </div>

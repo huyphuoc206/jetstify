@@ -11,5 +11,6 @@ public class SongResponse {
     private String link;
     private String name;
     private String thumbnail;
+    private String nameArtist;
     private Long songId;
 }

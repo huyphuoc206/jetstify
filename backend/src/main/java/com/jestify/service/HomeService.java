@@ -4,14 +4,14 @@ import com.jestify.common.AppConstant;
 import com.jestify.converter.ArtistConverter;
 import com.jestify.converter.PodcastConverter;
 import com.jestify.converter.SongConverter;
+import com.jestify.entity.Artists;
+import com.jestify.entity.Songs;
+import com.jestify.entity.Users;
 import com.jestify.payload.ArtistResponse;
 import com.jestify.payload.HomeResponse;
 import com.jestify.payload.PodcastResponse;
 import com.jestify.payload.SongResponse;
-import com.jestify.repository.ArtistRepository;
-import com.jestify.repository.FollowRepository;
-import com.jestify.repository.PodcastRepository;
-import com.jestify.repository.SongRepository;
+import com.jestify.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +28,20 @@ public class HomeService {
     private final SongConverter songConverter;
     private final PodcastConverter podcastConverter;
     private final ArtistConverter artistConverter;
+    private final UserRepository userRepository;
 
     public HomeResponse getDataHome() {
         HomeResponse homeResponse = HomeResponse.builder().build();
         List<SongResponse> songsRandomList = songRepository
                 .findRandomSongs()
                 .stream()
-                .map(songConverter::toResponse)
+                .map(e -> {
+                    Users users = userRepository.findByEmail(e.getCreatedBy()).orElseThrow(() -> new IllegalStateException("Not Found User"));
+                    Artists artists = artistRepository.findByUserId(users.getId()).orElseThrow(() -> new IllegalStateException("Not Found Artist"));
+                    SongResponse songResponse = songConverter.toResponse(e);
+                    songResponse.setNameArtist(artists.getNickName());
+                    return songResponse;
+                })
                 .collect(Collectors.toList());
         List<PodcastResponse> podcastsRandomList = podcastRepository
                 .findRandomPodcasts()
@@ -49,7 +56,13 @@ public class HomeService {
         List<SongResponse> songsNewList = songRepository
                 .findSongsNew()
                 .stream()
-                .map(songConverter::toResponse)
+                .map(e -> {
+                    Users users = userRepository.findByEmail(e.getCreatedBy()).orElseThrow(() -> new IllegalStateException("Not Found User"));
+                    Artists artists = artistRepository.findByUserId(users.getId()).orElseThrow(() -> new IllegalStateException("Not Found Artist"));
+                    SongResponse songResponse = songConverter.toResponse(e);
+                    songResponse.setNameArtist(artists.getNickName());
+                    return songResponse;
+                })
                 .collect(Collectors.toList());
         List<PodcastResponse> podcastsNewList = podcastRepository
                 .findPodcastsNew()
