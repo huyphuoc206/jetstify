@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SongRepository extends JpaRepository<Songs, Long> {
     List<Songs> findByUsers_idAndActive(Long id, boolean active);
@@ -19,4 +20,7 @@ public interface SongRepository extends JpaRepository<Songs, Long> {
     @Query(value = "SELECT * FROM songs ORDER BY created_date DESC LIMIT 20", nativeQuery = true)
     List<Songs> findSongsNew();
 
+    List<Songs> findByPlaylists_idAndActiveTrue(Long playlistId);
+    @Query(value = "SELECT * FROM songs WHERE id = :songId AND ACTIVE = true", nativeQuery = true)
+    Optional<Songs> findSongById(Long songId);
 }

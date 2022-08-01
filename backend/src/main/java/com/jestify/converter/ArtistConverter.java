@@ -1,6 +1,7 @@
 package com.jestify.converter;
 
 import com.jestify.entity.Artists;
+import com.jestify.payload.ArtistRequest;
 import com.jestify.payload.ArtistResponse;
 import org.springframework.stereotype.Component;
 
@@ -20,5 +21,10 @@ public class ArtistConverter {
                 .info(entity.getInfo())
                 .build();
 
+    }
+    public Artists toEntity (ArtistRequest artistRequest){
+        return Artists.builder()
+                .nickName(artistRequest.getNickName())
+                .build();
     }
 }

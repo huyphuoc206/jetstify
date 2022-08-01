@@ -3,16 +3,23 @@ package com.jestify.service;
 import com.jestify.common.AppConstant;
 import com.jestify.converter.ArtistConverter;
 import com.jestify.converter.ArtistPhotoConverter;
+import com.jestify.entity.ArtistPhoto;
 import com.jestify.entity.Artists;
 import com.jestify.entity.Follows;
 import com.jestify.entity.Users;
 import com.jestify.payload.*;
+import com.jestify.repository.ArtistPhotoRepository;
 import com.jestify.repository.ArtistRepository;
 import com.jestify.repository.FollowRepository;
 import com.jestify.repository.UserRepository;
+import com.jestify.utils.AmazonUtil;
+import com.jestify.utils.JsonUtil;
 import com.jestify.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +34,12 @@ public class ArtistService {
     private final ArtistConverter artistConverter;
     private final ArtistPhotoConverter artistPhotoConverter;
     private final ArtistPhotoService artistPhotoService;
+    private final ArtistPhotoRepository artistPhotoRepository;
     private final SongService songService;
     private final FollowService followService;
     private final FollowRepository followRepository;
     private final UserRepository userRepository;
+    private final AmazonUtil amazonUtil;
 
 
     public List<ArtistPhotoReponse> getPhotos(Long artistId) {
@@ -39,6 +48,31 @@ public class ArtistService {
 
     public List<SongResponse> getSongs(Long artistId) {
         return songService.getSongsByArtistId(artistId);
+    }
+
+
+    public ArtistResponse getArtistInfo() {
+
+        Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently())
+                .orElseThrow(() -> new IllegalStateException("Not Found User"));
+        Artists artists = artistRepository.findByUserId(users.getId())
+                .orElseThrow(() -> new IllegalStateException("Artist not found"));
+        ArtistResponse artistResponse = artistConverter.toResponse(artists);
+
+        artistResponse.setSongResponseList(songService.getSongByCurrentUser().stream().map(e -> {
+            e.setNameArtist(artists.getNickName());
+            return e;
+        }).collect(Collectors.toList()));
+
+
+        artistResponse.setPhotos(artists.getArtistPhotos()
+                .stream()
+                .map(artistPhotoConverter::toResponse)
+                .collect(Collectors.toList()));
+        artistResponse.setFullNameUser(users.getFullName());
+        List<Follows> totalFollowers = followRepository.findByTypeAndObjectId(AppConstant.ARTIST, artists.getId());
+        artistResponse.setTotalFollowers(totalFollowers.size());
+        return artistResponse;
     }
 
     public ArtistResponse getArtistById(Long artistId) {
@@ -57,6 +91,8 @@ public class ArtistService {
                 .stream()
                 .map(artistPhotoConverter::toResponse)
                 .collect(Collectors.toList()));
+        List<Follows> totalFollowers = followRepository.findByTypeAndObjectId(AppConstant.ARTIST, artists.getId());
+        artistResponse.setTotalFollowers(totalFollowers.size());
         return artistResponse;
     }
 
@@ -68,9 +104,41 @@ public class ArtistService {
             Artists artists = artistRepository
                     .findById(followResponse.getObjectId())
                     .orElseThrow(() -> new IllegalStateException("Not Found Artist to Follow"));
-            artistResponseList.add(artistConverter.toResponse(artists));
+            ArtistResponse artistResponse = artistConverter.toResponse(artists);
+            artistResponse.setPhotos(artists.getArtistPhotos()
+                    .stream()
+                    .map(artistPhotoConverter::toResponse)
+                    .collect(Collectors.toList()));
+            artistResponseList.add(artistResponse);
         }
         return artistResponseList;
+    }
+
+    @Transactional
+    public void updateInfoArtist(String artistRequestJson, MultipartFile fileImg) {
+        ArtistRequest artistRequest = JsonUtil.toObject(artistRequestJson, ArtistRequest.class);
+
+        Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently()).orElseThrow(() -> new IllegalStateException("Not Found User"));
+        Artists artists = artistRepository.findByUserId(users.getId()).orElse(null);
+
+        List<ArtistPhoto> artistPhotos = artistPhotoRepository.findByArtists_idAndActive(artists.getId(), true);
+        ArtistPhoto artistPhoto = new ArtistPhoto();
+        if (CollectionUtils.isEmpty(artistPhotos)) {
+            artistPhoto.setArtists(artists);
+            artistPhoto.setLink(amazonUtil.uploadFile(fileImg));
+            artistPhoto.setActive(true);
+            artistPhoto = artistPhotoRepository.save(artistPhoto);
+            artistPhotos.add(artistPhoto);
+        } else if (fileImg != null) {
+            artistPhotos.get(0).setLink(amazonUtil.uploadFile(fileImg));
+        }
+
+        if (fileImg != null) {
+            artists.setArtistPhotos(artistPhotos);
+        }
+
+        artists.setNickName(artistRequest.getNickName());
+        artistRepository.save(artists);
     }
 
 }

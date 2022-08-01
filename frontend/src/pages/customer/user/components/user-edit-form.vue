@@ -153,7 +153,7 @@ export default {
   },
 
   methods: {
-    ...mapActions("user", ["setToggleDialog", "getInfoUser", "editInfoUser"]),
+    ...mapActions("user", ["setToggleDialog", "getInfoUser"]),
     ...mapActions("auth", ["updateUserInfo"]),
 
     handleEdit() {
@@ -208,6 +208,7 @@ export default {
     resetFormClose() {
       this.fullNameAccount = null;
       this.avatar = null;
+      this.fileAvatar = null;
     },
   },
 };

@@ -7,13 +7,18 @@ import com.jestify.entity.Podcasts;
 import com.jestify.entity.Users;
 import com.jestify.payload.EpisodeResponse;
 import com.jestify.payload.FollowResponse;
+import com.jestify.payload.PodcastRequest;
 import com.jestify.payload.PodcastResponse;
 import com.jestify.repository.FollowRepository;
 import com.jestify.repository.PodcastRepository;
 import com.jestify.repository.UserRepository;
+import com.jestify.utils.AmazonUtil;
+import com.jestify.utils.JsonUtil;
 import com.jestify.utils.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +34,7 @@ public class PodcastService {
     private final PodcastConverter podcastConverter;
     private final FollowService followService;
     private final FollowRepository followRepository;
-
+    private final AmazonUtil amazonUtil;
     public List<EpisodeResponse> getPodcastEpisode(Long podcastId) {
         return episodeService.getEpisodeByIdPodcast(podcastId);
     }
@@ -63,5 +68,32 @@ public class PodcastService {
         return podcastResponseList;
     }
 
+    public PodcastResponse getPodcastInfo() {
+
+        Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently())
+                .orElseThrow(() -> new IllegalStateException("User not found"));
+        Podcasts podcasts = podcastRepository.findByUserId(users.getId())
+                .orElseThrow(() -> new IllegalStateException("Artist not found"));
+        PodcastResponse podcastResponse = podcastConverter.toResponse(podcasts);
+
+        podcastResponse.setThumbnail(podcasts.getThumbnail());
+        podcastResponse.setFullNameUser(users.getFullName());
+        podcastResponse.setEpisodeResponseList(getPodcastEpisode(podcasts.getId()));
+        return podcastResponse;
+    }
+    @Transactional
+    public void updateInfoPodcast(String podcastRequestJson, MultipartFile fileImg) {
+        PodcastRequest podcastRequest = JsonUtil.toObject(podcastRequestJson, PodcastRequest.class);
+
+        Users users = userRepository.findByEmailAndActiveTrue(UserUtil.getUserCurrently()).orElseThrow(() -> new IllegalStateException("Not Found User"));
+        Podcasts podcasts = podcastRepository.findByUserId(users.getId()).orElseThrow(() -> new IllegalStateException("Not Found Podcast"));
+
+
+        if (fileImg != null) {
+            podcasts.setThumbnail(amazonUtil.uploadFile(fileImg));
+        }
+        podcasts.setName(podcastRequest.getNamePodcast());
+        podcastRepository.save(podcasts);
+    }
 
 }

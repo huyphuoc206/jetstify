@@ -6,8 +6,13 @@
         <v-btn class="ml-3" dark v-bind="attrs" v-on="on"> ... </v-btn>
       </template>
       <v-list>
-        <v-list-item v-for="(item, i) in items" :key="i">
+        <!-- <v-list-item v-for="(item, i) in items" :key="i">
           <v-list-item-title>{{ item.name }}</v-list-item-title>
+        </v-list-item> -->
+        <v-list-item>
+          <v-list-item-title @click="handleRemoveToggle">
+            Delete
+          </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -15,44 +20,81 @@
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="text-left"># TITLE</th>
+            <!-- <th class="text-left"># TITLE</th>
             <th class="text-left">ALBUM</th>
             <th class="text-left">DATE ADDED</th>
             <th class="text-left">
               <v-icon>mdi-clock-outline</v-icon>
-            </th>
+            </th> -->
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in desserts" :key="item.name">
-            <td :style="{ border: 'none' }">{{ item.title }}</td>
-            <td :style="{ border: 'none' }">{{ item.album }}</td>
-            <td :style="{ border: 'none' }">{{ item.date }}</td>
-            <td :style="{ border: 'none' }">{{ item.time }}</td>
+          <tr v-for="(item, index) in results" :key="index">
+            <song-list-item :song="item"></song-list-item>
           </tr>
         </tbody>
       </template>
     </v-simple-table>
+    <dialog-remove
+      
+      :dialog="toggleDialogRemove"
+      :content="namePlaylist"
+      :handleCancel="handleRemoveToggle"
+      :handleRemove="handleRemove"
+    />
   </v-container>
 </template>
 
 <script>
+import dialogRemove from "@/components/dialog-remove/dialogRemove.vue";
+import { mapActions, mapGetters } from "vuex";
+import { $rest } from "@/core/rest-client";
+import SongListItem from "@/components/customer/SongListItem.vue";
 export default {
+  components: { dialogRemove, SongListItem },
   name: "PlaylistService",
   data: () => ({
-    items: [
-      { name: "Follow", type: "" },
-      { name: "Go to artist radio", type: "" },
-      { name: "Copy link to artist", type: "" },
-    ],
-    desserts: [
-      { title: "Follow", album: "a", date: "1 day ago", time: "3:03" },
-      { title: "Follow", album: "s", date: "1 day ago", time: "3:03" },
-      { title: "Follow", album: "a", date: "1 day ago", time: "3:03" },
-      { title: "Follow", album: "a", date: "1 day ago", time: "3:03" },
-      { title: "Follow", album: "a", date: "1 day ago", time: "3:03" },
-    ],
+    // items: [
+    //   { name: "Follow", type: "" },
+    //   { name: "Go to artist radio", type: "" },
+    //   { name: "Copy link to artist", type: "" },
+    // ],
   }),
+
+  computed: {
+    ...mapGetters("playlist", ["playlist", "toggleDialogRemove", "playlist"]),
+    results() {
+      if (!this.playlist["songResponseList"]) return [];
+      return this.playlist["songResponseList"];
+    },
+    namePlaylist: {
+      get() {
+        return this.playlist.namePlaylist;
+      },
+    },
+  },
+
+  methods: {
+    ...mapActions("playlist", ["setToggleDialogRemove"]),
+
+    handleRemoveToggle() {
+      this.setToggleDialogRemove();
+    },
+
+    async handleRemove() {
+      const idPlaylist = this.playlist.idPlaylist;
+
+      const { success, message } = await $rest.delete(
+        `/playlist/${idPlaylist}`
+      );
+
+      if (success) {
+        window.location.assign(`${window.location.origin}/playlists`);
+      } else {
+        this.$notice.error(message);
+      }
+    },
+  },
 };
 </script>
 

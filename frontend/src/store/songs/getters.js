@@ -1,1 +1,0 @@
-export const allSong = (state) => state.songs;

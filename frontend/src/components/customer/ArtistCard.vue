@@ -1,5 +1,4 @@
 <template>
-  <v-hover v-slot:default="{ hover }">
     <v-card
       class="common-card"
       flat
@@ -12,20 +11,10 @@
           height="150"
           class="elevation-10"
           style="border-radius: 50%"
-          :src="artist.thumbnail"
+          :src="artist.photos[0] ? artist.photos[0].link : null"
         >
         </v-img>
-        <div
-          :style="{
-            position: 'absolute',
-            right: '20px',
-            bottom: '85px',
-            cursor: 'auto',
-          }"
-          v-show="hover"
-        >
-          <v-icon color="green" size="50">mdi-play-circle</v-icon>
-        </div>
+    
       </v-card-text>
 
       <v-card-text class="pt-0">
@@ -36,7 +25,6 @@
         <p class="caption font-weight-light mb-4 text-truncate">Artist</p>
       </v-card-text>
     </v-card>
-  </v-hover>
 </template>
 <script>
 export default {

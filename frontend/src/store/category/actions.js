@@ -9,9 +9,17 @@ const BASE_URL = "/admin/category"
 export const getCategoriesToClient = async({ commit }) => {
     const { success, data, message } = await $rest.get(PUBLIC_URL);
     if (success) {
-        commit(TYPES.SET_CATEGORIES, data);
+        commit(TYPES.SET_CATEGORIESCLIENT, data);
     } else {
         notice.error(message)
+    }
+}
+export const getSongByCategory = async({ commit }, categoryId) => {
+    const { success, data, message } = await $rest.get(`${PUBLIC_URL}/${categoryId}`);
+    if (success) {
+        commit(TYPES.SET_SONGS, data)
+    } else {
+        notice.error(message);
     }
 }
 

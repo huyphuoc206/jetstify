@@ -14,10 +14,17 @@ const MESSAGE_TYPE_COLORS = {
   warning: "orange",
 };
 
+const MESSAGE_TYPE_ICONS = {
+  success: 'mdi-check-circle-outline',
+  error: "mdi-alert-circle-outline",
+  warning: "mdi-alert-outline",
+};
+
 const showNotice = (state, type, message) => {
   state.snackbar = {
     show: true,
     color: MESSAGE_TYPE_COLORS[type],
+    icon: MESSAGE_TYPE_ICONS[type],
     message: message,
   };
 };
@@ -26,8 +33,6 @@ const initState = () => ({
   isLoading: false,
   isReady: false,
   snackbar: { ...DEFAULT_SNACKBAR },
-  isPlaying: false,
-  songId: null,
 });
 
 const mutations = {
@@ -45,9 +50,6 @@ const mutations = {
     showNotice(state, "warning", message),
 
   [TYPES.CLOSE_NOTICE]: (state) => (state.snackbar = { ...DEFAULT_SNACKBAR }),
-
-  [TYPES.SET_PLAYING]: (state, isPlaying) => state.isPlaying = isPlaying,
-  [TYPES.SET_CURRENT_SONG]: (state, songId) => state.songId = songId,
 };
 
 export default {

@@ -12,7 +12,7 @@
           sm="6"
           md="4"
           lg="2"
-          v-for="(category, index) in categories"
+          v-for="(category, index) in categoriesClient"
           :key="index"
         >
           <category-card :category="category"></category-card>
@@ -27,9 +27,9 @@ import {  mapGetters } from "vuex";
 import CategoryCard from "@/components/customer/CategoryCard.vue";
 export default {
   components: { CategoryCard },
-  
+
   computed: {
-    ...mapGetters("category", ["categories"]),
+    ...mapGetters("category", ["categoriesClient"]),
   },
  
 };

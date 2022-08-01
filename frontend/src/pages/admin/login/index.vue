@@ -13,7 +13,7 @@
                 required
                 prepend-icon="person"
                 name="email"
-                label="Email"
+                label="Username"
                 type="text"
                 :rules="emailRules"
                 @keypress.enter="handleSignIn()"
@@ -58,7 +58,7 @@ export default {
     email: "",
     password: "",
     rememberMe: false,
-    emailRules: [ v => !!v || 'Email is required' ],
+    emailRules: [ v => !!v || 'Username is required' ],
     passwordRules: [ v => !!v || 'Password is required' ]
   }),
   computed: {

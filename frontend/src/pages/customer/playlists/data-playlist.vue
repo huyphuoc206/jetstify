@@ -1,28 +1,38 @@
 <template>
   <v-row>
-    <v-col cols="auto">
+    <!-- <v-col cols="auto">
       <liked-songs-card></liked-songs-card>
-    </v-col>
-    <v-col v-for="(song, index) in allSong" :key="index" cols="6" sm="4" lg="2">
-      <playlist-card :song="song"></playlist-card>
+    </v-col> -->
+    <v-col
+      v-for="(playlist, index) in playlists"
+      :key="index"
+      cols="6"
+      sm="4"
+      lg="2"
+    >
+      <playlist-card :playlist="playlist"></playlist-card>
     </v-col>
   </v-row>
 </template>
 
 <script>
 import PlaylistCard from "@/components/customer/PlaylistCard.vue";
+// import LikedSongsCard from "./liked-songs-card.vue";
 import { mapActions, mapGetters } from "vuex";
-import LikedSongsCard from "./liked-songs-card.vue";
+
 export default {
-  components: { PlaylistCard, LikedSongsCard },
-  methods: {
-    ...mapActions("songs", ["fetchSong"]),
-  },
+  components: { PlaylistCard, },
+
   computed: {
-    ...mapGetters("songs", ["allSong"]),
+    ...mapGetters("playlists", ["playlists"]),
   },
+
+  methods: {
+    ...mapActions("playlists", ["getPlaylists"]),
+  },
+
   async created() {
-    await this.fetchSong();
+    await this.getPlaylists();
   },
 };
 </script>
