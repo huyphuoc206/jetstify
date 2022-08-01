@@ -3,7 +3,7 @@
     <v-col class="py-0" cols="4" sm="4">
       <v-row v-if="canPlay" class="align-center" style="height: 100%">
         <v-col cols="auto">
-          <v-avatar class="elevation-10 mt-5">
+          <v-avatar class="elevation-10 mt-5" size="70">
             <img
               :class="{['rotate-img']: isPlaying}"
               :src="currentSong.thumbnail"

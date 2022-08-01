@@ -63,6 +63,7 @@ public class PlaylistService {
                     Artists artists = artistRepository.findByUserId(users.getId()).orElseThrow(() -> new IllegalStateException("Not Found Artist"));
                     SongResponse songResponse = songConverter.toResponse(e);
                     songResponse.setNameArtist(artists.getNickName());
+                    songResponse.setArtistId(artists.getId());
                     return songResponse;
                 })
                 .collect(Collectors.toList());

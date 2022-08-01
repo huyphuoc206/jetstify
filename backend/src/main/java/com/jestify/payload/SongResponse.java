@@ -13,4 +13,5 @@ public class SongResponse {
     private String thumbnail;
     private String nameArtist;
     private Long songId;
+    private Long artistId;
 }

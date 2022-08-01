@@ -2,6 +2,7 @@ package com.jestify.service;
 
 import com.jestify.common.AppConstant;
 import com.jestify.converter.ArtistConverter;
+import com.jestify.converter.ArtistPhotoConverter;
 import com.jestify.converter.PodcastConverter;
 import com.jestify.converter.SongConverter;
 import com.jestify.entity.Artists;
@@ -29,6 +30,7 @@ public class HomeService {
     private final PodcastConverter podcastConverter;
     private final ArtistConverter artistConverter;
     private final UserRepository userRepository;
+    private final ArtistPhotoConverter artistPhotoConverter;
 
     public HomeResponse getDataHome() {
         HomeResponse homeResponse = HomeResponse.builder().build();
@@ -40,6 +42,7 @@ public class HomeService {
                     Artists artists = artistRepository.findByUserId(users.getId()).orElseThrow(() -> new IllegalStateException("Not Found Artist"));
                     SongResponse songResponse = songConverter.toResponse(e);
                     songResponse.setNameArtist(artists.getNickName());
+                    songResponse.setArtistId(artists.getId());
                     return songResponse;
                 })
                 .collect(Collectors.toList());
@@ -50,7 +53,16 @@ public class HomeService {
                 .collect(Collectors.toList());
         List<ArtistResponse> artistsRandomList = artistRepository
                 .findRandomArtists()
-                .stream().map(artistConverter::toResponse)
+                .stream().map(
+                        e -> {
+                            ArtistResponse artistResponse = artistConverter.toResponse(e);
+                            artistResponse.setPhotos(e.getArtistPhotos()
+                                    .stream()
+                                    .map(artistPhotoConverter::toResponse)
+                                    .collect(Collectors.toList()));
+                            return artistResponse;
+                        }
+                )
                 .collect(Collectors.toList());
 
         List<SongResponse> songsNewList = songRepository
@@ -61,6 +73,7 @@ public class HomeService {
                     Artists artists = artistRepository.findByUserId(users.getId()).orElseThrow(() -> new IllegalStateException("Not Found Artist"));
                     SongResponse songResponse = songConverter.toResponse(e);
                     songResponse.setNameArtist(artists.getNickName());
+                    songResponse.setArtistId(artists.getId());
                     return songResponse;
                 })
                 .collect(Collectors.toList());
@@ -71,15 +84,30 @@ public class HomeService {
                 .collect(Collectors.toList());
         List<ArtistResponse> artistsNewList = artistRepository
                 .findSongNew()
-                .stream().map(artistConverter::toResponse)
+                .stream().map(e -> {
+                            ArtistResponse artistResponse = artistConverter.toResponse(e);
+                            artistResponse.setPhotos(e.getArtistPhotos()
+                                    .stream()
+                                    .map(artistPhotoConverter::toResponse)
+                                    .collect(Collectors.toList()));
+                            return artistResponse;
+                        }
+                )
                 .collect(Collectors.toList());
         List<Long> listArtistFollows = followRepository.findByFollowers(AppConstant.ARTIST);
         List<Long> listPodcastFollows = followRepository.findByFollowers(AppConstant.PODCAST);
         List<ArtistResponse> artistsPopularList = listArtistFollows
                 .stream()
-                .map(artistId -> artistConverter
-                        .toResponse(artistRepository
-                                .findById(artistId).orElse(null)))
+                .map(artistId -> {
+                    Artists artists = artistRepository
+                            .findById(artistId).orElse(null);
+                    ArtistResponse artistResponse = artistConverter.toResponse(artists);
+                    artistResponse.setPhotos( artists.getArtistPhotos()
+                            .stream()
+                            .map(artistPhotoConverter::toResponse)
+                            .collect(Collectors.toList()));
+                    return artistResponse;
+                })
                 .collect(Collectors.toList());
 
         List<PodcastResponse> podcastsPopularList = listPodcastFollows
