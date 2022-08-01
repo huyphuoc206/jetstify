@@ -16,7 +16,15 @@
 
               <v-list>
                 <v-list-item v-for="(item, index) in playlists" :key="index">
-                  <v-list-item-title @click="addSongToPlaylist({playlistId:item.idPlaylist,songId:song.songId})">{{ item.namePlaylist }}</v-list-item-title>
+                  <v-list-item-title
+                    @click="
+                      addSongToPlaylist({
+                        playlistId: item.idPlaylist,
+                        songId: song.songId,
+                      })
+                    "
+                    >{{ item.namePlaylist }}</v-list-item-title
+                  >
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -69,8 +77,22 @@
           <p class="body-2 font-weight-medium ma-0 text-truncate white--text">
             {{ song.name }}
           </p>
-          <p class="caption font-weight-light mb-4 text-truncate">
-            {{ song.nameArtist }}
+          <p
+            class="caption font-weight-light mb-4 text-truncate"
+            @click="handleLinkArtist"
+            style="cursor: pointer"
+          >
+            <router-link
+              class="ma-0 link_text lime--text"
+              :to="{
+                name: 'Artist',
+                params: {
+                  id: song.artistId,
+                },
+              }"
+            >
+              {{ song.nameArtist }}
+            </router-link>
           </p>
         </v-card-text>
       </v-card>
@@ -93,11 +115,14 @@ export default {
   computed: {
     ...mapGetters("player", ["isPlaying", "currentSongId"]),
     ...mapGetters("playlist", ["playlists"]),
-      ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("auth", ["isAuthenticated"]),
   },
   methods: {
     ...mapActions("player", ["setPlaying", "playSong", "addSong"]),
     ...mapActions("playlist", ["getPlaylist", "addSongToPlaylist"]),
+
+    handleLinkArtist() {},
+
     async listPlaylist() {
       await this.getPlaylist();
     },
@@ -117,12 +142,11 @@ export default {
     },
 
     addToPlaylist() {
-      console.log("hi");
       this.$refs.menu.close();
     },
   },
   async created() {
-     this.isAuthenticated && (await this.listPlaylist());
+    this.isAuthenticated && (await this.listPlaylist());
   },
 };
 </script>
