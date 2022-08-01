@@ -52,10 +52,9 @@ export const nextPrevSong = ({ commit, getters }, isNext) => {
     } else {
         newCurrentSong = currentSongIndex === 0 ? songs[songs.length - 1] : songs[currentSongIndex - 1];
     }
-    setCurrentSong({ commit }, newCurrentSong);
-
     const newSongs = songs.filter(s => s.songId !== currentSong.songId);
     commit(TYPES.SET_SONGS, newSongs);
+    commit(TYPES.SET_CURRENT_SONG, newCurrentSong);
 }
 
 export const playAll = ({ commit }, songs) => {

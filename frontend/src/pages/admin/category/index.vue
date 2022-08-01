@@ -20,14 +20,21 @@
             <category-details
               :show="showDialog"
               @closeDialog="showDialog = false"
+              @resetPage="resetPage"
             />
             <v-data-table
               :headers="headers"
               :items="categories"
               class="elevation-1"
+              hide-default-footer
             >
               <template v-slot:top>
                 <v-toolbar flat>
+                  <!-- <div>
+                   <v-btn dark depressed color="pink" @click="openDetails"
+                    >Search</v-btn
+                  >
+                  </div> -->
                   <v-spacer></v-spacer>
                   <v-btn dark depressed color="pink" @click="openDetails"
                     >New Item</v-btn
@@ -49,6 +56,13 @@
                 </v-btn>
               </template>
             </v-data-table>
+            <v-pagination
+              dark
+              v-model="page"
+              @input="inputPage"
+              :length="lengthPaging"
+              :total-visible="7"
+            ></v-pagination>
           </v-container>
         </v-card>
       </v-col>
@@ -81,10 +95,15 @@ export default {
     showDialog: false,
     selectedDeleteId: -1,
     dateFormat: DATE_FORMAT,
+    page: 1,
+    limit: 10,
   }),
 
   computed: {
-    ...mapGetters("category", ["categories"]),
+    ...mapGetters("category", ["categories", "totalItems"]),
+    lengthPaging() {
+      return Math.ceil(this.totalItems / this.limit);
+    },
   },
 
   methods: {
@@ -96,6 +115,7 @@ export default {
 
     async agree() {
       await this.deleteCategory(this.selectedDeleteId);
+      this.page = 1;
     },
 
     async openDetails({ id }) {
@@ -111,10 +131,19 @@ export default {
       this.confirmDelete = true;
       this.selectedDeleteId = id;
     },
+
+    async inputPage(page) {
+      this.page = page;
+      await this.getCategories({ page: this.page, limit: this.limit });
+    },
+
+    resetPage() {
+      this.page = 1;
+    }
   },
 
   async created() {
-    await this.getCategories();
+    await this.getCategories({ page: this.page, limit: this.limit });
   },
 };
 </script>
