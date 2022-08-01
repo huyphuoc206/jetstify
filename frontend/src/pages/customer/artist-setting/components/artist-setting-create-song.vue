@@ -18,8 +18,8 @@
                 <v-form ref="formProfile" v-model="isValidProfileForm">
                   <v-row>
                     <v-col cols="12" sm="5">
-                      <v-avatar class="ms-8" size="150" color="brown">
-                        <v-img :src="avatar" alt="avatar"></v-img>
+                      <v-avatar class="ms-8" tile size="150" color="grey">
+                        <v-img  :src="avatar"  alt="avatar"></v-img>
                         <!-- <span
                           v-else
                           class="white--text text-h2 mt font-weight-regular"
@@ -147,13 +147,7 @@ export default {
       },
 
       set(newValue) {
-        if (newValue === null) {
-          this.flagAvatar = true;
-          this.linkAvatar = newValue;
-        } else {
-          this.flagAvatar = false;
-          this.linkAvatar = newValue;
-        }
+          this.linkAvatar = newValue;      
       },
     },
 

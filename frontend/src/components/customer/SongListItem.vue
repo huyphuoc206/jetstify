@@ -6,7 +6,30 @@
           Add to queue
         </ContextMenuItem>
         <ContextMenuItem v-if="isAuthenticated" @click.native="addToPlaylist()">
-          Add to playlist
+          <div class="text-center">
+            <v-menu open-on-hover top offset-x>
+              <template v-slot:activator="{ on, attrs }">
+                <v-card-text color="primary" dark v-bind="attrs" v-on="on">
+                  Add to playlist
+                </v-card-text>
+              </template>
+
+              <v-list>
+                <v-list-item v-for="(item, index) in playlists" :key="index">
+                  <v-list-item-title
+                    style="cursor: pointer"
+                    @click="
+                      addSongToPlaylist({
+                        playlistId: item.idPlaylist,
+                        songId: song.songId,
+                      })
+                    "
+                    >{{ item.namePlaylist }}</v-list-item-title
+                  >
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
         </ContextMenuItem>
       </template>
     </ContextMenu>
@@ -56,21 +79,21 @@
                   <strong v-if="type === 'result'">{{ song.name }}</strong>
                   <div v-else>{{ song.name }}</div>
                   <v-list-item-subtitle>
-                  <router-link
-                    :style="{
-                      color: 'rgba(255, 255, 255, 0.7)',
-                    }"
-                    class="text-decoration-none"
-                    :to="{
-                      name: 'Artist',
-                      params: {
-                        id: 1,
-                      },
-                    }"
-                  >
-                    {{song.nameArtist}}
-                  </router-link>
-                </v-list-item-subtitle>
+                    <router-link
+                      :style="{
+                        color: 'rgba(255, 255, 255, 0.7)',
+                      }"
+                      class="text-decoration-none"
+                      :to="{
+                        name: 'Artist',
+                        params: {
+                          id: 1,
+                        },
+                      }"
+                    >
+                      {{ song.nameArtist }}
+                    </router-link>
+                  </v-list-item-subtitle>
                 </v-list-item-title>
               </v-col>
             </v-row>
@@ -106,7 +129,8 @@ export default {
   },
   computed: {
     ...mapGetters("player", ["isPlaying", "currentSongId"]),
-    ...mapGetters("auth", ["isAuthenticated"])
+    ...mapGetters("auth", ["isAuthenticated"]),
+    ...mapGetters("playlist", ["playlists"]),
   },
   data() {
     return {
@@ -120,6 +144,9 @@ export default {
       "playSong",
       "addSong",
     ]),
+
+    ...mapActions("playlist", ["addSongToPlaylist"]),
+
     handlePlaySong() {
       this.$root.$emit("playAudio");
       if (this.currentSongId === this.song.songId) return;
@@ -140,7 +167,6 @@ export default {
     },
 
     addToPlaylist() {
-      console.log("hi");
       this.$refs.menu.close();
     },
   },
