@@ -57,3 +57,13 @@ export const nextPrevSong = ({ commit, getters }, isNext) => {
     const newSongs = songs.filter(s => s.songId !== currentSong.songId);
     commit(TYPES.SET_SONGS, newSongs);
 }
+
+export const playAll = ({ commit }, songs) => {
+    if (songs && songs.length < 1) {
+        notice.error('Not found any songs');
+        return;
+    }
+    commit(TYPES.SET_SONGS, songs);
+    commit(TYPES.SET_CURRENT_SONG, songs[0]);
+    commit(TYPES.SET_PLAYING, true);
+}

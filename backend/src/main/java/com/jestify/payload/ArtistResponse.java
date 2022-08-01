@@ -22,4 +22,5 @@ public class ArtistResponse {
     private List<ArtistPhotoReponse> photos;
     private List<SongResponse> songResponseList;
     private String fullNameUser;
+    private int totalFollowers;
 }

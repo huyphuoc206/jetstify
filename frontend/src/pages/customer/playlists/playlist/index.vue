@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-10">
     <playlist-info />
     <playlist-service />
     <playlist-edit-form />

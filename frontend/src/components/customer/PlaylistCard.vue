@@ -1,33 +1,35 @@
 <template>
-  <v-hover v-slot:default="{ hover }" style="cursor: pointer">
-    <v-card class="common-card" flat height="250" width="180">
-      <v-card-text>
-        <v-img
-          :style="{
-            borderRadius: '5px',
-          }"
-          width="200"
-          height="150"
-          class="elevation-3"
-          :src="song.img"
-        >
-          <div
-            :style="{
-              position: 'absolute',
-              right: '10px',
-              bottom: '10px',
-              cursor: 'auto',
-            }"
-            v-show="hover"
-          >
-            <v-icon color="green" size="70">mdi-play-circle</v-icon>
-          </div>
-        </v-img>
-      </v-card-text>
+  <router-link
+    class="text-decoration-none"
+    :to="{
+      name: 'Playlist',
+      params: {
+        id: playlist.idPlaylist,
+      },
+    }"
+  >
+    <v-hover v-slot:default="{ hover }" style="cursor: pointer">
+      <v-card class="common-card" flat height="250" width="180">
+        <v-card-text>
+          <v-avatar color="grey" size="120" class="mt-7">
+            <v-icon dark size="50"> fa-thin fa-music</v-icon>
+            <div
+              :style="{
+                position: 'absolute',
+                cursor: 'auto',
+              }"
+              v-show="hover"
+            >
+              <v-icon style="cursor: pointer" color="green" size="70" @click="playAllHandle"
+                >mdi-play-circle</v-icon
+              >
+            </div>
+          </v-avatar>
+        </v-card-text>
 
-      <v-card-text class="pt-0 ma-auto">
-        <p class="body-2 font-weight-medium ma-0 text-truncate white--text">
-          <router-link
+        <v-card-text class="pt-0 text-center">
+          <p class="body-2 font-weight-medium ma-0 text-truncate white--text">
+            <!-- <router-link
             class="white--text text-decoration-none"
             :to="{
               name: 'Album',
@@ -35,23 +37,31 @@
                 id: 1,
               },
             }"
-          >
-            {{ song.name }}
-          </router-link>
-        </p>
-        <p class="caption font-weight-light mb-4 text-truncate">
-          {{ song.artist }}
-        </p>
-      </v-card-text>
-    </v-card>
-  </v-hover>
+          > -->
+            {{ playlist.namePlaylist }}
+            <!-- </router-link> -->
+          </p>
+        </v-card-text>
+      </v-card>
+    </v-hover>
+  </router-link>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
-  props: ["song"],
+  props: ["playlist"],
   data: () => ({}),
   name: "PlaylistCard",
+
+  methods: {
+    ...mapActions("player", ["playAll"]),
+
+    playAllHandle(e) {
+      e.preventDefault();
+      this.playAll(this.playlist.songResponseList);
+      this.$root.$emit("playAudio");
+    }
+  }
 };
 </script>
-<style lang="scss"></style>

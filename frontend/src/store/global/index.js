@@ -14,10 +14,17 @@ const MESSAGE_TYPE_COLORS = {
   warning: "orange",
 };
 
+const MESSAGE_TYPE_ICONS = {
+  success: 'mdi-check-circle-outline',
+  error: "mdi-alert-circle-outline",
+  warning: "mdi-alert-outline",
+};
+
 const showNotice = (state, type, message) => {
   state.snackbar = {
     show: true,
     color: MESSAGE_TYPE_COLORS[type],
+    icon: MESSAGE_TYPE_ICONS[type],
     message: message,
   };
 };

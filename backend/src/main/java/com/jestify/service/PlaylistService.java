@@ -42,9 +42,14 @@ public class PlaylistService {
                 .findByCreatedByAndActiveTrueOrderByIdDesc(emailUser)
                 .stream()
                 .map(playlistConverter::toResponse)
+                .map(e -> {
+                    List<Songs> songs = songRepository.findByPlaylists_idAndActiveTrue(e.getIdPlaylist());
+                    List<SongResponse> songResponses = songs.stream().map(songConverter::toResponse).collect(Collectors.toList());
+                    e.setSongResponseList(songResponses);
+                    return e;
+                })
                 .collect(Collectors.toList());
         return playlistResponses;
-
     }
 
     public PlaylistResponse getPlayListById(Long playlistId) {
