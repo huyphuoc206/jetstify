@@ -4,7 +4,7 @@
       <v-col>
         <v-row class="align-start">
           <v-col>
-            <h1 class="headline font-weight-bold">Artists</h1>
+            <h1 class="headline font-weight-bold">Artists Following</h1>
           </v-col>
         </v-row>
         <data-artist></data-artist>

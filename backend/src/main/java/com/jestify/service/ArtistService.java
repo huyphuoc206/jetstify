@@ -70,6 +70,8 @@ public class ArtistService {
                 .map(artistPhotoConverter::toResponse)
                 .collect(Collectors.toList()));
         artistResponse.setFullNameUser(users.getFullName());
+        List<Follows> totalFollowers = followRepository.findByTypeAndObjectId(AppConstant.ARTIST, artists.getId());
+        artistResponse.setTotalFollowers(totalFollowers.size());
         return artistResponse;
     }
 
@@ -89,6 +91,8 @@ public class ArtistService {
                 .stream()
                 .map(artistPhotoConverter::toResponse)
                 .collect(Collectors.toList()));
+        List<Follows> totalFollowers = followRepository.findByTypeAndObjectId(AppConstant.ARTIST, artists.getId());
+        artistResponse.setTotalFollowers(totalFollowers.size());
         return artistResponse;
     }
 
@@ -100,7 +104,12 @@ public class ArtistService {
             Artists artists = artistRepository
                     .findById(followResponse.getObjectId())
                     .orElseThrow(() -> new IllegalStateException("Not Found Artist to Follow"));
-            artistResponseList.add(artistConverter.toResponse(artists));
+            ArtistResponse artistResponse = artistConverter.toResponse(artists);
+            artistResponse.setPhotos(artists.getArtistPhotos()
+                    .stream()
+                    .map(artistPhotoConverter::toResponse)
+                    .collect(Collectors.toList()));
+            artistResponseList.add(artistResponse);
         }
         return artistResponseList;
     }

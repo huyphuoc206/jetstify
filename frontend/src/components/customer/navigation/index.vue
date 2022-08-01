@@ -15,8 +15,7 @@
         <v-card-text class="text-h5 font-weight-bold">Jestify</v-card-text>
       </v-list-item>
       <v-list-item
-   
-        v-for="item in items"
+        v-for="item in menus"
         :key="item.title"
         :to="item.link"
         link
@@ -42,10 +41,21 @@
 </template>
 <script>
 import Playlist from "./playlist/index";
+import { mapGetters } from "vuex";
+
 export default {
   components: { Playlist },
+  computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
 
-  methods: {},
+    menus() {
+      if (this.isAuthenticated) {
+        return this.items;
+      } else {
+        return this.items.filter((e) => !e.requiredAuth);
+      }
+    },
+  },
   data() {
     return {
       drawer: true,
@@ -92,10 +102,11 @@ export default {
         // },
 
         {
-          title: "Artists",
+          title: "Artists Following",
           icon: "mdi-human-child ",
           link: "/artists",
           name: "Artists",
+          requiredAuth: true,
         },
         // {
         //   title: "Podcasts",

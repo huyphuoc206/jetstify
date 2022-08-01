@@ -15,6 +15,7 @@ import home from "./home";
 import artistSetting from "./artist-setting";
 import podcastSetting from "./podcast-setting";
 import playlist from "./playlist";
+import playlists from "./playlists";
 
 Vue.use(Vuex);
 
@@ -45,6 +46,7 @@ export default new Vuex.Store({
         podcastSetting,
         home,
         player,
+        playlists,
     },
     plugins: [vuexLocal.plugin],
 });

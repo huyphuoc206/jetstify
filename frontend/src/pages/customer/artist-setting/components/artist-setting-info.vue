@@ -16,6 +16,7 @@
                 {{ artistInfo.nickName }}
               </p>
               <p class="display-1 font-weight-bold">{{artistInfo.fullNameUser}}</p>
+              <p class="display-0">Followers: {{artistInfo.totalFollowers}}</p>
             </v-card-title>
           </v-card>
         </v-img>

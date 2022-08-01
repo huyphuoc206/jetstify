@@ -7,6 +7,7 @@
     timeout="5000"
     :color="snackbar.color"
   >
+    <v-icon class="mr-2"> {{ snackbar.icon }} </v-icon>
     <strong>{{ snackbar.message }}</strong>
 
     <template v-slot:action="{ attrs }">
