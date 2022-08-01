@@ -180,6 +180,7 @@ export default {
       if (!this.isValidProfileForm) {
         return;
       }
+      console.log(this.description);
 
       const jsonObject = {
         fileImg: this.fileAvatar,
@@ -189,9 +190,9 @@ export default {
             : this.playlist.namePlaylist
           ).trim(),
           description: (this.description || this.description === ""
-            ? this.description
+            ? this.description.trim()
             : this.playlist.description
-          ).trim(),
+          ),
         }),
       };
 
