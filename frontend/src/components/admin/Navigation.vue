@@ -7,9 +7,9 @@
     dark
     app
   >
-    <v-list-item class="px-2 pt-1">
+    <v-list-item class="px-2 pt-1" @click="$router.push('/admin/home')">
       <v-list-item-avatar>
-        <v-img src="../../assets/logo.png" alt="admin" class="mx-auto" />
+        <v-img src="@/assets/IMG_0602.jpg" alt="admin" class="mx-auto" />
       </v-list-item-avatar>
       <v-list-item-title class="ml-4 text-capitalize"
         >Jestify</v-list-item-title

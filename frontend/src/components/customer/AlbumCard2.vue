@@ -9,7 +9,7 @@
           <div class="text-center">
             <v-menu open-on-hover top offset-x>
               <template v-slot:activator="{ on, attrs }">
-                <v-card-text color="primary" dark v-bind="attrs" v-on="on">
+                <v-card-text  class="subtitle-2" dark v-bind="attrs" v-on="on">
                   Add to playlist
                 </v-card-text>
               </template>

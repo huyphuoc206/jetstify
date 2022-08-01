@@ -6,6 +6,11 @@ import { DELETE_SUCCESS, SAVE_SUCCESS } from "@/core/constants";
 const PUBLIC_URL = "/public/category"
 const BASE_URL = "/admin/category"
 
+const DEFAULT_PAGING = {
+    page: 1,
+    limit: 10
+};
+
 export const getCategoriesToClient = async({ commit }) => {
     const { success, data, message } = await $rest.get(PUBLIC_URL);
     if (success) {
@@ -23,8 +28,8 @@ export const getSongByCategory = async({ commit }, categoryId) => {
     }
 }
 
-export const getCategories = async({ commit }) => {
-    const { success, data, message } = await $rest.get(BASE_URL);
+export const getCategories = async({ commit }, paging) => {
+    const { success, data, message } = await $rest.get(BASE_URL, paging);
     if (success) {
         commit(TYPES.SET_CATEGORIES, data);
     } else {
@@ -59,7 +64,7 @@ export const saveCategory = async({ getters, commit }) => {
         notice.success(SAVE_SUCCESS);
         const { id } = data || {};
         !!id && await getCategoryDetails({ commit }, id);
-        await getCategories({ commit });
+        await getCategories({ commit }, DEFAULT_PAGING);
     } else {
         notice.error(message);
     }
@@ -69,7 +74,7 @@ export const deleteCategory = async({ commit }, id) => {
     const { success, message } = await $rest.delete(`${BASE_URL}/${id}`);
     if (success) {
         notice.success(DELETE_SUCCESS);
-        await getCategories({ commit });
+        await getCategories({ commit }, DEFAULT_PAGING);
     } else {
         notice.error(message);
     }

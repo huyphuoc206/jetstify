@@ -1,113 +1,202 @@
 <template>
-  <v-layout>
-    <v-row>
-      <v-col cols="12">
-        <v-card class="ml-5 mr-5">
-          <v-app-bar dark color="#2C3A47">
-            <v-btn icon>
-              <v-icon>mdi-home</v-icon>
-            </v-btn>
-            <v-toolbar-title>Dashboard</v-toolbar-title>
-          </v-app-bar>
-          <v-container>
-            <v-row>
-              <v-col cols="12" sm="4">
-                <v-hover v-slot:default="{ hover }" open-delay="200">
-                  <v-card
-                    :elevation="hover ? 16 : 2"
-                    class="mx-auto"
-                    max-width="344"
-                    outlined
-                  >
-                    <v-list-item three-line>
-                      <v-list-item-content>
-                        <v-list-item-title class="headline mb-1"
-                          >Orders</v-list-item-title
-                        >
-                      </v-list-item-content>
+  <v-container class="mx-5">
+    <v-row align="center" justify="center">
+      <v-col cols="auto">
+        <v-menu
+          v-model="fromMenuUsers"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              :value="fromDateUsers"
+              label="From Date"
+              prepend-icon="mdi-calendar"
+              color="#81858a"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            />
+          </template>
+          <v-date-picker
+            v-model="fromDateUsers"
+            no-title
+            :max="toDateUsers"
+            @input="fromMenuUsers = false"
+          />
+        </v-menu>
+      </v-col>
 
-                      <v-list-item-avatar tile size="80" color="red darken-2">
-                        <v-icon dark>fas fa-box-open</v-icon>
-                      </v-list-item-avatar>
-                    </v-list-item>
-                    <v-divider></v-divider>
-                    <v-card-actions>
-                      <v-icon flab color="red darken-2">local_offer</v-icon>
-                      <v-btn text>40,664</v-btn>
-                      <v-spacer></v-spacer>
-                      <v-icon flab color="#2C3A47">mdi-chevron-right</v-icon>
-                    </v-card-actions>
-                  </v-card>
-                </v-hover>
-              </v-col>
-              <v-col cols="12" sm="4">
-                <v-hover v-slot:default="{ hover }" open-delay="200">
-                  <v-card
-                    :elevation="hover ? 16 : 2"
-                    class="mx-auto"
-                    max-width="344"
-                    outlined
-                  >
-                    <v-list-item three-line>
-                      <v-list-item-content>
-                        <v-list-item-title class="headline mb-1"
-                          >Sales</v-list-item-title
-                        >
-                      </v-list-item-content>
-
-                      <v-list-item-avatar tile size="80" color="#009432">
-                        <v-icon dark>mdi-watch</v-icon>
-                      </v-list-item-avatar>
-                    </v-list-item>
-                    <v-divider></v-divider>
-                    <v-card-actions>
-                      <v-icon flab color="#009432">directions_walk</v-icon>
-                      <v-btn text>40,664</v-btn>
-                      <v-spacer></v-spacer>
-                      <v-icon flab color="#2C3A47">mdi-chevron-right</v-icon>
-                    </v-card-actions>
-                  </v-card>
-                </v-hover>
-              </v-col>
-              <v-col cols="12" sm="4">
-                <v-hover v-slot:default="{ hover }" open-delay="200">
-                  <v-card
-                    :elevation="hover ? 16 : 2"
-                    class="mx-auto"
-                    max-width="344"
-                    outlined
-                  >
-                    <v-list-item three-line>
-                      <v-list-item-content>
-                        <v-list-item-title class="headline mb-1"
-                          >Devices</v-list-item-title
-                        >
-                      </v-list-item-content>
-
-                      <v-list-item-avatar tile size="80" color="#F79F1F">
-                        <v-icon dark>fas fa-laptop-house</v-icon>
-                      </v-list-item-avatar>
-                    </v-list-item>
-                    <v-divider></v-divider>
-                    <v-card-actions>
-                      <v-icon flab color="#F79F1F">description</v-icon>
-                      <v-btn text>300k</v-btn>
-                      <v-spacer></v-spacer>
-                      <v-icon flab color="#2C3A47">mdi-chevron-right</v-icon>
-                    </v-card-actions>
-                  </v-card>
-                </v-hover>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card>
+      <v-col cols="auto">
+        <v-menu
+          v-model="toMenuUsers"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              :value="toDateUsers"
+              label="To Date"
+              prepend-icon="mdi-calendar"
+              color="#81858a"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            />
+          </template>
+          <v-date-picker
+            v-model="toDateUsers"
+            no-title
+            :min="fromDateUsers"
+            @input="toMenuUsers = false"
+          />
+        </v-menu>
+      </v-col>
+      <v-col cols="auto">
+        <v-btn color="pink" @click="searchUsersChart">Search</v-btn>
       </v-col>
     </v-row>
-  </v-layout>
+    <v-row>
+      <GChart
+        style="width: 100%"
+        type="ColumnChart"
+        :data="chartDataUser"
+        :options="chartOptionsUsers"
+        :resizeDebounce="500"
+      />
+    </v-row>
+    <v-row align="center" justify="center">
+      <v-col cols="auto">
+        <v-menu
+          v-model="fromMenuSongs"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              :value="fromDateSongs"
+              label="From Date"
+              prepend-icon="mdi-calendar"
+              color="#81858a"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            />
+          </template>
+          <v-date-picker
+            v-model="fromDateSongs"
+            no-title
+            :max="toDateSongs"
+            @input="fromMenuSongs = false"
+          />
+        </v-menu>
+      </v-col>
+
+      <v-col cols="auto">
+        <v-menu
+          v-model="toMenuSongs"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              :value="toDateSongs"
+              label="To Date"
+              prepend-icon="mdi-calendar"
+              color="#81858a"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            />
+          </template>
+          <v-date-picker
+            v-model="toDateSongs"
+            no-title
+            :min="fromDateSongs"
+            @input="toMenuSongs = false"
+          />
+        </v-menu>
+      </v-col>
+      <v-col cols="auto">
+        <v-btn color="pink" @click="searchSongsChart">Search</v-btn>
+      </v-col>
+    </v-row>
+    <v-row>
+      <GChart
+        style="width: 100%"
+        type="ColumnChart"
+        :data="chartDataSong"
+        :options="chartOptionsSongs"
+        :resizeDebounce="500"
+      />
+    </v-row>
+  </v-container>
 </template>
 
 <script>
+import { GChart } from "vue-google-charts/legacy";
+import * as moment from "moment";
+
 export default {
   name: "AdminHome",
+  components: {
+    GChart,
+  },
+  data() {
+    return {
+      chartDataUser: [
+        ["Year", "Sales", "Expenses", "Profit"],
+        ["2014", 1000, 400, 200],
+        ["2015", 1170, 460, 250],
+        ["2016", 660, 1120, 300],
+        ["2017", 1030, 540, 350],
+      ],
+      chartOptionsUsers: {
+        title: "Active Users Chart",
+        height: 400,
+        legend: { position: "bottom" },
+        vAxis: {
+          title: "",
+        },
+        colors: ["#D3D3D3", "#FF8C00", "#BB8C00"],
+      },
+      chartDataSong: [
+        ["Year", "Sales", "Expenses", "Profit"],
+        ["2014", 1000, 400, 200],
+        ["2015", 1170, 460, 250],
+        ["2016", 660, 1120, 300],
+        ["2017", 1030, 540, 350],
+      ],
+      chartOptionsSongs: {
+        title: "Uploaded Songs Chart",
+        height: 400,
+        legend: { position: "bottom" },
+        vAxis: {
+          title: "",
+        },
+        colors: ["#D3D3D3", "#FF8C00", "#BB8C00"],
+      },
+      fromMenuUsers: false,
+      toMenuUsers: false,
+      fromDateUsers: moment().startOf("month").format("YYYY-MM-DD"),
+      toDateUsers: moment().endOf("month").format("YYYY-MM-DD"),
+      fromMenuSongs: false,
+      toMenuSongs: false,
+      fromDateSongs: moment().startOf("month").format("YYYY-MM-DD"),
+      toDateSongs: moment().endOf("month").format("YYYY-MM-DD"),
+    };
+  },
 };
 </script>

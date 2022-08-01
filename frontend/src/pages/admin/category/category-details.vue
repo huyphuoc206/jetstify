@@ -74,7 +74,7 @@ export default {
   },
 
   methods: {
-    ...mapActions("category", ["saveCategory", "getCategories"]),
+    ...mapActions("category", ["saveCategory"]),
 
     async save() {
       this.$refs.form.validate();
@@ -82,6 +82,7 @@ export default {
         return;
       }
       await this.saveCategory();
+      this.$emit("resetPage");
     },
 
     cancel() {

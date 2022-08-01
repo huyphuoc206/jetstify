@@ -2,11 +2,14 @@ package com.jestify.service;
 
 import com.jestify.converter.CategoryConverter;
 import com.jestify.entity.Category;
+import com.jestify.payload.CategoryPagingResponse;
 import com.jestify.payload.CategoryRequest;
 import com.jestify.payload.CategoryResponse;
 import com.jestify.payload.SongResponse;
 import com.jestify.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +28,15 @@ public class CategoryService {
         return categoryRepository.findByActiveTrue()
                 .stream().map(categoryConverter::toResponse)
                 .collect(Collectors.toList());
+    }
+
+    public CategoryPagingResponse getCategoriesPaging(int page, int limit) {
+        Pageable pageRequest = PageRequest.of(page - 1, limit);
+        List<CategoryResponse> categoryResponses = categoryRepository.findByActiveTrue(pageRequest)
+                .stream().map(categoryConverter::toResponse)
+                .collect(Collectors.toList());
+        long totalItems = categoryRepository.countByActiveTrue();
+        return CategoryPagingResponse.builder().categories(categoryResponses).totalItems(totalItems).build();
     }
 
     public CategoryResponse getCategoryById(Long id) {

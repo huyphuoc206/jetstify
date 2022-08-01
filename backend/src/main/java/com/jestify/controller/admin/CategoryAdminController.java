@@ -17,9 +17,9 @@ public class CategoryAdminController {
     private final CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<?> getCategories() {
+    public ResponseEntity<?> getCategories(@RequestParam("page") int page, @RequestParam int limit) {
         try {
-            return ResponseEntity.ok(ResponseCommon.success(categoryService.getCategories()));
+            return ResponseEntity.ok(ResponseCommon.success(categoryService.getCategoriesPaging(page, limit)));
         } catch (Exception e) {
             log.error("API Error /api/admin/category - getCategories: ", e);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
