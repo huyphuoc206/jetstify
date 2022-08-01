@@ -9,7 +9,7 @@
           <div class="text-center">
             <v-menu open-on-hover top offset-x>
               <template v-slot:activator="{ on, attrs }">
-                <v-card-text  class="subtitle-2" dark v-bind="attrs" v-on="on">
+                <v-card-text class="subtitle-2" dark v-bind="attrs" v-on="on">
                   Add to playlist
                 </v-card-text>
               </template>
@@ -83,7 +83,10 @@
             style="cursor: pointer"
           >
             <router-link
-              class="ma-0 link_text lime--text"
+              :style="{
+                color: 'rgba(255, 255, 255, 0.7)',
+              }"
+              class="text-decoration-none"
               :to="{
                 name: 'Artist',
                 params: {

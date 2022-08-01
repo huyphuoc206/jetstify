@@ -24,10 +24,20 @@ export const ADMIN_ROUTES = [
         path: "/admin/category",
         name: "AdminCategory",
         meta: {
-            title: 'Category',
+            title: 'Category Management',
             requiresAuth: true,
             role: ROLE_CODE.ADMIN
         },
         component: () => import(/* webpackChunkName: "admin-pages" */ "@/pages/admin/category"),
+    },
+    {
+        path: "/admin/users",
+        name: "AdminUsers",
+        meta: {
+            title: 'Users Management',
+            requiresAuth: true,
+            role: ROLE_CODE.ADMIN
+        },
+        component: () => import(/* webpackChunkName: "admin-pages" */ "@/pages/admin/users"),
     },
 ];

@@ -23,4 +23,10 @@ public interface SongRepository extends JpaRepository<Songs, Long> {
     List<Songs> findByPlaylists_idAndActiveTrue(Long playlistId);
     @Query(value = "SELECT * FROM songs WHERE id = :songId AND ACTIVE = true", nativeQuery = true)
     Optional<Songs> findSongById(Long songId);
+
+    @Query(value = "SELECT COUNT(*) FROM songs " +
+            "WHERE songs.active = true " +
+            "AND date_part('month', created_date) = :month " +
+            "AND date_part('year', created_date) = :year", nativeQuery = true)
+    long countSongsByMonthYear(int month, int year);
 }

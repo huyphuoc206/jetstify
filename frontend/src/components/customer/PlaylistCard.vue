@@ -11,20 +11,37 @@
     <v-hover v-slot:default="{ hover }" style="cursor: pointer">
       <v-card class="common-card" flat height="250" width="180">
         <v-card-text>
-          <v-avatar color="grey" size="120" class="mt-7">
+          <v-img
+            :style="{
+              borderRadius: '5px',
+            }"
+            width="250"
+            height="150"
+            class="elevation-3"
+            :src="playlist.thumbnail"
+            v-if="playlist && playlist.thumbnail"
+          >
+          </v-img>
+          <v-avatar v-else color="grey" size="120" class="mt-7">
             <v-icon dark size="50"> fa-thin fa-music</v-icon>
-            <div
-              :style="{
-                position: 'absolute',
-                cursor: 'auto',
-              }"
-              v-show="hover"
-            >
-              <v-icon style="cursor: pointer" color="green" size="70" @click="playAllHandle"
-                >mdi-play-circle</v-icon
-              >
-            </div>
           </v-avatar>
+          <div
+            :style="{
+              position: 'absolute',
+              cursor: 'auto',
+              right: '40px',
+              bottom: '110px',
+            }"
+            v-show="hover"
+          >
+            <v-icon
+              style="cursor: pointer"
+              color="green"
+              size="70"
+              @click="playAllHandle"
+              >mdi-play-circle</v-icon
+            >
+          </div>
         </v-card-text>
 
         <v-card-text class="pt-0 text-center">
@@ -61,7 +78,7 @@ export default {
       e.preventDefault();
       this.playAll(this.playlist.songResponseList);
       this.$root.$emit("playAudio");
-    }
-  }
+    },
+  },
 };
 </script>

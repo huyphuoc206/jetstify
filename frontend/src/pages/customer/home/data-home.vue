@@ -5,7 +5,7 @@
         <v-row class="align-start">
           <v-col>
             <h1 class="headline font-weight-bold">{{ type.name }}</h1>
-            <p class="body-2">Inspired by your recent activity.</p>
+            <!-- <p class="body-2">Inspired by your recent activity.</p> -->
           </v-col>
 
           <v-col cols="auto">
@@ -63,7 +63,7 @@
         <v-row class="align-start">
           <v-col>
             <h1 class="headline font-weight-bold">{{ type.name }}</h1>
-            <p class="body-2">Inspired by your recent activity.</p>
+            <!-- <p class="body-2">Inspired by your recent activity.</p> -->
           </v-col>
 
           <v-col cols="auto">
@@ -100,8 +100,8 @@ export default {
   , ArtistCard },
   data: () => ({
     typeSongs: [
-      { name: "Your shows", type: "", key: "listSongRandom", isSeeAll: false },
-      { name: "Song News", type: "", key: "listSongNew", isSeeAll: false },
+      { name: "Your Shows", type: "", key: "listSongRandom", isSeeAll: false },
+      { name: "Recently Uploaded Songs", type: "", key: "listSongNew", isSeeAll: false },
     ],
     // typePodcasts: [
     //   {
@@ -125,13 +125,13 @@ export default {
     // ],
     typeArtists: [
       {
-        name: "Artists Recommend",
+        name: "Artists Recommended",
         type: "",
         key: "listArtistRandom",
         isSeeAll: false,
       },
       {
-        name: "Artists Many Like",
+        name: "Famous Artists",
         type: "",
         key: "listArtistFollowManyLikes",
         isSeeAll: false,

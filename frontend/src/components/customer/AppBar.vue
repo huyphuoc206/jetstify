@@ -123,8 +123,7 @@ export default {
     ...mapActions("auth", ["logout"]),
 
     handleOnchangeSearchBox: debounce(async function (event) {
-      const obj = { name: event };
-      await this.getSearchData(obj);
+      await this.getSearchData(event || "");
     }, 1000),
 
     checkInputSearch() {

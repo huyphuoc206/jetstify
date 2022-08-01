@@ -8,7 +8,7 @@ const BASE_URL = "/admin/category"
 
 const DEFAULT_PAGING = {
     page: 1,
-    limit: 10
+    limit: 5
 };
 
 export const getCategoriesToClient = async({ commit }) => {

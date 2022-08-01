@@ -14,21 +14,24 @@
         <v-container>
           <v-form ref="form" v-model="isValidForm">
             <v-row>
-              <v-col cols="12" md="6">
+              <v-col cols="12">
                 <v-text-field
                   required
-                  v-model="selected.code"
-                  label="Category Code"
-                  :rules="codeRules"
+                  v-model="selected.email"
+                  label="Email"
+                  disabled
                 ></v-text-field>
               </v-col>
               <v-col cols="12" md="6">
                 <v-text-field
                   required
-                  v-model="selected.name"
-                  label="Category Name"
-                  :rules="nameRules"
+                  v-model="selected.fullName"
+                  label="Full Name"
+                  :rules="fullNameRules"
                 ></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-checkbox label="Active" v-model="selected.active"></v-checkbox>
               </v-col>
             </v-row>
           </v-form>
@@ -47,12 +50,12 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "AdminCategory",
+  name: "UserAdmin",
 
   props: {
     formTitle: {
       type: String,
-      default: "New Category",
+      default: "User Details",
     },
     show: {
       type: Boolean,
@@ -62,26 +65,25 @@ export default {
 
   data: () => ({
     isValidForm: false,
-    nameRules: [(v) => !!v || "Name is required"],
-    codeRules: [(v) => !!v || "Code is required"],
+    fullNameRules: [(v) => !!v || "Full Name is required"],
   }),
 
   computed: {
-    ...mapGetters("category", ["selected"]),
+    ...mapGetters("usersAdmin", ["selected"]),
     title() {
-      return this.selected.id ? "Edit Category" : "New Category";
+      return "Edit User";
     },
   },
 
   methods: {
-    ...mapActions("category", ["saveCategory"]),
+    ...mapActions("usersAdmin", ["saveUsers"]),
 
     async save() {
       this.$refs.form.validate();
       if (!this.isValidForm) {
         return;
       }
-      await this.saveCategory();
+      await this.saveUsers();
       this.$emit("resetPage");
       this.$emit("resetSearch");
     },
@@ -93,9 +95,9 @@ export default {
 
   watch: {
     show() {
-        !this.selected.id && this.$refs.form && this.$refs.form.reset()
-    }
-}
+      !this.selected.id && this.$refs.form && this.$refs.form.reset();
+    },
+  },
 };
 </script>
 

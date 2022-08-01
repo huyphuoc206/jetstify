@@ -16,6 +16,7 @@ import artistSetting from "./artist-setting";
 import podcastSetting from "./podcast-setting";
 import playlist from "./playlist";
 import playlists from "./playlists";
+import usersAdmin from "./users-admin";
 
 Vue.use(Vuex);
 
@@ -47,6 +48,7 @@ export default new Vuex.Store({
         home,
         player,
         playlists,
+        usersAdmin,
     },
     plugins: [vuexLocal.plugin],
 });

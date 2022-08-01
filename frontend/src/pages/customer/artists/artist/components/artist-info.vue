@@ -2,7 +2,7 @@
   <v-container id="artist" fluid>
     <v-row justify="space-around">
       <v-card width="100%">
-        <v-img height="320px" :src="artist.photos[0] ? artist.photos[0].link : null">
+        <v-img height="320px" :src="artist.photos && artist.photos[0] ? artist.photos[0].link : null">
           <v-card-title class="white--text d-block titleArtists">
             <h1 class="display-3 font-weight-bold">{{ artist.nickName }}</h1>
             <p class="display-0">Followers: {{artist.totalFollowers}}</p>
