@@ -42,6 +42,7 @@ public class SongService {
         for (Songs song : songsList) {
             SongResponse songResponse = songConverter.toResponse(song);
             songResponse.setNameArtist(artists.getNickName());
+            songResponse.setArtistId(artists.getId());
             songResponseList.add(songResponse);
         }
         return songResponseList;
@@ -82,6 +83,7 @@ public class SongService {
                     Artists artists = artistRepository.findByUserId(users.getId()).orElseThrow(() -> new IllegalStateException("Not Found Artist"));
                     SongResponse songResponse = songConverter.toResponse(e);
                     songResponse.setNameArtist(artists.getNickName());
+                    songResponse.setArtistId(artists.getId());
                     return songResponse;
                 })
                 .collect(Collectors.toList());

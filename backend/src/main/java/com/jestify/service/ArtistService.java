@@ -61,6 +61,7 @@ public class ArtistService {
 
         artistResponse.setSongResponseList(songService.getSongByCurrentUser().stream().map(e -> {
             e.setNameArtist(artists.getNickName());
+            e.setArtistId(artists.getId());
             return e;
         }).collect(Collectors.toList()));
 

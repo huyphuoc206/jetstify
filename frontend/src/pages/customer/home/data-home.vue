@@ -103,26 +103,26 @@ export default {
       { name: "Your shows", type: "", key: "listSongRandom", isSeeAll: false },
       { name: "Song News", type: "", key: "listSongNew", isSeeAll: false },
     ],
-    typePodcasts: [
-      {
-        name: "Podcasts Recommend",
-        type: "",
-        key: "listPodcastRandom",
-        isSeeAll: false,
-      },
-      {
-        name: "Podcasts Many Like",
-        type: "",
-        key: "listPodcastFollowManyLikes",
-        isSeeAll: false,
-      },
-      {
-        name: "Podcasts News",
-        type: "",
-        key: "listPodcastNew",
-        isSeeAll: false,
-      },
-    ],
+    // typePodcasts: [
+    //   {
+    //     name: "Podcasts Recommend",
+    //     type: "",
+    //     key: "listPodcastRandom",
+    //     isSeeAll: false,
+    //   },
+    //   {
+    //     name: "Podcasts Many Like",
+    //     type: "",
+    //     key: "listPodcastFollowManyLikes",
+    //     isSeeAll: false,
+    //   },
+    //   {
+    //     name: "Podcasts News",
+    //     type: "",
+    //     key: "listPodcastNew",
+    //     isSeeAll: false,
+    //   },
+    // ],
     typeArtists: [
       {
         name: "Artists Recommend",
@@ -157,16 +157,16 @@ export default {
           console.log(1);
           break;
         }
-        case "typePodcasts": {
-          const index = this.typePodcasts.findIndex((e) => e.key === key);
-          this.typePodcasts[index] = {
-            ...this.typePodcasts[index],
-            isSeeAll: !this.typePodcasts[index].isSeeAll,
-          };
-          isSeeAll = this.typePodcasts[index].isSeeAll;
-           console.log(2);
-          break;
-        }
+        // case "typePodcasts": {
+        //   const index = this.typePodcasts.findIndex((e) => e.key === key);
+        //   this.typePodcasts[index] = {
+        //     ...this.typePodcasts[index],
+        //     isSeeAll: !this.typePodcasts[index].isSeeAll,
+        //   };
+        //   isSeeAll = this.typePodcasts[index].isSeeAll;
+        //    console.log(2);
+        //   break;
+        // }
         case "typeArtists": {
           const index = this.typeArtists.findIndex((e) => e.key === key);
           this.typeArtists[index] = {

@@ -26,7 +26,5 @@ export const setHomeDataDisplay = ({ commit, getters }, obj) => {
     const homeDataDisplay = getters.homeDataDisplay;
     const result = {};
     result[key] = isSeeAll ? homeData[key] : homeData[key].slice(0, LIMIT);
-    console.log(result);
-    console.log(homeData);
     commit(TYPES.SET_HOME_DISPLAY, {...homeDataDisplay, ...result });
 }
