@@ -30,12 +30,15 @@ public class CategoryService {
                 .collect(Collectors.toList());
     }
 
-    public CategoryPagingResponse getCategoriesPaging(int page, int limit) {
+    public CategoryPagingResponse getCategoriesPaging(int page, int limit, String categoryName) {
+        if (categoryName == null) {
+            categoryName = "";
+        }
         Pageable pageRequest = PageRequest.of(page - 1, limit);
-        List<CategoryResponse> categoryResponses = categoryRepository.findByActiveTrue(pageRequest)
+        List<CategoryResponse> categoryResponses = categoryRepository.findByNameContainingIgnoreCaseAndActiveTrue(pageRequest, categoryName)
                 .stream().map(categoryConverter::toResponse)
                 .collect(Collectors.toList());
-        long totalItems = categoryRepository.countByActiveTrue();
+        long totalItems = categoryRepository.countByNameContainingIgnoreCaseAndActiveTrue(categoryName);
         return CategoryPagingResponse.builder().categories(categoryResponses).totalItems(totalItems).build();
     }
 

@@ -5,7 +5,7 @@
       v-if="this.artist.photos"
       @click="dialog = true"
       class="mt-2 thumbnailArtist"
-      :img="artist.photos[0] ? artist.photos[0].link : null"
+      :img="artist.photos && artist.photos[0] ? artist.photos[0].link : null"
       height="516"
       width="1032"
     >

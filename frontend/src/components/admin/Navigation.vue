@@ -79,6 +79,7 @@ export default {
     items: [
       { icon: "mdi-home", text: "Dashboard", route: "/admin/home" },
       { icon: "mdi-format-list-bulleted-type", text: "Category", route: "/admin/category" },
+      { icon: "mdi-human-child", text: "Users", route: "/admin/users" },
     //   {
     //     icon: "mdi-chevron-up",
     //     "icon-alt": "mdi-chevron-down",

@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-icon color="green" size="70">mdi-play-circle</v-icon>
+    <v-icon style="cursor: pointer" color="green" size="70" @click="playAllHandle">mdi-play-circle</v-icon>
     <v-menu transition="slide-y-transition" offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn class="ml-3" dark v-bind="attrs" v-on="on"> ... </v-btn>
@@ -76,9 +76,16 @@ export default {
 
   methods: {
     ...mapActions("playlist", ["setToggleDialogRemove"]),
+    ...mapActions("player", ["playAll"]),
 
     handleRemoveToggle() {
       this.setToggleDialogRemove();
+    },
+
+    playAllHandle(e) {
+      e.preventDefault();
+      this.playAll(this.results);
+      this.$root.$emit("playAudio");
     },
 
     async handleRemove() {

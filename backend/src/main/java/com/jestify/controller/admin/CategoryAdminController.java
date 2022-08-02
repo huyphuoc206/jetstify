@@ -17,9 +17,9 @@ public class CategoryAdminController {
     private final CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<?> getCategories(@RequestParam("page") int page, @RequestParam int limit) {
+    public ResponseEntity<?> getCategories(@RequestParam("page") int page, @RequestParam int limit, @RequestParam(required = false, defaultValue = "") String categoryName) {
         try {
-            return ResponseEntity.ok(ResponseCommon.success(categoryService.getCategoriesPaging(page, limit)));
+            return ResponseEntity.ok(ResponseCommon.success(categoryService.getCategoriesPaging(page, limit, categoryName)));
         } catch (Exception e) {
             log.error("API Error /api/admin/category - getCategories: ", e);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
@@ -33,7 +33,7 @@ public class CategoryAdminController {
         } catch (IllegalStateException e) {
             log.error("API Error /api/admin/category - getCategoryById: ", e);
             return ResponseEntity.ok(ResponseCommon.fail(e.getMessage()));
-        }  catch (Exception e) {
+        } catch (Exception e) {
             log.error("API Error /api/admin/category - getCategoryById: ", e);
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }

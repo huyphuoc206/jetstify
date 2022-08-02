@@ -7,17 +7,17 @@
             <v-btn icon>
               <v-icon>mdi-format-list-bulleted-type</v-icon>
             </v-btn>
-            <v-toolbar-title>Category</v-toolbar-title>
+            <v-toolbar-title>Users</v-toolbar-title>
           </v-app-bar>
           <v-container>
             <app-confirm
-              title="Delete Category"
-              message="Are you sure delete this category?"
+              title="Delete User"
+              message="Are you sure delete this user?"
               :show="confirmDelete"
               :agree="agree"
               @closeConfirm="confirmDelete = false"
             />
-            <category-details
+            <user-details
               :show="showDialog"
               @closeDialog="showDialog = false"
               @resetPage="resetPage"
@@ -26,26 +26,31 @@
 
             <v-data-table
               :headers="headers"
-              :items="categories"
+              :items="users"
               class="elevation-1"
               hide-default-footer
             >
               <template v-slot:top>
                 <v-toolbar flat>
-                  <v-row>
+                  <v-row align="center">
                     <v-text-field
-                      label="Category Name"
+                      label="Email"
                       hide-details="auto"
-                      v-model="searchCategoryName"
+                      v-model="searchEmail"
                     ></v-text-field>
-                    <v-btn class="ml-2" depressed color="pink" @click="handleSearch"
+                    <v-checkbox
+                      class="ml-3 mt-9"
+                      label="Active"
+                      v-model="active"
+                    ></v-checkbox>
+                    <v-btn
+                      class="ml-3"
+                      depressed
+                      color="pink"
+                      @click="handleSearch"
                       >Search</v-btn
                     >
                   </v-row>
-                  <v-spacer></v-spacer>
-                  <v-btn dark depressed color="pink" @click="openDetails"
-                    >New Item</v-btn
-                  >
                 </v-toolbar>
               </template>
               <template v-slot:[`item.createdDate`]="{ item }">
@@ -57,9 +62,6 @@
               <template v-slot:[`item.actions`]="{ item }">
                 <v-btn icon color="blue" @click="openDetails(item)">
                   <v-icon> mdi-pencil </v-icon>
-                </v-btn>
-                <v-btn icon color="red" @click="deleteItem(item)">
-                  <v-icon> mdi-delete </v-icon>
                 </v-btn>
               </template>
             </v-data-table>
@@ -78,56 +80,46 @@
 </template>
 <script>
 import AppConfirm from "@/components/confirm";
-import CategoryDetails from "./category-details.vue";
+import UserDetails from "./user-details.vue";
 import { mapGetters, mapActions } from "vuex";
 import { DATE_FORMAT } from "@/core/constants";
 
 export default {
-  name: "AdminCategory",
+  name: "UsersAdmin",
 
   components: {
     AppConfirm,
-    CategoryDetails,
+    UserDetails,
   },
 
   data: () => ({
     headers: [
-      { text: "Category Code", value: "code" },
-      { text: "Category Name", value: "name" },
+      { text: "Email", value: "email" },
+      { text: "Full Name", value: "fullName" },
       { text: "Created Date", value: "createdDate", align: "center" },
       { text: "Updated Date", value: "updatedDate", align: "center" },
       { text: "Actions", value: "actions", sortable: false, align: "center" },
     ],
-    confirmDelete: false,
     showDialog: false,
-    selectedDeleteId: -1,
     dateFormat: DATE_FORMAT,
     page: 1,
     limit: 5,
-    searchCategoryName: '',
+    searchEmail: "",
+    active: true,
   }),
 
   computed: {
-    ...mapGetters("category", ["categories", "totalItems"]),
+    ...mapGetters("usersAdmin", ["users", "totalItems"]),
     lengthPaging() {
       return Math.ceil(this.totalItems / this.limit);
     },
   },
 
   methods: {
-    ...mapActions("category", [
-      "getCategories",
-      "getCategoryDetails",
-      "deleteCategory",
-    ]),
-
-    async agree() {
-      await this.deleteCategory(this.selectedDeleteId);
-      this.page = 1;
-    },
+    ...mapActions("usersAdmin", ["getUsers", "getUsersDetails"]),
 
     async openDetails({ id }) {
-      const { success, message } = await this.getCategoryDetails(id);
+      const { success, message } = await this.getUsersDetails(id);
       if (success) {
         this.showDialog = true;
       } else {
@@ -135,14 +127,14 @@ export default {
       }
     },
 
-    deleteItem({ id }) {
-      this.confirmDelete = true;
-      this.selectedDeleteId = id;
-    },
-
     async inputPage(page) {
       this.page = page;
-      await this.getCategories({ page: this.page, limit: this.limit, categoryName: this.searchCategoryName });
+      await this.getUsers({
+        page: this.page,
+        limit: this.limit,
+        email: this.searchEmail,
+        active: this.active,
+      });
     },
 
     resetPage() {
@@ -150,17 +142,29 @@ export default {
     },
 
     resetSearch() {
-      this.searchCategoryName = '';
+      console.log('hello');
+      this.active = true;
+      this.searchEmail = '';
     },
 
     async handleSearch() {
       this.resetPage();
-      await this.getCategories({ page: this.page, limit: this.limit, categoryName: this.searchCategoryName });
-    }
+      await this.getUsers({
+        page: this.page,
+        limit: this.limit,
+        email: this.searchEmail,
+        active: this.active,
+      });
+    },
   },
 
   async created() {
-    await this.getCategories({ page: this.page, limit: this.limit, categoryName: '' });
+    await this.getUsers({
+      page: this.page,
+      limit: this.limit,
+      email: "",
+      active: true,
+    });
   },
 };
 </script>

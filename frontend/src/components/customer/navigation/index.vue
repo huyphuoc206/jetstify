@@ -69,6 +69,20 @@ export default {
           link: "/search",
           name: "Search",
         },
+        {
+          title: "Artists Following",
+          icon: "mdi-human-child",
+          link: "/artists",
+          name: "Artists",
+          requiredAuth: true,
+        },
+        {
+          title: "Your Playlists",
+          icon: "mdi-music",
+          link: "/playlists",
+          name: "Playlists",
+          requiredAuth: true,
+        },
         // {
         //   title: "Queue",
         //   icon: "mdi-format-list-checkbox",
@@ -101,13 +115,7 @@ export default {
         //   name: "Albums",
         // },
 
-        {
-          title: "Artists Following",
-          icon: "mdi-human-child ",
-          link: "/artists",
-          name: "Artists",
-          requiredAuth: true,
-        },
+        
         // {
         //   title: "Podcasts",
         //   icon: "mdi-magnify",

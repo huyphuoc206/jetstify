@@ -1,6 +1,7 @@
 package com.jestify.service;
 
 import com.jestify.converter.ArtistConverter;
+import com.jestify.converter.ArtistPhotoConverter;
 import com.jestify.converter.PodcastConverter;
 import com.jestify.converter.SongConverter;
 import com.jestify.entity.Artists;
@@ -28,6 +29,7 @@ public class SearchService {
     private final PodcastRepository podcastRepository;
     private final SongConverter songConverter;
     private final ArtistConverter artistConverter;
+    private final ArtistPhotoConverter artistPhotoConverter;
     private final PodcastConverter podcastConverter;
     private final UserRepository userRepository;
 
@@ -48,7 +50,14 @@ public class SearchService {
         List<ArtistResponse> artistResponses = artistRepository
                 .findByNickNameContainingIgnoreCaseAndVerifyTrue(name)
                 .stream()
-                .map(artistConverter::toResponse)
+                .map(e -> {
+                  ArtistResponse artistResponse =  artistConverter.toResponse(e);
+                    artistResponse.setPhotos(e.getArtistPhotos()
+                            .stream()
+                            .map(artistPhotoConverter::toResponse)
+                            .collect(Collectors.toList()));
+                  return artistResponse;
+                })
                 .collect(Collectors.toList());
         List<PodcastResponse> podcastResponses = podcastRepository
                 .findByNameContainingIgnoreCaseAndActiveTrue(name)
