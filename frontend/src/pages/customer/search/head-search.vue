@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="results.length > 0">
+  <v-row v-if="topResult.songId">
     <v-col>
       <v-row class="align-start">
         <v-col sm="4">
@@ -16,7 +16,7 @@
           ></v-col>
         </v-col>
 
-        <v-col>
+        <v-col v-if="results.length > 0">
           <v-row>
             <v-col>
               <h1 class="headline font-weight-bold">Songs</h1>
@@ -51,10 +51,10 @@ export default {
     },
 
     results() {
-      if (!this.dataSearch["songResponseList"]) return [];
+      if (!this.dataSearch["songResponseList"] || this.dataSearch["songResponseList"].length <= 1) return [];
       return this.dataSearch["songResponseList"]
-        .slice(0, 4)
-        .filter((e) => e.songId !== this.topResult.songId);
+        .filter((e) => e.songId !== this.dataSearch["songResponseList"][0].songId)
+        .slice(0, 4);
     },
   },
 };

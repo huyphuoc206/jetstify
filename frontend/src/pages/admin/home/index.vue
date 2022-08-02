@@ -13,7 +13,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               :value="fromDateUsers"
-              label="From Date"
+              label="From Month"
               prepend-icon="mdi-calendar"
               color="#81858a"
               readonly
@@ -23,6 +23,7 @@
           </template>
           <v-date-picker
             v-model="fromDateUsers"
+            type="month"
             no-title
             :max="toDateUsers"
             @input="fromMenuUsers = false"
@@ -42,7 +43,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               :value="toDateUsers"
-              label="To Date"
+              label="To Month"
               prepend-icon="mdi-calendar"
               color="#81858a"
               readonly
@@ -52,6 +53,7 @@
           </template>
           <v-date-picker
             v-model="toDateUsers"
+            type="month"
             no-title
             :min="fromDateUsers"
             @input="toMenuUsers = false"
@@ -84,7 +86,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               :value="fromDateSongs"
-              label="From Date"
+              label="From Month"
               prepend-icon="mdi-calendar"
               color="#81858a"
               readonly
@@ -95,6 +97,7 @@
           <v-date-picker
             v-model="fromDateSongs"
             no-title
+            type="month"
             :max="toDateSongs"
             @input="fromMenuSongs = false"
           />
@@ -113,7 +116,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
               :value="toDateSongs"
-              label="To Date"
+              label="To Month"
               prepend-icon="mdi-calendar"
               color="#81858a"
               readonly
@@ -124,6 +127,7 @@
           <v-date-picker
             v-model="toDateSongs"
             no-title
+            type="month"
             :min="fromDateSongs"
             @input="toMenuSongs = false"
           />
@@ -146,6 +150,7 @@
 </template>
 
 <script>
+const BASE_URL = "/admin/dashboard"
 import { GChart } from "vue-google-charts/legacy";
 import * as moment from "moment";
 
@@ -157,11 +162,8 @@ export default {
   data() {
     return {
       chartDataUser: [
-        ["Year", "Sales", "Expenses", "Profit"],
-        ["2014", 1000, 400, 200],
-        ["2015", 1170, 460, 250],
-        ["2016", 660, 1120, 300],
-        ["2017", 1030, 540, 350],
+        ["Year-Month", "Total"],
+        ["2014", 1000],
       ],
       chartOptionsUsers: {
         title: "Active Users Chart",
@@ -170,14 +172,10 @@ export default {
         vAxis: {
           title: "",
         },
-        colors: ["#D3D3D3", "#FF8C00", "#BB8C00"],
+        colors: ["#33A14E"],
       },
       chartDataSong: [
-        ["Year", "Sales", "Expenses", "Profit"],
-        ["2014", 1000, 400, 200],
-        ["2015", 1170, 460, 250],
-        ["2016", 660, 1120, 300],
-        ["2017", 1030, 540, 350],
+        ["Year-Month", "Total"],
       ],
       chartOptionsSongs: {
         title: "Uploaded Songs Chart",
@@ -186,17 +184,51 @@ export default {
         vAxis: {
           title: "",
         },
-        colors: ["#D3D3D3", "#FF8C00", "#BB8C00"],
+        colors: ["#33A14E"],
       },
       fromMenuUsers: false,
       toMenuUsers: false,
-      fromDateUsers: moment().startOf("month").format("YYYY-MM-DD"),
-      toDateUsers: moment().endOf("month").format("YYYY-MM-DD"),
+      fromDateUsers: moment().startOf("year").format("YYYY-MM"),
+      toDateUsers: moment().endOf("year").format("YYYY-MM"),
       fromMenuSongs: false,
       toMenuSongs: false,
-      fromDateSongs: moment().startOf("month").format("YYYY-MM-DD"),
-      toDateSongs: moment().endOf("month").format("YYYY-MM-DD"),
+      fromDateSongs: moment().startOf("year").format("YYYY-MM"),
+      toDateSongs: moment().endOf("year").format("YYYY-MM"),
     };
   },
+
+  methods: {
+    async searchUsersChart() {
+      const { success, data, message } = await this.$rest.get(`${BASE_URL}/users-chart`, {
+        fromMonth: this.fromDateUsers,
+        toMonth: this.toDateUsers
+      });
+
+      if (success) {
+        this.chartDataUser = [["Year-Month", "Total"]];
+        data.forEach(e => this.chartDataUser.push([e.key, e.value]));
+      } else {
+        this.$notice.error(message);
+      }
+    },
+
+    async searchSongsChart() {
+      const { success, data, message } = await this.$rest.get(`${BASE_URL}/songs-chart`, {
+        fromMonth: this.fromDateSongs,
+        toMonth: this.toDateSongs
+      });
+      if (success) {
+        this.chartDataSong = [["Year-Month", "Total"]];
+        data.forEach(e => this.chartDataSong.push([e.key, e.value]));
+      } else {
+        this.$notice.error(message);
+      }
+    },
+  },
+
+  async created() {
+    await this.searchUsersChart();
+    await this.searchSongsChart();
+  }
 };
 </script>

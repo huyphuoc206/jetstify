@@ -4,7 +4,7 @@
       <v-row class="align-start">
         <v-col>
           <h1 class="headline font-weight-bold">Podcast</h1>
-          <p class="body-2">Inspired by your recent activity.</p>
+          <!-- <p class="body-2">Inspired by your recent activity.</p> -->
         </v-col>
 
         <v-col cols="auto">

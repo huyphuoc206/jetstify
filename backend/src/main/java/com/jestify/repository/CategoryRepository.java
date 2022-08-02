@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    List<Category> findByActiveTrue(Pageable pageable);
-    long countByActiveTrue();
+    List<Category> findByNameContainingIgnoreCaseAndActiveTrue(Pageable pageable, String name);
+    long countByNameContainingIgnoreCaseAndActiveTrue(String name);
     List<Category> findByActiveTrue();
 
     Optional<Category> findByCode(String code);

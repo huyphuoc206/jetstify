@@ -82,7 +82,10 @@
             style="cursor: pointer"
           >
             <router-link
-              class="ma-0 link_text lime--text"
+              :style="{
+                color: 'rgba(255, 255, 255, 0.7)',
+              }"
+              class="text-decoration-none"
               :to="{
                 name: 'Artist',
                 params: {

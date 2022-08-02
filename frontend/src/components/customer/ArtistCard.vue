@@ -11,7 +11,7 @@
           height="150"
           class="elevation-10"
           style="border-radius: 50%"
-          :src="artist.photos[0] ? artist.photos[0].link : null"
+          :src="artist.photos && artist.photos[0] ? artist.photos[0].link : null"
         >
         </v-img>
     
