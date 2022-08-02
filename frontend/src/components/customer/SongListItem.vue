@@ -31,6 +31,9 @@
             </v-menu>
           </div>
         </ContextMenuItem>
+        <ContextMenuItem @click.native="handleRemoveToggle">
+          Delete from playlist
+        </ContextMenuItem>
       </template>
     </ContextMenu>
     <v-hover v-slot:default="{ hover }">
@@ -105,6 +108,12 @@
         </v-list-item>
       </v-list>
     </v-hover>
+    <dialog-remove
+      :dialog="openRemoveSong"
+      :content="song.name"
+      :handleCancel="handleRemoveToggle"
+      :handleRemove="handleRemove"
+    />
   </div>
 </template>
 
@@ -113,11 +122,14 @@ import { mapGetters, mapActions } from "vuex";
 import { generateTime } from "@/utils/song-utils";
 import ContextMenu from "../context-menu/ContextMenu.vue";
 import ContextMenuItem from "../context-menu/ContextMenuItem.vue";
+import DialogRemove from "../dialog-remove/dialogRemove.vue";
+import { $rest } from "@/core/rest-client";
 export default {
   name: "SongListItem",
   components: {
     ContextMenu,
     ContextMenuItem,
+    DialogRemove,
   },
   props: {
     song: {
@@ -130,11 +142,26 @@ export default {
   computed: {
     ...mapGetters("player", ["isPlaying", "currentSongId"]),
     ...mapGetters("auth", ["isAuthenticated"]),
-    ...mapGetters("playlist", ["playlists"]),
+    ...mapGetters("playlist", [
+      "playlists",
+      // "toggleRemoveSong",
+      "toggleService",
+    ]),
+
+    toggleRemoveSong: {
+      get() {
+        return this.openRemoveSong;
+      },
+
+      set(newValue) {
+        this.openRemoveSong = newValue;
+      },
+    },
   },
   data() {
     return {
       duration: null,
+      openRemoveSong: false,
     };
   },
   methods: {
@@ -145,7 +172,7 @@ export default {
       "addSong",
     ]),
 
-    ...mapActions("playlist", ["addSongToPlaylist"]),
+    ...mapActions("playlist", ["addSongToPlaylist", "getPlaylistById"]),
 
     handlePlaySong() {
       this.$root.$emit("playAudio");
@@ -154,6 +181,32 @@ export default {
         ? this.playSongInQueue(this.song)
         : this.playSong(this.song);
       this.setPlaying(true);
+    },
+
+    handleRemoveToggle() {
+      this.$refs.menu.close();
+      this.toggleRemoveSong = !this.openRemoveSong;
+    },
+
+    async handleRemove() {
+      const playlistId = this.$route.params.id;
+
+      const requestParams = {
+        songId: this.song.songId,
+        playlistId: playlistId,
+      };
+
+      const { success, message } = await $rest.delete(
+        `/playlist/song`,
+        requestParams
+      );
+
+      if (success) {
+        this.toggleRemoveSong = !this.openRemoveSong;
+        await this.getPlaylistById(playlistId);
+      } else {
+        this.$notice.error(message);
+      }
     },
 
     handlePauseSong() {

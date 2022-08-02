@@ -117,4 +117,14 @@ public class PlaylistService {
             throw  new IllegalStateException("Song existed in this playlist");
         }
     }
+
+    public void deleteSongToPlaylist(Long songId, Long playlistId) {
+        Playlists playlists = playlistRepository.findByIdAndActiveTrue(playlistId).orElseThrow(() -> new IllegalStateException("Playlist Not Found"));
+        playlists.setSongs(playlists.getSongs()
+                .stream()
+                .filter(song ->
+                        song.getId() != (songId))
+                .collect(Collectors.toList()));
+        playlistRepository.save(playlists);
+    }
 }

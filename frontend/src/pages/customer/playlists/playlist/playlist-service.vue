@@ -36,7 +36,6 @@
       </template>
     </v-simple-table>
     <dialog-remove
-      
       :dialog="toggleDialogRemove"
       :content="namePlaylist"
       :handleCancel="handleRemoveToggle"

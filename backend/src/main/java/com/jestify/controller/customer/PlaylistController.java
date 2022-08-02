@@ -91,4 +91,18 @@ public class PlaylistController {
             return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
         }
     }
+
+    @DeleteMapping("/playlist/song")
+    public ResponseEntity<?> deleteSongToPlaylist(@RequestParam Long songId,@RequestParam Long playlistId){
+        try {
+            playlistService.deleteSongToPlaylist(songId, playlistId);
+            return ResponseEntity.ok(ResponseCommon.success(null));
+        } catch (IllegalStateException e) {
+            log.error("API Error /api/playlist/song - addSongToPlaylist: ", e);
+            return ResponseEntity.ok(ResponseCommon.fail(e.getMessage()));
+        } catch (Exception e) {
+            log.error("API Error /api/playlist/song - addSongToPlaylist: ", e);
+            return ResponseEntity.ok(ResponseCommon.fail(AppConstant.ERROR_MESSAGE));
+        }
+    }
 }

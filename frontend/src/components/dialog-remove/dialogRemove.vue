@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog :value="dialog" max-width="290" @click:outside="handleCancel">
+    <v-dialog :value="dialog" max-width="350" @click:outside="handleCancel">
       <!-- <template v-slot:activator="{ on, attrs }">
         <v-btn color="primary" dark v-bind="attrs" v-on="on">
           Open Dialog

@@ -57,3 +57,11 @@ export const setToggleDialog = ({ commit }) => {
 export const setToggleDialogRemove = ({ commit }) => {
     commit(TYPES.SET_TOGGLE_REMOVE);
 };
+
+export const setToggleDialogRemoveSong = ({ commit }) => {
+    commit(TYPES.SET_TOGGLE_REMOVE_SONG);
+};
+
+export const setToggleService = ({ commit }) => {
+    commit(TYPES.SET_TOGGLE_SERVICE);
+};
